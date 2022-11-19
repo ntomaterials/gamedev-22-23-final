@@ -19,4 +19,9 @@ public class Creature : MonoBehaviour
     {
         health -= damage;
     }
+
+    virtual public void Heal(int amount)
+    {
+        health += amount;
+    }
 }
