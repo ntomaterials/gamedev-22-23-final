@@ -2,26 +2,29 @@
 
 public class Creature : MonoBehaviour
 {
-    public int health { get; private set; }
+    [field: SerializeField] public float maxHealth { get; private set; }
+    public float health{ get; private set; }
 
-    protected virtual void Update()
+    virtual protected void Awake()
     {
-        if (health <= 0) Die();
+        health = maxHealth;
     }
 
     virtual public void Die()
     {
         Destroy(this.gameObject);
     }
-    
 
     virtual public void GetDamage(int damage)
     {
-        health -= damage;
+        health = Mathf.Clamp(health - damage, 0, maxHealth);
+        if (health <= 0) Die();
     }
 
     virtual public void Heal(int amount)
     {
-        health += amount;
+        health = Mathf.Clamp(health + amount, 0, maxHealth);
     }
+
 }
+
