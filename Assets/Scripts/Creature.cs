@@ -2,8 +2,8 @@
 
 public class Creature : MonoBehaviour
 {
-    [field: SerializeField] public float maxHealth { get; private set; }
-    public float health{ get; private set; }
+    [field: SerializeField] public int maxHealth { get; private set; }
+    public int health{ get; private set; }
 
     virtual protected void Awake()
     {

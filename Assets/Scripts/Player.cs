@@ -4,10 +4,14 @@
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : Creature
 {
+    [SerializeField] private Sword weapon;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
-
+    [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private LayerMask groundLayerMask;
+    
+    public bool isJumping { get; private set; }
     
     public bool isGrounded { get; private set; }
 
@@ -15,7 +19,7 @@ public class Player : Creature
     private Rigidbody2D _rigidbody;
     private Animator _animator;
 
-    private const float GroundCheckDistance = 0.01f;
+    private const float GroundCheckDistance = 0.1f;
 
     private void Awake()
     {
@@ -25,11 +29,27 @@ public class Player : Creature
         _animator = GetComponent<Animator>();
     }
 
+    private void FixedUpdate()
+    {
+        if (_rigidbody.velocity.y <= 0)
+        {
+            isJumping = false;
+            _animator.SetBool("jumping", isJumping);
+        }
+        if (weapon.slashActive)
+        {
+            _rigidbody.velocity = transform.right * dashingSpeed;
+        }
+    }
+
     /// <summary>
-    /// передвигает игрока по оси x
+    /// устанавливает скорость передвижения игрока по оси x
     /// </summary> 
     public void Run(float direction)
     {
+        // во время атаки нельзя менять направление движения
+        if (weapon.slashActive) return;
+        
         float vel = 0f;
         if (direction == 0) vel = 0f;
         else if (direction > 0)
@@ -49,14 +69,26 @@ public class Player : Creature
     public void Jump()
     {
         if (!isGrounded) return;
+        isJumping = true;
         isGrounded = false;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
-        _animator.SetTrigger("jump");
+        _animator.SetBool("jumping", isJumping);
     }
 
-    public void Attack()
+    public void StopJump()
     {
-        
+        if (isGrounded) return;
+        if (_rigidbody.velocity.y > 0)
+        {
+            isJumping = false;
+            _animator.SetBool("jumping", isJumping);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y * jumpInteruptionCoef);
+        }
+    }
+
+    public void StartBaseAttack()
+    {
+        _animator.SetTrigger("baseSwordAttack");
     }
     
     private void OnCollisionStay2D(Collision2D collider)
@@ -64,6 +96,7 @@ public class Player : Creature
         CheckIfGrounded();
         _animator.SetBool("grounded", isGrounded);
     }
+
     private void OnCollisionExit2D(Collision2D collider)
     {
         isGrounded = false;
@@ -73,11 +106,14 @@ public class Player : Creature
     {
         RaycastHit2D hit;
         Vector2 positionToCheck = _collider.bounds.center + _collider.bounds.extents.y * Vector3.down;
-        Vector2 size = new Vector2(_collider.bounds.size.x - 0.1f, GroundCheckDistance);
+        
         // box должен быть чуть меньше чтобы избежать срабатываний при приблежении вплотную к стене
+        Vector2 size = new Vector2(_collider.bounds.size.x - 0.001f, GroundCheckDistance);
+        
         hit = Physics2D.BoxCast(positionToCheck, size, 0f, Vector2.down, GroundCheckDistance, groundLayerMask);
         if (hit) {
             isGrounded = true;
+            isJumping = false;
         }
     }
 
@@ -92,4 +128,16 @@ public class Player : Creature
 
         Gizmos.DrawWireCube(positionToCheck, size);
     }
+    
+    #region Animation Triggers
+
+    public void SlashStart()
+    {
+        weapon.SlashStart();
+    }
+    public void SlashStop()
+    {
+        weapon.SlashStop();
+    }
+    #endregion
 }

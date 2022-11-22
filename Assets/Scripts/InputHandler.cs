@@ -19,6 +19,14 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             player.Jump();
+        }else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            player.StopJump();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            player.StartBaseAttack();
         }
         
         _lastInputAxis = inputAxis;
