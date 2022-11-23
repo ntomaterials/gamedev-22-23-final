@@ -25,6 +25,7 @@
 
 # Visual Studio cache directory
 .vs/
+.vsconfig
 
 # Gradle cache directory
 .gradle/
@@ -70,3 +71,8 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+.idea/.idea.NTO-2023-Pechenegi/.idea/indexLayout.xml
+.idea/.idea.NTO-2023-Pechenegi/.idea/misc.xml
+.idea/.idea.NTO-2023-Pechenegi/.idea/vcs.xml
+.idea/.idea.NTO-2023-Pechenegi/.idea/projectSettingsUpdater.xml
+.idea/.idea.NTO-2023-Pechenegi/.idea/workspace.xml
