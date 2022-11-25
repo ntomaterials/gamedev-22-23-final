@@ -33,7 +33,7 @@ public class Sword : MonoBehaviour
                 if (creature != null && !hittedCreatures.Contains(creature))
                 {
                     hittedCreatures.Add(creature);
-                    creature.GetDamage(1);
+                    creature.GetDamage(1, new Vector2(transform.right.x, 1)); // направление отдачи - это направление меча
                 }
             }
             yield return null;
