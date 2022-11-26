@@ -11,7 +11,7 @@ public class Creature : MonoBehaviour
     [field: SerializeField] public float timeToDie { get; private set; } // добавил для анимаций
 
     public Rigidbody2D rigidbody { get; private set; } // В теории, можно Rigidbody на всех существ вешать и получать его поле из этого класса
-    [field: SerializeField] public Vector2 impactForce;
+    [HideInInspector] public Vector2 impactForce;
     public bool isImpact { get; private set; } // Нужен, чтобы враг не бегал, когда он должен отлетать
 
     virtual protected void Awake()

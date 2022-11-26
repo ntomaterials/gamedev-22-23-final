@@ -62,6 +62,7 @@ public class EnPatrol : Enemy
     // IsGrounded меняется только при входе и выходе из коллайдера
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         CheckIfGrounded();
     }
     private void OnCollisionExit2D(Collision2D collision)

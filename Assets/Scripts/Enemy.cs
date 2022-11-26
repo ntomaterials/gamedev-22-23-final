@@ -1,19 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : Creature
 {
     [field: SerializeField] public int damage { get; private set; }
-    [SerializeField] private LayerMask playerLayerMask;
-    private void OnCollisionEnter2D(Collision2D collision)
+    [SerializeField] private LayerMask playerLayerMask = LayerMask.GetMask("Player");
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.layer);
-        if (collision.gameObject.layer == playerLayerMask)
+        if (playerLayerMask == (playerLayerMask | (1 << collision.gameObject.layer)))
         {
             Player player = collision.gameObject.GetComponent<Player>();
             player.GetDamage(damage, -player.GetComponent<Rigidbody2D>().velocity);
-            player.HpBarUpdate();
         }
     }
 }

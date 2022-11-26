@@ -94,6 +94,12 @@ public class Player : Creature
         _animator.SetTrigger("baseSwordAttack");
     }
 
+    override public void GetDamage(int damage, Vector2 direction)
+    {
+        base.GetDamage(damage, direction);
+        HpBarUpdate();
+    }
+
     public void HpBarUpdate()
     {
         float amount = 1000 / maxHealth * health;
