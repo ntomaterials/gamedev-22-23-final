@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -10,7 +11,8 @@ public class Player : Creature
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private LayerMask groundLayerMask;
-    
+    [SerializeField] private Image hpBar;
+
     public bool isJumping { get; private set; }
     
     public bool isGrounded { get; private set; }
@@ -27,6 +29,7 @@ public class Player : Creature
         _collider = GetComponent<BoxCollider2D>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        HpBarUpdate();
     }
 
     private void FixedUpdate()
@@ -90,7 +93,13 @@ public class Player : Creature
     {
         _animator.SetTrigger("baseSwordAttack");
     }
-    
+
+    public void HpBarUpdate()
+    {
+        float amount = 1000 / maxHealth * health;
+        hpBar.fillAmount = amount / 1000;
+    }
+
     private void OnCollisionStay2D(Collision2D collider)
     {
         CheckIfGrounded();
@@ -119,14 +128,21 @@ public class Player : Creature
 
     private void OnDrawGizmos()
     {
-        // рисует box идентичный тому что используется для проверки isGrounded
-        Vector2 size = new Vector2(_collider.bounds.size.x - 0.01f, GroundCheckDistance);
-        Vector2 positionToCheck = _collider.bounds.center + _collider.bounds.extents.y * Vector3.down;
-        
-        if (!isGrounded) Gizmos.color = Color.red;
-        else Gizmos.color = Color.green;
+        try
+        {
+            // рисует box идентичный тому что используется для проверки isGrounded
+            Vector2 size = new Vector2(_collider.bounds.size.x - 0.01f, GroundCheckDistance);
+            Vector2 positionToCheck = _collider.bounds.center + _collider.bounds.extents.y * Vector3.down;
 
-        Gizmos.DrawWireCube(positionToCheck, size);
+            if (!isGrounded) Gizmos.color = Color.red;
+            else Gizmos.color = Color.green;
+
+            Gizmos.DrawWireCube(positionToCheck, size);
+        }
+        catch
+        {
+            return;
+        }
     }
     
     #region Animation Triggers
