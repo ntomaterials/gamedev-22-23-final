@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
+        if (player == null) return;
         Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
         // нужно чтобы при смене направления движения не срабатывала idle анимация

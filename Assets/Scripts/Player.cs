@@ -1,10 +1,18 @@
+<<<<<<< Updated upstream
 ﻿using UnityEngine;
 using UnityEngine.UI;
+=======
+﻿using System;
+using System.Collections.Generic;
+using Data.Util;
+using UnityEngine;
+>>>>>>> Stashed changes
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : Creature
 {
+    public static Player Instance;
     [SerializeField] private Sword weapon;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float dashingSpeed = 3f;
@@ -14,11 +22,9 @@ public class Player : Creature
     [SerializeField] private Image hpBar;
 
     public bool isJumping { get; private set; }
-    
     public bool isGrounded { get; private set; }
 
     private BoxCollider2D _collider;
-    private Rigidbody2D _rigidbody;
     private Animator _animator;
 
     private const float GroundCheckDistance = 0.1f;
@@ -26,22 +32,21 @@ public class Player : Creature
     private void Awake()
     {
         base.Awake();
+        Instance = this;
         _collider = GetComponent<BoxCollider2D>();
-        _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         HpBarUpdate();
     }
-
     private void FixedUpdate()
     {
-        if (_rigidbody.velocity.y <= 0)
+        if (rigidbody.velocity.y <= 0)
         {
             isJumping = false;
             _animator.SetBool("jumping", isJumping);
         }
         if (weapon.slashActive)
         {
-            _rigidbody.velocity = transform.right * dashingSpeed;
+            rigidbody.velocity = transform.right * dashingSpeed;
         }
     }
 
@@ -65,7 +70,7 @@ public class Player : Creature
             vel = -speed;
         }
         _animator.SetFloat("speed", Mathf.Abs(direction));
-        _rigidbody.velocity = new Vector2(vel, _rigidbody.velocity.y);
+        rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
     }
     
 
@@ -74,18 +79,18 @@ public class Player : Creature
         if (!isGrounded) return;
         isJumping = true;
         isGrounded = false;
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
+        rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
         _animator.SetBool("jumping", isJumping);
     }
 
     public void StopJump()
     {
         if (isGrounded) return;
-        if (_rigidbody.velocity.y > 0)
+        if (rigidbody.velocity.y > 0)
         {
             isJumping = false;
             _animator.SetBool("jumping", isJumping);
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y * jumpInteruptionCoef);
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * jumpInteruptionCoef);
         }
     }
 
