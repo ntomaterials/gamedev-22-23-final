@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public enum CurseType
 {
@@ -9,7 +11,7 @@ public enum CurseType
 [RequireComponent(typeof(CircleCollider2D))]
 public class CurseCaster : MonoBehaviour
 {
-    [SerializeField] private CurseType curseType;
+    public CurseType curseType;
     [SerializeField] private int stacksPerCastMax = 5;
     [SerializeField] private GameObject curseCleanerActivator;
     private CircleCollider2D _collider;
@@ -17,12 +19,15 @@ public class CurseCaster : MonoBehaviour
     private const float castSpeed = 1f;
     private bool _activatorSpawned;
     private float _teleportReloadTick = 0; // если меньше нуля то активен телепорт
+
+    private SpriteRenderer _renderer;
     
     private void Awake()
     {
+        _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
     }
-    
+
     private void OnTriggerStay2D(Collider2D col)
     {
         Creature creature = col.GetComponent<Creature>();
@@ -42,7 +47,19 @@ public class CurseCaster : MonoBehaviour
             StartCoroutine(CastCurseOverTime(creature));
         }
     }
-    
+
+    private void Update()
+    {
+        if (Player.Instance.GetCursesStucksByType(curseType) >= GlobalConstants.S)
+        {
+            _renderer.enabled = false;
+        }
+        else
+        {
+            _renderer.enabled = true;
+        }
+    }
+
 
     private IEnumerator CastCurseOverTime(Creature target)
     {

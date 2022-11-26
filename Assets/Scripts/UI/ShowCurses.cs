@@ -24,13 +24,12 @@ public class ShowCurses : MonoBehaviour
 
         foreach (var curse in curses)
         {
-            print(curse.type.ToString());
             GetCurseIconByType(curse.type).stacks += curse.stacks;
         }
 
         foreach (var icon in curseIcons)
         {
-            if (icon.stacks == 0 || icon.stacks >= GlobalConstants.S)
+            if (icon.stacks == 0 || icon.stacks >= GlobalConstants.S * 2)
             {
                 icon.gameObject.SetActive(false);
             }

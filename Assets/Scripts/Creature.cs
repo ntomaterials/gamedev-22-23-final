@@ -66,7 +66,7 @@ public class Creature : MonoBehaviour
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         if (health <= 0) StartCoroutine(Die());
     }
-    private IEnumerator GetImpact(Vector2 direction)
+    public IEnumerator GetImpact(Vector2 direction)
     {
         isImpact = true;
         rigidbody.AddForce(Vector2.up*impactForce.y, ForceMode2D.Impulse);
@@ -112,6 +112,17 @@ public class Creature : MonoBehaviour
         {
             _curses.Remove(curse);
         }
+    }
+
+    public int GetCursesStucksByType(CurseType type)
+    {
+        int n = 0;
+        foreach (var cur in _curses)
+        {
+            if (cur.type == type) n += cur.stacks;
+        }
+
+        return n;
     }
 
 }
