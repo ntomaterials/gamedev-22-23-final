@@ -11,11 +11,7 @@ public class CurseCaster : MonoBehaviour
 {
     [SerializeField] private CurseType curseType;
     [SerializeField] private int stacksPerCastMax = 5;
-    [SerializeField] private float teleportTriggerRadius = 2f;
-    [SerializeField] private float teleportDistance = 3f;
-    [SerializeField] private float teleportReloadSpeed = 5f;
     [SerializeField] private GameObject curseCleanerActivator;
-    [SerializeField] private LayerMask canNotTeleportMask;
     private CircleCollider2D _collider;
     private List<Creature> _targets = new List<Creature>();
     private const float castSpeed = 1f;

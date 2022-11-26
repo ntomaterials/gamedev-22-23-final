@@ -1,32 +1,76 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using JetBrains.Annotations;
+
 public class ShowCurses : MonoBehaviour
 {
     [SerializeField] private Text cursesLabel;
+    [SerializeField] private CurseIcon[] curseIcons;
+
+    private struct CurseInfo
+    {
+        public CurseType type;
+        public int stacks;
+    }
 
     private void Update()
     {
+        ResetCurseIconsStacks();
         List <Curse> curses = Player.Instance.GetCurses();
-        curses = curses.OrderBy(w => w.GetType().Name).ToList();
+        //curses = curses.OrderBy(w => w.GetType().Name).ToList();
 
-        string text = "";
-        string lastType = "";
-        foreach (var cur in curses)
+        foreach (var curse in curses)
         {
-            if (cur.GetType().Name == lastType)
+            print(curse.type.ToString());
+            GetCurseIconByType(curse.type).stacks += curse.stacks;
+        }
+
+        foreach (var icon in curseIcons)
+        {
+            if (icon.stacks == 0 || icon.stacks >= GlobalConstants.S)
             {
-                text = text + "+" + cur.stacks.ToString();
+                icon.gameObject.SetActive(false);
             }
             else
             {
-                text = text + $" {cur.GetType().Name}: {cur.stacks}";
+                icon.gameObject.SetActive(true);
+                icon.SetTextToStacks();
             }
-
-            lastType = cur.GetType().Name;
         }
+    }
 
-        cursesLabel.text = text;
+    private void ResetCurseIconsStacks()
+    {
+        foreach (var c in curseIcons)
+        {
+            c.stacks = 0;
+        }
+    }
+    
+    private CurseIcon GetCurseIconByType(CurseType type)
+    {
+        foreach (var c in curseIcons)
+        {
+            if (c.type == type) return c;
+        }
+        throw new Exception("Can not find object");
+    }
+}
+
+
+[System.Serializable]
+public class CurseIcon
+{
+    public CurseType type;
+    [Tooltip("Ссылка на обьект в канвасе")] public GameObject gameObject;
+    public Text text;
+    [HideInInspector]public int stacks;
+
+    public void SetTextToStacks()
+    {
+        text.text = stacks.ToString();
     }
 }

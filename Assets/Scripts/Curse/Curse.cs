@@ -1,8 +1,9 @@
-﻿public class Curse
+﻿public abstract class Curse
 {
     public int stacks = 1;
     public CurseCaster caster;
-    public Creature owner { get; private set; }
+    public abstract CurseType type { get; }
+    public Creature owner { get; protected set; }
 
     public Curse(Creature target, CurseCaster curseCaster, int n)
     {
