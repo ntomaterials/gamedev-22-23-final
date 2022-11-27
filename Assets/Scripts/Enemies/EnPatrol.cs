@@ -6,7 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnPatrol : Enemy
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private float speed;
+    private float factSpeed;
+    [SerializeField] private Transform edgeChecker;
+    private  const float checkRadius=0.15f;
     [SerializeField] private LayerMask groundLayerMask;
     public bool isGrounded { get; private set; }
 
@@ -14,8 +17,6 @@ public class EnPatrol : Enemy
     private Rigidbody2D _rigidbody;
     private Animator _animator;
 
-    private Vector2 _walkPoints; // Точки, между которыми перемещается х - левая, у - правая
-    [SerializeField] private Vector2 _reservPoints;
     private bool _isRight;
     private bool _isAlive;
 
@@ -27,37 +28,30 @@ public class EnPatrol : Enemy
         _collider = GetComponent<BoxCollider2D>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+
         _isRight = true;
         _isAlive = true;
+
+        factSpeed = speed;
     }
     private void FixedUpdate()
     {
        if(_isAlive) Run();
+       if (isGrounded && MustTurn()) Flip();
     }
     private void Run()
     {
         if (isGrounded && !isImpact)
         {
-            float factSpeed = _speed;
-            CheckFlip();
-            if (_isRight) factSpeed = _speed;
-            else factSpeed = -1 * _speed;
-
             _rigidbody.velocity = new Vector2(factSpeed, _rigidbody.velocity.y);
         }
     }
-    private void CheckFlip()
+    private void Flip()
     {
-        if (transform.position.x >= _walkPoints.y)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            _isRight = false;
-        }
-        if (transform.position.x <= _walkPoints.x)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            _isRight = true;
-        }
+        _isRight = !_isRight;
+        if(_isRight) transform.rotation = Quaternion.Euler(0, 0, 0);
+        else transform.rotation = Quaternion.Euler(0, 180, 0);
+        factSpeed *= -1;
     }
     // IsGrounded меняется только при входе и выходе из коллайдера
     private void OnCollisionEnter2D(Collision2D collision)
@@ -73,25 +67,24 @@ public class EnPatrol : Enemy
     {
         Vector2 positionToCheck = _collider.bounds.center + _collider.bounds.extents.y * Vector3.down;
 
-        Vector2 size = new Vector2(_collider.bounds.size.x - 0.001f, GroundCheckDistance);
-
-        Collider2D [] hits = Physics2D.OverlapCircleAll(positionToCheck, GroundCheckDistance, groundLayerMask);
-        if (hits.Length > 0)
+        Collider2D hit = Physics2D.OverlapCircle(positionToCheck, GroundCheckDistance, groundLayerMask);
+        if (hit) isGrounded = true;
+        else isGrounded = false;
+    }
+    private bool MustTurn()
+    {
+        bool mustTurn=false;
+        Collider2D[] cols = Physics2D.OverlapCircleAll(edgeChecker.position, checkRadius, groundLayerMask);
+        if (cols.Length == 0) mustTurn = true;
+        else
         {
-            isGrounded = true;
-            //Получаем точки платформы, между которыми будем бегать
-            try
+            foreach (var col in cols)
             {
-                Platform platform = hits[0].GetComponent<Platform>();
-                _walkPoints = new Vector2(platform.Left.position.x, platform.Right.position.x);
-            }
-            //Такого, по-идее, вообще не должно быт
-            catch
-            {
-                _walkPoints = _reservPoints;
+                    if ((col.bounds.center + col.bounds.extents.y * Vector3.up).y > edgeChecker.position.y) mustTurn = true;
+                    else continue;
             }
         }
-        else isGrounded = false;
+        return mustTurn;
     }
     // Вызывается триггером анимации. 
     //Можно вынести в общий класс существа
@@ -99,7 +92,18 @@ public class EnPatrol : Enemy
     {
         _isAlive=false;
         _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
-        //_rigidbody.bodyType=RigidbodyType2D.Static;
         _collider.isTrigger = true;
+    }
+    private void OnDrawGizmos()
+    {
+        try
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(edgeChecker.position, checkRadius);
+        }
+        catch
+        {
+            return;
+        }
     }
 }

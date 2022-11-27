@@ -49,7 +49,7 @@ public class Player : Creature
     public void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
-        if (weapon.slashActive) return;
+        if (weapon.slashActive || isImpact) return;
         
         float vel = 0f;
         if (direction == 0) vel = 0f;
@@ -69,7 +69,7 @@ public class Player : Creature
 
     public void Jump()
     {
-        if (!isGrounded) return;
+        if (!isGrounded || isImpact) return;
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -78,7 +78,7 @@ public class Player : Creature
 
     public void StopJump()
     {
-        if (isGrounded) return;
+        if (isGrounded || isImpact) return;
         if (rigidbody.velocity.y > 0)
         {
             isJumping = false;
@@ -94,11 +94,13 @@ public class Player : Creature
 
     override public void GetDamage(int damage, Vector2 direction)
     {
+        _animator.SetTrigger("damage");
         base.GetDamage(damage, direction);
         HpBarUpdate();
     }
     override public void GetDamage(int damage)
     {
+        _animator.SetTrigger("damage");
         base.GetDamage(damage);
         HpBarUpdate();
     }

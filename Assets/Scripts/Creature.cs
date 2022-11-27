@@ -8,7 +8,7 @@ public class Creature : MonoBehaviour
     [field: SerializeField] public int maxHealth { get; private set; }
     public int health{ get; private set; }
     [field: SerializeField] public float timeToDie { get; private set; } // добавил для анимаций
-    [HideInInspector] public Vector2 impactForce;
+    [SerializeField] private Vector2 impactForce;
     public bool isImpact { get; private set; } // Нужен, чтобы враг не бегал, когда он должен отлетать
 
     protected Rigidbody2D rigidbody;
@@ -20,29 +20,6 @@ public class Creature : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         InvokeRepeating("UpdateCurses", 0, 1);
     }
-    private void UpdateCurses()
-    {
-        List<Curse> toRemove = new List<Curse>();
-        foreach (Curse curse in _curses)
-        {
-            if (curse.caster == null)
-            {
-                toRemove.Add(curse);
-                continue;
-            }
-            curse.Activate();
-        }
-
-        foreach (var curse in toRemove)
-        {
-            _curses.Remove(curse);
-        }
-    }
-
-    /*virtual public void Die()
-    {
-        Destroy(this.gameObject);
-    }*/
     virtual public IEnumerator Die() // Добавил время для проигрыша анимации
     {
         Animator animator = GetComponent<Animator>();
@@ -54,6 +31,9 @@ public class Creature : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// Урон и хилл
+    /// </summary>
 
     virtual public void GetDamage(int damage, Vector2 direction)
     {
@@ -78,6 +58,28 @@ public class Creature : MonoBehaviour
     virtual public void Heal(int amount)
     {
         health = Mathf.Clamp(health + amount, 0, maxHealth);
+    }
+
+    /// <summary>
+    /// Проклятия
+    /// </summary>
+    private void UpdateCurses()
+    {
+        List<Curse> toRemove = new List<Curse>();
+        foreach (Curse curse in _curses)
+        {
+            if (curse.caster == null)
+            {
+                toRemove.Add(curse);
+                continue;
+            }
+            curse.Activate();
+        }
+
+        foreach (var curse in toRemove)
+        {
+            _curses.Remove(curse);
+        }
     }
 
     public void AttachCurse(Curse curse)
