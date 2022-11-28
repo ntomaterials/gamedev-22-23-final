@@ -23,8 +23,8 @@ public class CurseCleanerActivator : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Creature creature = col.GetComponent<Creature>();
-        if (creature == null) return;
+        Player player = col.GetComponent<Player>();
+        if (player == null) return;
         SpawnCleaner();
         Destroy(this.gameObject);
     }

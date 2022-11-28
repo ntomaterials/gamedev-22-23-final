@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lighting
+  m_Name: Ray
   m_Shader: {fileID: -6465566751694194690, guid: 57bb03c4a3606c244a098fa3de21bedb,
     type: 3}
   m_ValidKeywords: []
@@ -44,7 +44,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.8773585, g: 0.07035423, b: 0.07035423, a: 0}
+    - _Color: {r: 3.0672052, g: 3.0672052, b: 3.0672052, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1854544812821289588
 MonoBehaviour:
