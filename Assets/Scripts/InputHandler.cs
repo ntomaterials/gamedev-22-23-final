@@ -6,6 +6,9 @@ public class InputHandler : MonoBehaviour
 
     private Vector2 _lastInputAxis;
 
+    public event ActionBtnUp onActionBtnUp;
+    public delegate void ActionBtnUp();  
+
     private void Update()
     {
         if (player == null) return;
@@ -28,6 +31,10 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             player.StartBaseAttack();
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            onActionBtnUp.Invoke();
         }
         
         _lastInputAxis = inputAxis;

@@ -1,5 +1,11 @@
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+
+using UnityEngine.SceneManagement;
+/// <summary>
+/// Потом заменим событием смерти и вызовом окна смерти/возвращением к костру (Могу я этим заняться)
+/// </summary>
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -135,6 +141,16 @@ public class Player : Creature
             isGrounded = true;
             isJumping = false;
         }
+    }
+    override public IEnumerator Die() // Добавил время для проигрыша анимации
+    {
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("die");
+            yield return new WaitForSeconds(timeToDie);
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnDrawGizmos()
