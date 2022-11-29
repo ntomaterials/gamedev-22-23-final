@@ -7,19 +7,29 @@ public class Mage : Enemy
     [SerializeField] private float teleportTriggerRadius = 2f;
     [SerializeField] private CurseCaster curseCaster;
     [SerializeField] private LayerMask canNotSpawnIn;
-    private float _teleportCooldown = 0f;
+    private float _teleportCooldown = 2f;
 
     private BoxCollider2D _collider;
+    private SpriteRenderer _renderer;
 
     protected override void Awake()
     {
         base.Awake();
+        _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
     {
         _teleportCooldown -= Time.fixedDeltaTime;
+        if (Player.Instance.GetCursesStucksByType(curseCaster.curseType) > GlobalConstants.S)
+        {
+            _renderer.enabled = false;
+        }
+        else
+        {
+            _renderer.enabled = true;
+        }
         CheckForTeleport();
     }
 

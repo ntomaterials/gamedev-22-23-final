@@ -11,24 +11,34 @@ public enum CurseType
 public class CurseCaster : MonoBehaviour
 {
     public CurseType curseType;
+   
     [SerializeField] private bool castOnlyOnPlayer = true;
     [SerializeField] private GameObject curseRay;
     [SerializeField] private int stacksPerCastMax = 5;
     [SerializeField] private GameObject curseCleanerActivator;
-    private CircleCollider2D _collider;
+
     private List<Creature> _targets = new List<Creature>();
     private const float castSpeed = 1f;
     private bool _activatorSpawned;
-    private Dictionary<Creature, GameObject> _curseRays = new Dictionary<Creature, GameObject>();
-
+    private Dictionary<Creature, GameObject> _curseRays = new Dictionary<Creature, GameObject>(); // ссылка на цель и на сам луч
+    
+    private CircleCollider2D _collider;
     private SpriteRenderer _renderer;
-    private Enemy _enemyCaster;
+    
+    private Enemy owner;
 
     private void Awake()
     {
-        _enemyCaster = transform.parent.GetComponent<Enemy>();
         _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
+        owner = transform.parent.GetComponent<Enemy>();
+        transform.parent = null; // fix rotation
+    }
+
+    private void LateUpdate()
+    {
+        transform.position = owner.transform.position;
+        if (owner.gameObject == null) Destroy(this.gameObject);
     }
 
     public float radius
@@ -101,11 +111,22 @@ public class CurseCaster : MonoBehaviour
 
         foreach (var ray in _curseRays)
         {
+            if (!_renderer.enabled)
+            {
+                ray.Value.SetActive(false);
+                continue;
+            }
+            else
+            {
+                ray.Value.SetActive(true);
+            }
             Vector2 dir = transform.position - ray.Key.transform.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             ray.Value.transform.eulerAngles = new Vector3(0, 0, angle + 90f);
             ray.Value.transform.localScale = new Vector3(1, dir.magnitude, 1) / transform.localScale.x;
         }
+        
+        
     }
 
 
