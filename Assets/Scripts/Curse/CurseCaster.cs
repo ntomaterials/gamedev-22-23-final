@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,22 +10,38 @@ public enum CurseType
 [RequireComponent(typeof(CircleCollider2D))]
 public class CurseCaster : MonoBehaviour
 {
-    [SerializeField] private CurseType curseType;
+    public CurseType curseType;
+    [SerializeField] private bool castOnlyOnPlayer = true;
+    [SerializeField] private GameObject curseRay;
     [SerializeField] private int stacksPerCastMax = 5;
     [SerializeField] private GameObject curseCleanerActivator;
     private CircleCollider2D _collider;
     private List<Creature> _targets = new List<Creature>();
     private const float castSpeed = 1f;
     private bool _activatorSpawned;
-    private float _teleportReloadTick = 0; // если меньше нуля то активен телепорт
-    
+    private Dictionary<Creature, GameObject> _curseRays = new Dictionary<Creature, GameObject>();
+
+    private SpriteRenderer _renderer;
+    private Enemy _enemyCaster;
+
     private void Awake()
     {
+        _enemyCaster = transform.parent.GetComponent<Enemy>();
+        _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
     }
-    
+
+    public float radius
+    {
+        get { return _collider.radius; }
+    }
+
     private void OnTriggerStay2D(Collider2D col)
     {
+        if (castOnlyOnPlayer)
+        {
+            if (col.GetComponent<Player>() == null) return;;
+        }
         Creature creature = col.GetComponent<Creature>();
         if (creature != null && !_targets.Contains(creature))
         {
@@ -34,6 +51,7 @@ public class CurseCaster : MonoBehaviour
             {
                 _activatorSpawned = true;
                 GameObject activator = Instantiate(curseCleanerActivator, transform);
+                // поворот в сторону противоположну от игрока
                 Vector2 dir = col.bounds.center - transform.position;
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 activator.transform.localEulerAngles = new Vector3(0, 0, angle + 90f); // криво импортировл тестовый конус, поэтому +90)
@@ -42,7 +60,54 @@ public class CurseCaster : MonoBehaviour
             StartCoroutine(CastCurseOverTime(creature));
         }
     }
-    
+
+    private void Update()
+    {
+        if (Player.Instance.GetCursesStucksByType(curseType) >= GlobalConstants.S)
+        {
+            _renderer.enabled = false;
+        }
+        else
+        {
+            _renderer.enabled = true;
+        }
+        UpdateRays();
+    }
+
+    private void UpdateRays()
+    {
+        foreach (Creature target in _targets)
+        {
+            if (!_curseRays.ContainsKey(target))
+            {
+                _curseRays[target] = Instantiate(curseRay, this.transform);
+            }
+        }
+
+        List<Creature> toRemove = new List<Creature>();
+        foreach (Creature target in _curseRays.Keys)
+        {
+            if (!_targets.Contains(target))
+            {
+                toRemove.Add(target);
+            }
+        }
+
+        foreach (var target in toRemove)
+        {
+            Destroy(_curseRays[target]);
+            _curseRays.Remove(target);
+        }
+
+        foreach (var ray in _curseRays)
+        {
+            Vector2 dir = transform.position - ray.Key.transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            ray.Value.transform.eulerAngles = new Vector3(0, 0, angle + 90f);
+            ray.Value.transform.localScale = new Vector3(1, dir.magnitude, 1) / transform.localScale.x;
+        }
+    }
+
 
     private IEnumerator CastCurseOverTime(Creature target)
     {
@@ -86,5 +151,13 @@ public class CurseCaster : MonoBehaviour
     {
         float distance = (pos - transform.position).magnitude;
         return (distance <= _collider.radius * transform.localScale.x);
+    }
+
+    private void OnValidate()
+    {
+        if (transform.parent == null)
+        {
+            Debug.LogWarning($"Нужен родитель {gameObject.name}");
+        }
     }
 }

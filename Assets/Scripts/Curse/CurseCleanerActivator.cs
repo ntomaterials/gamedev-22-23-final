@@ -9,6 +9,12 @@ public class CurseCleanerActivator : MonoBehaviour
     [SerializeField] private LayerMask cleanerCantSpawnMask;
     [HideInInspector] public CurseCaster caster;
     private float radius;
+    private SpriteRenderer _renderer;
+
+    private void Awake()
+    {
+        _renderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
@@ -17,10 +23,22 @@ public class CurseCleanerActivator : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Creature creature = col.GetComponent<Creature>();
-        if (creature == null) return;
+        Player player = col.GetComponent<Player>();
+        if (player == null) return;
         SpawnCleaner();
         Destroy(this.gameObject);
+    }
+
+    private void Update()
+    {
+        if (Player.Instance.GetCursesStucksByType(caster.curseType) >= GlobalConstants.S)
+        {
+            _renderer.enabled = false;
+        }
+        else
+        {
+            _renderer.enabled = true;
+        }
     }
 
     private void SpawnCleaner()
