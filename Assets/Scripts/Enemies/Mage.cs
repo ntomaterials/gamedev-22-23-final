@@ -68,6 +68,21 @@ public class Mage : Enemy
             
         };
         if (attempts > maxAttemps) print("Out of attempts");
+        
+        attempts = attempts / 2;
+        while (attempts++ <= maxAttemps) // повторно пробуем телепортироваться, на этот рас хоть в какую нибудь точку окружности(костыльно немного но вроде работает)
+        {
+            dir = transform.position - Player.Instance.transform.position; 
+            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; // угол в сторону игрока
+            angle = angle + Random.Range(-180, 180); // получается рандомное направление в рамках противоположной от игрока полуокружности
+            
+            rot = Quaternion.Euler(0, 0, angle);
+            dir = rot * dir;
+
+            pos = transform.position + dir.normalized * tpRadius * Random.Range(0.8f, 1.5f);
+            if (!Physics2D.OverlapCircle(pos, r, canNotSpawnIn)) { break; }
+            
+        };
 
         transform.position = pos;
     }

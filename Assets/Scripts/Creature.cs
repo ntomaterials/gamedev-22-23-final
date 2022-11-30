@@ -10,6 +10,7 @@ public class Creature : MonoBehaviour
     [field: SerializeField] public int maxHealth { get; private set; }
     public float speed=3f;
     protected float deafultSpeed;
+    protected float speedKoef=1f; // влияет на скорость
 
     public LayerMask groundLayerMask;
 
@@ -46,7 +47,7 @@ public class Creature : MonoBehaviour
         Destroy(this.gameObject, timeToDie);
     }
     /// <summary>
-    /// Проверяет нахождения обьекта на земле, после исп. base.CheckIfGrounded() последуйщий код выполнится только если обьект на земле
+    /// Проверяет нахождения обьекта на земле
     /// </summary>
     protected virtual void CheckIfGrounded()
     {
@@ -69,6 +70,23 @@ public class Creature : MonoBehaviour
     protected virtual void OnCollisionExit2D(Collision2D collider)
     {
         isGrounded = false;
+    }
+
+    # region  Movement
+    
+    /// <summary>
+    /// Вращает обьект по y в зависисмости от заданного направления по Х
+    /// </summary>
+    public virtual void RotateByX(float direction)
+    {
+        if (direction == 0) return;
+        else if (direction > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }else if (direction < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
     /// <summary>
     /// устанавливает скорость передвижения по оси x
@@ -100,6 +118,7 @@ public class Creature : MonoBehaviour
     {
         Run(direction, speed);
     }
+    #endregion
 
     # region Damage and heal
 

@@ -125,8 +125,6 @@ public class CurseCaster : MonoBehaviour
             ray.Value.transform.eulerAngles = new Vector3(0, 0, angle + 90f);
             ray.Value.transform.localScale = new Vector3(1, dir.magnitude, 1) / transform.localScale.x;
         }
-        
-        
     }
 
 

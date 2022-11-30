@@ -128,6 +128,7 @@ public class Enemy : Creature
         base.Die();
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         collider.isTrigger = true;
+        this.enabled = false;
     }
 
 }

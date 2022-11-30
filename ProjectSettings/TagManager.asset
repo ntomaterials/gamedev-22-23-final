@@ -18,9 +18,9 @@ TagManager:
   - Player
   - Immortal
   - 
-  - 
-  - 
-  - 
+  - EnemyProjectiles
+  - PlayerProjectiles
+  - Collectiables
   - 
   - 
   - 

@@ -10,7 +10,12 @@ public class PatrolState : State
     [SerializeField] private float speed;
     
     private int xDir = 1;
-    
+    public override void Init(Enemy enemy)
+    {
+        base.Init(enemy);
+        if (owner.transform.rotation.eulerAngles.y == 180) xDir = -1;
+    }
+
     public override void Run()
     {
         if (owner.CanSeePlayer(stopWhenSeePlayerRadius))
