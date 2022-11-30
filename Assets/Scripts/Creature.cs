@@ -16,7 +16,6 @@ public class Creature : MonoBehaviour
     public int health{ get; private set; }
     public bool isGrounded { get; protected set; }
     [field: SerializeField] public float timeToDie { get; private set; } // добавил для анимаций
-    [SerializeField] private Vector2 impactForce;
     public bool isImpact { get; private set; } // Нужен, чтобы враг не бегал, когда он должен отлетать
 
     protected Collider2D collider;
@@ -47,7 +46,7 @@ public class Creature : MonoBehaviour
         Destroy(this.gameObject, timeToDie);
     }
     /// <summary>
-    /// Проверяет гнахождения обьекта на земле, после исп. base.CheckIfGrounded() последуйщий код выполнится только если обьект на земле
+    /// Проверяет нахождения обьекта на земле, после исп. base.CheckIfGrounded() последуйщий код выполнится только если обьект на земле
     /// </summary>
     protected virtual void CheckIfGrounded()
     {
@@ -71,6 +70,36 @@ public class Creature : MonoBehaviour
     {
         isGrounded = false;
     }
+    /// <summary>
+    /// устанавливает скорость передвижения по оси x
+    /// </summary> 
+    public virtual void Run(float direction, float newSpeed)
+    {
+        if ( isImpact ) return;
+        speed = newSpeed;
+        
+        float vel = 0f;
+        if (direction == 0) vel = 0f;
+        else if (direction > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            vel = speed;
+        }else if (direction < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            vel = -speed;
+        }
+
+        if (direction != 0) animator.SetFloat("speed", Mathf.Abs(speed));
+        else animator.SetFloat("speed", 0);
+        
+
+            rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
+    }
+    public virtual void Run(float direction)
+    {
+        Run(direction, speed);
+    }
 
     # region Damage and heal
 
@@ -85,11 +114,11 @@ public class Creature : MonoBehaviour
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         if (health <= 0) Die();
     }
-    public IEnumerator GetImpact(Vector2 direction)
+    public IEnumerator GetImpact(Vector2 impact)
     {
         isImpact = true;
-        rigidbody.AddForce(Vector2.up*impactForce.y, ForceMode2D.Impulse);
-        rigidbody.velocity = new Vector2(impactForce.x, rigidbody.velocity.y)*direction;
+        rigidbody.AddForce(Vector2.up*impact.y, ForceMode2D.Impulse);
+        rigidbody.velocity = new Vector2(impact.x, rigidbody.velocity.y);
         yield return new WaitForSeconds(0.1f); // Долго махался с физицой, единственный рабочий вариант, который нашел. 
         isImpact = false;
     }

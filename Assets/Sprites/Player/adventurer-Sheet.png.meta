@@ -266,7 +266,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1916,9 +1916,9 @@ TextureImporter:
       adventurer-Sheet_52: -3957365507521314166
       adventurer-Sheet_22: -6529348207798241894
       adventurer-Sheet_23: -8052795731847107983
+      adventurer-Sheet_64: 1422935986188544498
       adventurer-Sheet_50: 8861830721830389235
       adventurer-Sheet_53: 7877244222421145784
-      adventurer-Sheet_64: 1422935986188544498
       adventurer-Sheet_1: -743574260923404329
       adventurer-Sheet_4: -1703503134494083185
       adventurer-Sheet_51: 1520558021292090289

@@ -3,8 +3,9 @@
 public class Enemy : Creature
 {
     [field: SerializeField] public int touchDamage { get; private set; }
+    [SerializeField] protected float knockbackPower = 1.5f;
     [SerializeField] protected State startState;
-    private State currentState;
+    protected State currentState;
     
     private float checkRadius=0.15f;
     
@@ -14,19 +15,18 @@ public class Enemy : Creature
         SetState(startState);
     }
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionStay2D(Collision2D collision)
     {
+        base.OnCollisionStay2D(collision);
+        if (touchDamage == 0) return;
         if (GlobalConstants.PlayerLayer == collision.gameObject.layer)
         {
             Player player = collision.gameObject.GetComponent<Player>();
             Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
             Vector2 dir;
-            if (rb.velocity != Vector2.zero) 
-            {
-                if (player.transform.position.x >= transform.position.x) dir = new Vector2(1, 1);
-                else dir = new Vector2(-1, 1);
-            }
-            else dir = new Vector2(transform.right.x, 1);
+
+            if (player.transform.position.x >= transform.position.x) dir = new Vector2(knockbackPower, knockbackPower);
+            else dir = new Vector2(-knockbackPower, knockbackPower * 0.5f);
             player.GetDamage(touchDamage, dir);
         }
     }
@@ -38,14 +38,8 @@ public class Enemy : Creature
 
     private void UpdateStates()
     {
-        if (!currentState.isFinished)
-        {
-            currentState.Run();
-        }
-        else
-        {
-            ChooseNewState();
-        }
+        if (!currentState.isFinished) currentState.Run();
+        else ChooseNewState();
     }
 
     /// <summary>
@@ -62,22 +56,9 @@ public class Enemy : Creature
         currentState.Init(this);
     }
     # region Movement
-    public void Run()
-    {
-        if (isGrounded && !isImpact)
-        { 
-            rigidbody.velocity = new Vector3(0, rigidbody.velocity.y) + speed * transform.right;
-        }
-    }
-
-    public void Run(float newSpeed)
-    {
-        speed = newSpeed;
-        Run();
-    }
     public void Flip()
     {
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + 180, 0);
+        transform.Rotate(Vector3.up, 180);
     }
     # endregion
     # region Check func
@@ -85,6 +66,19 @@ public class Enemy : Creature
     public bool MustTurn()
     {
         return (CheckWall() || CheckEdge()) && isGrounded;
+    }
+
+    public bool CanSeePlayer(float dist)
+    {
+        Vector2 dir = Player.Instance.transform.position - transform.position;
+        if (dir.magnitude > dist) return false;
+        if (Physics2D.Raycast(transform.position, dir, dir.magnitude, groundLayerMask)) return false;
+        else return true;
+        
+    }
+    public bool CanSeePlayer()
+    {
+        return CanSeePlayer(int.MaxValue);
     }
 
     public bool CheckWall()
@@ -95,8 +89,14 @@ public class Enemy : Creature
         Vector2 size = new Vector2(0.2f, collider.bounds.size.y - 0.01f);
         
         hit = Physics2D.BoxCast(positionToCheck, size, 0f, transform.right, 0.1f, groundLayerMask);
-        if (hit.collider != null) return true;
-        else return false;
+        if (hit.collider != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool CheckEdge()

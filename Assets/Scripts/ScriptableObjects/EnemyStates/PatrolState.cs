@@ -3,22 +3,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPatrolState", menuName = "Custom/States/PatrolState")]
 public class PatrolState : State
 {
-    [SerializeField] private bool changeSpeed = true;
+    [SerializeField] private bool changeSpeed;
+
+    [Tooltip("Set zero if tou dont wont this to happend")] [SerializeField]
+    private float stopWhenSeePlayerRadius = 0f;
     [SerializeField] private float speed;
+    
+    private int xDir = 1;
+    
     public override void Run()
     {
+        if (owner.CanSeePlayer(stopWhenSeePlayerRadius))
+        {
+            isFinished = true;
+        }
         if (owner.MustTurn())
         {
-            owner.Flip();
+            xDir *= -1;
         }
 
         if (changeSpeed)
         {
-            owner.Run(speed);
+            owner.Run(xDir, speed);
         }
         else
         {
-            owner.Run();
+            owner.Run(xDir);
         }
     }
 }

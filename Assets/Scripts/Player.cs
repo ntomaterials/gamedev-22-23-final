@@ -2,29 +2,40 @@ using UnityEngine.UI;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class Player : Creature
 {
     public static Player Instance;
     [SerializeField] private Sword weapon;
     [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float immortalDuration = 1f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
 
     public bool isJumping { get; private set; }
 
-    private BoxCollider2D _collider;
+    private Collider2D _collider;
+
+    private float immortalTime = 0f;
+    private int deafultLayer = GlobalConstants.PlayerLayer;
+    private int immortalLayer = GlobalConstants.ImmortalLayer;
 
     private void Awake()
     {
         base.Awake();
         Instance = this;
-        _collider = GetComponent<BoxCollider2D>();
+        _collider = GetComponent<Collider2D>();
         HpBarUpdate();
     }
     private void FixedUpdate()
     {
+        immortalTime -= Time.fixedDeltaTime;
+        if (immortalTime <= 0)
+        {
+            gameObject.layer = deafultLayer;
+            
+        }
         if (rigidbody.velocity.y <= 0)
         {
             isJumping = false;
@@ -35,28 +46,12 @@ public class Player : Creature
             rigidbody.velocity = transform.right * dashingSpeed;
         }
     }
-
-    /// <summary>
-    /// устанавливает скорость передвижения игрока по оси x
-    /// </summary> 
-    public void Run(float direction)
+    
+    public override void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
-        if (weapon.slashActive || isImpact) return;
-        
-        float vel = 0f;
-        if (direction == 0) vel = 0f;
-        else if (direction > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            vel = speed;
-        }else if (direction < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            vel = -speed;
-        }
-        animator.SetFloat("speed", Mathf.Abs(direction));
-        rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
+        if (weapon.slashActive) return;
+        base.Run(direction);
     }
 
 
@@ -93,15 +88,25 @@ public class Player : Creature
 
     override public void GetDamage(int damage, Vector2 direction)
     {
+        if (immortalTime > 0) return;
+        BecomeImmortal();
         animator.SetTrigger("damage");
         base.GetDamage(damage, direction);
         HpBarUpdate();
     }
     override public void GetDamage(int damage)
     {
+        if (immortalTime > 0) return;
+        BecomeImmortal();
         animator.SetTrigger("damage");
         base.GetDamage(damage);
         HpBarUpdate();
+    }
+
+    private void BecomeImmortal()
+    {
+        immortalTime = immortalDuration;
+        gameObject.layer = immortalLayer;
     }
 
     public void HpBarUpdate()
