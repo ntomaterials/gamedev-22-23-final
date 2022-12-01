@@ -7,19 +7,29 @@ public class Mage : Enemy
     [SerializeField] private float teleportTriggerRadius = 2f;
     [SerializeField] private CurseCaster curseCaster;
     [SerializeField] private LayerMask canNotSpawnIn;
-    private float _teleportCooldown = 0f;
+    private float _teleportCooldown = 2f;
 
     private BoxCollider2D _collider;
+    private SpriteRenderer _renderer;
 
     protected override void Awake()
     {
         base.Awake();
+        _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
     {
         _teleportCooldown -= Time.fixedDeltaTime;
+        if (Player.Instance.GetCursesStucksByType(curseCaster.curseType) > GlobalConstants.S)
+        {
+            _renderer.enabled = false;
+        }
+        else
+        {
+            _renderer.enabled = true;
+        }
         CheckForTeleport();
     }
 
@@ -58,6 +68,21 @@ public class Mage : Enemy
             
         };
         if (attempts > maxAttemps) print("Out of attempts");
+        
+        attempts = attempts / 2;
+        while (attempts++ <= maxAttemps) // повторно пробуем телепортироваться, на этот рас хоть в какую нибудь точку окружности(костыльно немного но вроде работает)
+        {
+            dir = transform.position - Player.Instance.transform.position; 
+            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; // угол в сторону игрока
+            angle = angle + Random.Range(-180, 180); // получается рандомное направление в рамках противоположной от игрока полуокружности
+            
+            rot = Quaternion.Euler(0, 0, angle);
+            dir = rot * dir;
+
+            pos = transform.position + dir.normalized * tpRadius * Random.Range(0.8f, 1.5f);
+            if (!Physics2D.OverlapCircle(pos, r, canNotSpawnIn)) { break; }
+            
+        };
 
         transform.position = pos;
     }

@@ -7,6 +7,7 @@ public class Sword : MonoBehaviour
 {
     [SerializeField] private ContactFilter2D contactFilter;
     [SerializeField] private float damage;
+    [SerializeField] private float knockbackPower = 2f;
     
     private Collider2D _collider;
     
@@ -33,7 +34,7 @@ public class Sword : MonoBehaviour
                 if (creature != null && !hittedCreatures.Contains(creature))
                 {
                     hittedCreatures.Add(creature);
-                    creature.GetDamage(1, new Vector2(transform.right.x, 1)); // направление отдачи - это направление меча
+                    creature.GetDamage(1, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча
                 }
             }
             yield return null;
@@ -43,12 +44,10 @@ public class Sword : MonoBehaviour
     public void SlashStart()
     {
         slashActive = true;
-        _collider.enabled = true;
         StartCoroutine(DamageWhileSlash());
     }
     public void SlashStop()
     {
-        _collider.enabled = false;
         slashActive = false;
     }
 }

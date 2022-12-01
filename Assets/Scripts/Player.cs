@@ -1,77 +1,65 @@
-using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 
-using UnityEngine.SceneManagement;
-/// <summary>
-/// Потом заменим событием смерти и вызовом окна смерти/возвращением к костру (Могу я этим заняться)
-/// </summary>
-
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class Player : Creature
 {
     public static Player Instance;
     [SerializeField] private Sword weapon;
-    [SerializeField] private float speed = 5f;
     [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float immortalDuration = 1f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
-    [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private Image hpBar;
 
     public bool isJumping { get; private set; }
-    public bool isGrounded { get; private set; }
 
-    private BoxCollider2D _collider;
-    private Animator _animator;
+    private Collider2D _collider;
 
-    private const float GroundCheckDistance = 0.1f;
+    private float immortalTime = 0f;
+    private int deafultLayer = GlobalConstants.PlayerLayer;
+    private int immortalLayer = GlobalConstants.ImmortalLayer;
 
     private void Awake()
     {
         base.Awake();
         Instance = this;
-        _collider = GetComponent<BoxCollider2D>();
-        _animator = GetComponent<Animator>();
+        _collider = GetComponent<Collider2D>();
         HpBarUpdate();
     }
     private void FixedUpdate()
     {
+        immortalTime -= Time.fixedDeltaTime;
+        if (immortalTime <= 0)
+        {
+            gameObject.layer = deafultLayer;
+            
+        }
         if (rigidbody.velocity.y <= 0)
         {
             isJumping = false;
-            _animator.SetBool("jumping", isJumping);
+            animator.SetBool("jumping", isJumping);
         }
         if (weapon.slashActive)
         {
             rigidbody.velocity = transform.right * dashingSpeed;
         }
     }
-
-    /// <summary>
-    /// устанавливает скорость передвижения игрока по оси x
-    /// </summary> 
-    public void Run(float direction)
+    
+    public override void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
-        if (weapon.slashActive || isImpact) return;
-        
-        float vel = 0f;
-        if (direction == 0) vel = 0f;
-        else if (direction > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            vel = speed;
-        }else if (direction < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            vel = -speed;
-        }
-        _animator.SetFloat("speed", Mathf.Abs(direction));
-        rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
+        if (weapon.slashActive) return;
+        base.Run(direction);
     }
-    
+
+
+    protected override void CheckIfGrounded()
+    {
+        base.CheckIfGrounded();
+        if (isGrounded) isJumping = false;
+    }
 
     public void Jump()
     {
@@ -79,7 +67,7 @@ public class Player : Creature
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
-        _animator.SetBool("jumping", isJumping);
+        animator.SetBool("jumping", isJumping);
     }
 
     public void StopJump()
@@ -88,27 +76,37 @@ public class Player : Creature
         if (rigidbody.velocity.y > 0)
         {
             isJumping = false;
-            _animator.SetBool("jumping", isJumping);
+            animator.SetBool("jumping", isJumping);
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * jumpInteruptionCoef);
         }
     }
 
     public void StartBaseAttack()
     {
-        _animator.SetTrigger("baseSwordAttack");
+        animator.SetTrigger("baseSwordAttack");
     }
 
     override public void GetDamage(int damage, Vector2 direction)
     {
-        _animator.SetTrigger("damage");
+        if (immortalTime > 0) return;
+        BecomeImmortal();
+        animator.SetTrigger("damage");
         base.GetDamage(damage, direction);
         HpBarUpdate();
     }
     override public void GetDamage(int damage)
     {
-        _animator.SetTrigger("damage");
+        if (immortalTime > 0) return;
+        BecomeImmortal();
+        animator.SetTrigger("damage");
         base.GetDamage(damage);
         HpBarUpdate();
+    }
+
+    private void BecomeImmortal()
+    {
+        immortalTime = immortalDuration;
+        gameObject.layer = immortalLayer;
     }
 
     public void HpBarUpdate()
@@ -117,60 +115,18 @@ public class Player : Creature
         hpBar.fillAmount = amount / 1000;
     }
 
-    private void OnCollisionStay2D(Collision2D collider)
+    protected override void OnCollisionStay2D(Collision2D collider)
     {
-        CheckIfGrounded();
-        _animator.SetBool("grounded", isGrounded);
+        base.OnCollisionStay2D(collider);
+        animator.SetBool("grounded", isGrounded);
     }
 
-    private void OnCollisionExit2D(Collision2D collider)
+    protected override void OnCollisionExit2D(Collision2D collider)
     {
-        isGrounded = false;
-        _animator.SetBool("grounded", isGrounded);
+        base.OnCollisionExit2D(collider);
+        animator.SetBool("grounded", isGrounded);
     }
-    private void CheckIfGrounded()
-    {
-        RaycastHit2D hit;
-        Vector2 positionToCheck = _collider.bounds.center + _collider.bounds.extents.y * Vector3.down;
-        
-        // box должен быть чуть меньше чтобы избежать срабатываний при приблежении вплотную к стене
-        Vector2 size = new Vector2(_collider.bounds.size.x - 0.001f, GroundCheckDistance);
-        
-        hit = Physics2D.BoxCast(positionToCheck, size, 0f, Vector2.down, GroundCheckDistance, groundLayerMask);
-        if (hit) {
-            isGrounded = true;
-            isJumping = false;
-        }
-    }
-    override public IEnumerator Die() // Добавил время для проигрыша анимации
-    {
-        Animator animator = GetComponent<Animator>();
-        if (animator != null)
-        {
-            animator.SetTrigger("die");
-            yield return new WaitForSeconds(timeToDie);
-        }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    private void OnDrawGizmos()
-    {
-        try
-        {
-            // рисует box идентичный тому что используется для проверки isGrounded
-            Vector2 size = new Vector2(_collider.bounds.size.x - 0.01f, GroundCheckDistance);
-            Vector2 positionToCheck = _collider.bounds.center + _collider.bounds.extents.y * Vector3.down;
-
-            if (!isGrounded) Gizmos.color = Color.red;
-            else Gizmos.color = Color.green;
-
-            Gizmos.DrawWireCube(positionToCheck, size);
-        }
-        catch
-        {
-            return;
-        }
-    }
+    
     
     #region Animation Triggers
 
