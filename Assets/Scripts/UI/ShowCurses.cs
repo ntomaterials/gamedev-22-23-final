@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
-using JetBrains.Annotations;
 
 public class ShowCurses : MonoBehaviour
 {
@@ -70,6 +68,7 @@ public class CurseIcon
 
     public void SetTextToStacks()
     {
-        text.text = stacks.ToString();
+        if (stacks == 1) text.text = ""; 
+        else text.text = stacks.ToString();
     }
 }

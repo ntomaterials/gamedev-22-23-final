@@ -111,9 +111,9 @@ public class Creature : MonoBehaviour
         if (direction != 0) animator.SetFloat("speed", Mathf.Abs(speed));
         else animator.SetFloat("speed", 0);
         
-
-            rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
+        rigidbody.velocity = new Vector2(vel * speedKoef, rigidbody.velocity.y);
     }
+    
     public virtual void Run(float direction)
     {
         Run(direction, speed);
