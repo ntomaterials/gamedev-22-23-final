@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9217571171358458620}
   - component: {fileID: 9217571171358458621}
   - component: {fileID: 9217571171358458623}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,8 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -8298335142436343970, guid: 1ef741f9867bbaf4c92d6c3e104c907f,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13d5ea305e19cb3478893329bca8196d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,16 +102,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <maxHealth>k__BackingField: 1000
-  <timeToDie>k__BackingField: 0
-  impactForce: {x: 0, y: 0}
-  weapon: {fileID: 9217571171763744069}
   speed: 3
-  dashingSpeed: 3
-  jumpForce: 12
-  jumpInteruptionCoef: 0.2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  <timeToDie>k__BackingField: 0
+  weapon: {fileID: 9217571171763744069}
+  dashingSpeed: 3
+  jumpForce: 12
+  immortalDuration: 1
+  jumpInteruptionCoef: 0.2
   hpBar: {fileID: 0}
 --- !u!50 &9217571171358458620
 Rigidbody2D:
@@ -172,7 +171,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.59375, y: 0.9375}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.59375, y: 0.90625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -192,7 +191,7 @@ GameObject:
   - component: {fileID: 9217571171763744068}
   - component: {fileID: 9217571171763744069}
   - component: {fileID: 9217571171763744090}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,12 +234,13 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 256
+      m_Bits: 512
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
   damage: 1
+  knockbackPower: 6
 --- !u!61 &9217571171763744090
 BoxCollider2D:
   m_ObjectHideFlags: 0
