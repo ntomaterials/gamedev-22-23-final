@@ -1,6 +1,10 @@
 using UnityEngine.UI;
 using UnityEngine;
 
+/// <summary>
+/// Потом заменим событием смерти и вызовом окна смерти/возвращением к костру (Могу я этим заняться)
+/// </summary>
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public class Player : Creature
@@ -126,7 +130,6 @@ public class Player : Creature
         base.OnCollisionExit2D(collider);
         animator.SetBool("grounded", isGrounded);
     }
-    
     
     #region Animation Triggers
 

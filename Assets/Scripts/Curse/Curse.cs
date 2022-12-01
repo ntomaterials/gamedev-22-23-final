@@ -13,4 +13,5 @@
     }
 
     public virtual void Activate(){}
+    public virtual void OnEnd(){}
 }
