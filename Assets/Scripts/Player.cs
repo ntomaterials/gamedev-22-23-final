@@ -1,5 +1,6 @@
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -7,6 +8,7 @@ public class Player : Creature
 {
     public static Player Instance;
     [SerializeField] private Sword weapon;
+    [SerializeField] private float weaponCooldown;///
     [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float immortalDuration = 1f;
@@ -14,6 +16,7 @@ public class Player : Creature
     [SerializeField] private Image hpBar;
 
     public bool isJumping { get; private set; }
+    private bool isCooldown;//
 
     private Collider2D _collider;
 
@@ -80,12 +83,21 @@ public class Player : Creature
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * jumpInteruptionCoef);
         }
     }
-
+    //
     public void StartBaseAttack()
     {
-        animator.SetTrigger("baseSwordAttack");
+        if (!isCooldown && !(immortalTime>0))
+        {
+            animator.SetTrigger("baseSwordAttack");
+            isCooldown = true;
+            Invoke("OverCooldown", weaponCooldown);
+        }
     }
-
+    private void OverCooldown()
+    {
+        isCooldown = false;
+    }
+    //
     override public void GetDamage(int damage, Vector2 direction)
     {
         if (immortalTime > 0) return;
@@ -113,6 +125,11 @@ public class Player : Creature
     {
         float amount = 1000 / maxHealth * health;
         hpBar.fillAmount = amount / 1000;
+    }
+    public override void Die()
+    {
+        base.Die();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     protected override void OnCollisionStay2D(Collision2D collider)

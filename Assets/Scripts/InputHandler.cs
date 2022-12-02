@@ -28,7 +28,7 @@ public class InputHandler : MonoBehaviour
             player.StopJump();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             player.StartBaseAttack();
         }

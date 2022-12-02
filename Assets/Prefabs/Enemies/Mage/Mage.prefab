@@ -105,8 +105,11 @@ MonoBehaviour:
   speed: 3
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 65792
   <timeToDie>k__BackingField: 0
+  <moveBtwPoints>k__BackingField: 0
+  rightPoint: {x: 0, y: 0}
+  leftPoint: {x: 0, y: 0}
   <touchDamage>k__BackingField: 0
   knockbackPower: 1.5
   startState: {fileID: 11400000, guid: 40506618e48e29c4f9385d7e1a3888ca, type: 2}
