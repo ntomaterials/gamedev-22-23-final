@@ -9,9 +9,7 @@ public class Creature : MonoBehaviour
 {
     [field: SerializeField] public int maxHealth { get; private set; }
     public float speed=3f;
-    protected float deafultSpeed;
-    protected float speedKoef=1f; // влияет на скорость
-
+    public float deafultSpeed { get; private set; }
     public LayerMask groundLayerMask;
 
     public int health{ get; private set; }
@@ -24,7 +22,7 @@ public class Creature : MonoBehaviour
     protected Animator animator;
     
     private List<Curse> _curses = new List<Curse>();
-    
+
     private const float GroundCheckDistance = 0.1f;
 
     virtual protected void Awake()
@@ -55,7 +53,7 @@ public class Creature : MonoBehaviour
         Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.y * Vector3.down;
         
         // box должен быть чуть меньше чтобы избежать срабатываний при приблежении вплотную к стене
-        Vector2 size = new Vector2(collider.bounds.size.x - 0.001f, GroundCheckDistance);
+        Vector2 size = new Vector2(collider.bounds.size.x - 0.01f, GroundCheckDistance);
         
         hit = Physics2D.BoxCast(positionToCheck, size, 0f, Vector2.down, GroundCheckDistance, groundLayerMask);
         if (hit) {
@@ -111,9 +109,9 @@ public class Creature : MonoBehaviour
         if (direction != 0) animator.SetFloat("speed", Mathf.Abs(speed));
         else animator.SetFloat("speed", 0);
         
-
-            rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
+        rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
     }
+    
     public virtual void Run(float direction)
     {
         Run(direction, speed);
@@ -165,6 +163,7 @@ public class Creature : MonoBehaviour
         foreach (var curse in toRemove)
         {
             _curses.Remove(curse);
+            curse.OnEnd();
         }
     }
 
@@ -199,6 +198,7 @@ public class Creature : MonoBehaviour
         foreach (Curse curse in toRemove)
         {
             _curses.Remove(curse);
+            curse.OnEnd();
         }
     }
 

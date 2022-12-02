@@ -1,33 +1,35 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(Collider2D))]
 public class CurseCleaner : MonoBehaviour
 {
+    [SerializeField] private GameObject cleaner;
+    [SerializeField] private LayerMask cleanerCantSpawnMask;
     [HideInInspector] public CurseCaster caster;
-    private Collider2D _colider;
-    private SpriteRenderer _renderer;
+    private VisualEffect _effect;
+    private Collider2D _collider;
 
     private void Awake()
     {
-        _renderer = GetComponent<SpriteRenderer>();
+        _effect = GetComponent<VisualEffect>();
+        _collider = GetComponent<Collider2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void LateUpdate()
     {
-        if (col.GetComponent<Player>() == null) return;
-        caster.Clear();
-        Destroy(this.gameObject);
+        if (_collider.bounds.Contains(Player.Instance.transform.position)) Player.Instance.ClearCursesFromCaster(caster);
     }
+
     private void Update()
     {
         if (Player.Instance.GetCursesStucksByType(caster.curseType) >= GlobalConstants.S)
         {
-            _renderer.enabled = false;
+            _effect.enabled = false;
         }
         else
         {
-            _renderer.enabled = true;
+            _effect.enabled = true;
         }
     }
 }

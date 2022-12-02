@@ -41,10 +41,10 @@ public class Archer : Enemy
     /// </summary>
     private int CheckSides()
     {
-        if (Player.Instance.transform.position.y - transform.position.y >= hight) return 0;
+        if (Mathf.Abs(Player.Instance.transform.position.y - transform.position.y) >= hight) return 0;
         float dist = Player.Instance.transform.position.x - transform.position.x;
 
-        if (!Physics2D.Raycast(transform.position, -Vector2.right * dist, Mathf.Abs((dist)), groundLayerMask))
+        if (!Physics2D.Raycast(transform.position, (Vector2.right * dist).normalized, Mathf.Abs((dist)), groundLayerMask))
         {
             if (dist > 0) return 1;
             else return -1;
@@ -53,5 +53,11 @@ public class Archer : Enemy
         {
             return 0;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        float dist = Player.Instance.transform.position.x - transform.position.x;
+        Gizmos.DrawRay(transform.position, (Vector2.right * dist).normalized * Mathf.Abs((dist)));
     }
 }
