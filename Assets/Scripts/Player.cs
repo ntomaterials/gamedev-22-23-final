@@ -24,6 +24,7 @@ public class Player : Creature
     private float immortalTime = 0f;
     private int deafultLayer = GlobalConstants.PlayerLayer;
     private int immortalLayer = GlobalConstants.ImmortalLayer;
+    private bool blocking;
 
     private void Awake()
     {
@@ -54,7 +55,7 @@ public class Player : Creature
     public override void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
-        if (weapon.slashActive) return;
+        if (weapon || blocking) return;
         base.Run(direction);
     }
 
@@ -90,6 +91,14 @@ public class Player : Creature
         animator.SetTrigger("baseSwordAttack");
     }
 
+    public void Block()
+    {
+        if (!(isImpact || weapon.slashActive))
+        {
+            animator.SetTrigger("block");
+        }
+    }
+
     override public void GetDamage(int damage, Vector2 direction)
     {
         if (immortalTime > 0) return;
@@ -101,8 +110,6 @@ public class Player : Creature
     override public void GetDamage(int damage)
     {
         if (immortalTime > 0) return;
-        BecomeImmortal();
-        animator.SetTrigger("damage");
         base.GetDamage(damage);
         HpBarUpdate();
     }
@@ -140,6 +147,15 @@ public class Player : Creature
     public void SlashStop()
     {
         weapon.SlashStop();
+    }
+    public void StartBlock()
+    {
+        blocking = true;
+    }
+
+    public void EndBlock()
+    {
+        blocking = false;
     }
     #endregion
 }

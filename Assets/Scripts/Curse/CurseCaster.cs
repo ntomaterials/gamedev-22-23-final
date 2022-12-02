@@ -35,8 +35,13 @@ public class CurseCaster : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (owner == null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         transform.position = owner.transform.position;
-        if (owner.gameObject == null) Destroy(this.gameObject);
+        UpdateVisualIntesity();
     }
 
     public float radius
@@ -69,14 +74,20 @@ public class CurseCaster : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        UpdateVisualIntesity();
-    }
-
     private void UpdateVisualIntesity()
     {
-        float inten = Mathf.Clamp(radius / (Player.Instance.transform.position - transform.position).magnitude - 0.5f, 0, 2);
+        float distance = (Player.Instance.transform.position - transform.position).magnitude;
+        if (distance > radius * 1.1f)
+        {
+            curseSphere.enabled = false;
+            return;
+        }
+        else
+        {
+            curseSphere.enabled = true;
+        }
+        
+        float inten = Mathf.Clamp(radius / distance - 0.5f, 0, 2);
         curseSphere.SetFloat("Intensity", inten);
         if (Player.Instance.GetCursesStucksByType(curseType) >= GlobalConstants.S)
         {

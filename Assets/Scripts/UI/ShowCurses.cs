@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ShowCurses : MonoBehaviour
 {
-    [SerializeField] private Text cursesLabel;
     [SerializeField] private CurseIcon[] curseIcons;
 
     private struct CurseInfo
@@ -34,8 +33,8 @@ public class ShowCurses : MonoBehaviour
             else
             {
                 icon.gameObject.SetActive(true);
-                icon.SetTextToStacks();
             }
+            icon.Update();
         }
     }
 
@@ -63,12 +62,21 @@ public class CurseIcon
 {
     public CurseType type;
     [Tooltip("Ссылка на обьект в канвасе")] public GameObject gameObject;
+    public GameObject fullscreenEffect;
     public Text text;
     [HideInInspector]public int stacks;
 
-    public void SetTextToStacks()
+    public void Update()
     {
         if (stacks == 1) text.text = ""; 
         else text.text = stacks.ToString();
+        if (stacks > GlobalConstants.S)
+        {
+            fullscreenEffect.SetActive(true);
+        }
+        else
+        {
+            fullscreenEffect.SetActive(false);
+        }
     }
 }

@@ -32,6 +32,10 @@ public class InputHandler : MonoBehaviour
         {
             player.StartBaseAttack();
         }
+        else if(Input.GetMouseButtonDown(1))
+        {
+            player.Block();
+        }
         if (Input.GetKeyUp(KeyCode.E))
         {
             onActionBtnUp.Invoke();
