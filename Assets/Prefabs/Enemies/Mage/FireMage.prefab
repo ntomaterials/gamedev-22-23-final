@@ -56,8 +56,11 @@ VisualEffect:
       - m_Value: 1
         m_Name: Intensity
         m_Overridden: 1
-      - m_Value: 4
+      - m_Value: 2
         m_Name: Size
+        m_Overridden: 1
+      - m_Value: 0.1
+        m_Name: TrailsSpawnRate
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -69,7 +72,7 @@ VisualEffect:
       m_Array: []
     m_Int:
       m_Array:
-      - m_Value: 30
+      - m_Value: 8000
         m_Name: SpawnRate
         m_Overridden: 1
     m_Matrix4x4f:
@@ -165,8 +168,8 @@ GameObject:
   - component: {fileID: 6257459536539914379}
   - component: {fileID: 6257459536539914376}
   - component: {fileID: 6257459536539914377}
-  - component: {fileID: 6257459536539914383}
   - component: {fileID: 4879810895130908206}
+  - component: {fileID: 6934208508376245578}
   m_Layer: 9
   m_Name: FireMage
   m_TagString: Untagged
@@ -290,32 +293,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &6257459536539914383
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6257459536539914388}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.03, y: 1.3}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.03, y: 1.3}
-  m_EdgeRadius: 0.01
 --- !u!95 &4879810895130908206
 Animator:
   serializedVersion: 4
@@ -336,6 +313,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!70 &6934208508376245578
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6257459536539914388}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.03, y: 1.3}
+  m_Direction: 0
 --- !u!1001 &4695559420063986268
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class Sword : MonoBehaviour
     [SerializeField] private ContactFilter2D contactFilter;
     [SerializeField] private float damage;
     [SerializeField] private float knockbackPower = 2f;
+    public float blockReload=1f;
+    public bool hasBlock; // на будущее
     
     private Collider2D _collider;
     

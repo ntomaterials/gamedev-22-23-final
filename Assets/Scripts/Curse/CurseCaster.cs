@@ -77,7 +77,7 @@ public class CurseCaster : MonoBehaviour
     private void UpdateVisualIntesity()
     {
         float distance = (Player.Instance.transform.position - transform.position).magnitude;
-        if (distance > radius * 1.1f)
+        if (distance > radius * 1.5f)
         {
             curseSphere.enabled = false;
             return;

@@ -27,7 +27,6 @@ public class InputHandler : MonoBehaviour
         {
             player.StopJump();
         }
-
         if (Input.GetMouseButtonDown(0))
         {
             player.StartBaseAttack();
@@ -39,6 +38,10 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.E))
         {
             onActionBtnUp.Invoke();
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            player.Roll();
         }
         
         _lastInputAxis = inputAxis;
