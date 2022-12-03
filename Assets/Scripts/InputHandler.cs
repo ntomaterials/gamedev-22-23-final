@@ -40,6 +40,10 @@ public class InputHandler : MonoBehaviour
         {
             player.StartBaseAttack();
         }
+        else if(Input.GetMouseButtonDown(1))
+        {
+            player.Block();
+        }
         if (Input.GetKeyUp(KeyCode.E))
         {
             onActionBtnUp.Invoke();
@@ -47,6 +51,10 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             onMenuBtnUp.Invoke();
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            player.Roll();
         }
         
         _lastInputAxis = inputAxis;

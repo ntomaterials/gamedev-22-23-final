@@ -7,37 +7,42 @@ using UnityEngine.SceneManagement;
 public class Player : Creature
 {
     public static Player Instance;
-    [SerializeField] private Sword weapon;
     [SerializeField] private float weaponCooldown;///
+    public Sword weapon;
     [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float immortalDuration = 1f;
+    [Tooltip("Отсчёт идёт с момета конца кувырка")][SerializeField] private float rollReload=3f;
+    [SerializeField] private float rollDuration = 0.5f; // надо подгонять под длительность анимации, ну или наоборот(
+    [SerializeField] private float rollSpeed=3f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
 
     public bool isJumping { get; private set; }
     private bool isCooldown;//
+    public bool blocking { get; private set; }
 
-    private Collider2D _collider;
-
-    private float immortalTime = 0f;
+    private float _immortalTime = 0f;
     private int deafultLayer = GlobalConstants.PlayerLayer;
     private int immortalLayer = GlobalConstants.ImmortalLayer;
+    private float _rollReloadTime;
+    private float _blockReloadTime=0f;
 
     private void Awake()
     {
         base.Awake();
         Instance = this;
-        _collider = GetComponent<Collider2D>();
         HpBarUpdate();
     }
     private void FixedUpdate()
     {
-        immortalTime -= Time.fixedDeltaTime;
-        if (immortalTime <= 0)
+        _rollReloadTime -= Time.fixedDeltaTime;
+        _blockReloadTime -= Time.fixedDeltaTime;
+        _immortalTime -= Time.fixedDeltaTime;
+        
+        if (_immortalTime <= 0)
         {
             gameObject.layer = deafultLayer;
-            
         }
         if (rigidbody.velocity.y <= 0)
         {
@@ -49,7 +54,7 @@ public class Player : Creature
             rigidbody.velocity = transform.right * dashingSpeed;
         }
     }
-    
+    # region Movement
     public override void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
@@ -63,10 +68,9 @@ public class Player : Creature
         base.CheckIfGrounded();
         if (isGrounded) isJumping = false;
     }
-
     public void Jump()
     {
-        if (!isGrounded || isImpact) return;
+        if (!isGrounded || isImpact || blocking) return;
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -98,26 +102,55 @@ public class Player : Creature
         isCooldown = false;
     }
     //
+
+    public void Roll()
+    {
+        if (_rollReloadTime > 0) return;;
+        _rollReloadTime = rollReload + rollDuration;
+        animator.SetTrigger("roll");
+        StartCoroutine(GetImpact(new Vector2(rollSpeed * GetXDirection(), 0), rollDuration));
+        BecomeImmortal(rollDuration);
+    }
+    public void Block()
+    {
+        if (!weapon.hasBlock) return;
+        if (!(isImpact || weapon.slashActive) && _blockReloadTime <= 0)
+        {
+            _blockReloadTime = weapon.blockReload;
+            animator.SetTrigger("block");
+        }
+    }
+    # endregion
     override public void GetDamage(int damage, Vector2 direction)
     {
-        if (immortalTime > 0) return;
+        if (_immortalTime > 0) return;
+        if (blocking)
+        {
+            if (GetXDirection() * direction.x < 0) return; // если атака спереди
+            else StopBlock();
+        }
         BecomeImmortal();
+        weapon.SlashStop();
+        blocking = false;
         animator.SetTrigger("damage");
         base.GetDamage(damage, direction);
         HpBarUpdate();
     }
-    override public void GetDamage(int damage)
+    override public void GetDamage(int damage) // используется для получения урона не от обычных атак (эффекты например)
     {
-        if (immortalTime > 0) return;
-        BecomeImmortal();
-        animator.SetTrigger("damage");
+        if (_immortalTime > 0) return;
         base.GetDamage(damage);
         HpBarUpdate();
     }
 
     private void BecomeImmortal()
     {
-        immortalTime = immortalDuration;
+        _immortalTime = immortalDuration;
+        gameObject.layer = immortalLayer;
+    }
+    private void BecomeImmortal(float time)
+    {
+        _immortalTime = time;
         gameObject.layer = immortalLayer;
     }
 
@@ -135,6 +168,12 @@ public class Player : Creature
     {
         base.Die();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public int GetXDirection()
+    {
+        if (transform.rotation.eulerAngles.y == 0) return 1;
+        else return -1;
     }
 
     protected override void OnCollisionStay2D(Collision2D collider)
@@ -159,6 +198,15 @@ public class Player : Creature
     public void SlashStop()
     {
         weapon.SlashStop();
+    }
+    public void StartBlock()
+    {
+        blocking = true;
+    }
+
+    public void StopBlock()
+    {
+        blocking = false;
     }
     #endregion
 }

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9217571171358458622}
   - component: {fileID: 9217571171358458620}
   - component: {fileID: 9217571171358458621}
-  - component: {fileID: 9217571171358458623}
-  m_Layer: 0
+  - component: {fileID: 1740727574}
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,8 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -8298335142436343970, guid: 1ef741f9867bbaf4c92d6c3e104c907f,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13d5ea305e19cb3478893329bca8196d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,17 +101,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c13fe1ce7048b439227ea55353057e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <maxHealth>k__BackingField: 1000
-  <timeToDie>k__BackingField: 0
-  impactForce: {x: 0, y: 0}
-  weapon: {fileID: 9217571171763744069}
+  <maxHealth>k__BackingField: 200
   speed: 3
-  dashingSpeed: 3
-  jumpForce: 12
-  jumpInteruptionCoef: 0.2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  <timeToDie>k__BackingField: 0
+  weapon: {fileID: 9217571171763744069}
+  dashingSpeed: 3
+  jumpForce: 12
+  immortalDuration: 1
+  jumpInteruptionCoef: 0.2
   hpBar: {fileID: 0}
 --- !u!50 &9217571171358458620
 Rigidbody2D:
@@ -155,8 +154,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &9217571171358458623
-BoxCollider2D:
+--- !u!70 &1740727574
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -168,19 +167,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.12}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.59375, y: 0.9375}
-    newSize: {x: 0.59375, y: 0.90625}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.75}
-  m_EdgeRadius: 0.01
+  m_Offset: {x: 0, y: -0.1}
+  m_Size: {x: 0.28, y: 0.8}
+  m_Direction: 0
 --- !u!1 &9217571171763744071
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +181,7 @@ GameObject:
   - component: {fileID: 9217571171763744068}
   - component: {fileID: 9217571171763744069}
   - component: {fileID: 9217571171763744090}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,12 +224,13 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 256
+      m_Bits: 512
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
   damage: 1
+  knockbackPower: 6
 --- !u!61 &9217571171763744090
 BoxCollider2D:
   m_ObjectHideFlags: 0

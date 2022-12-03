@@ -133,10 +133,14 @@ public class Creature : MonoBehaviour
     }
     public IEnumerator GetImpact(Vector2 impact)
     {
+        yield return GetImpact(impact, 0.1f);
+    }
+    public IEnumerator GetImpact(Vector2 impact, float duration)
+    {
         isImpact = true;
         rigidbody.AddForce(Vector2.up*impact.y, ForceMode2D.Impulse);
         rigidbody.velocity = new Vector2(impact.x, rigidbody.velocity.y);
-        yield return new WaitForSeconds(0.1f); // Долго махался с физицой, единственный рабочий вариант, который нашел. 
+        yield return new WaitForSeconds(duration); // Долго махался с физицой, единственный рабочий вариант, который нашел. 
         isImpact = false;
     }
 

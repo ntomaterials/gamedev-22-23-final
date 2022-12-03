@@ -13,22 +13,17 @@ public class RunToPlayerState : State
     {
         Vector3 playerPos = Player.Instance.transform.position;
         float dist = owner.transform.position.x - Player.Instance.transform.position.x;
+        if (playerPos.x - owner.transform.position.x > 0) xDir = 1;
+        else xDir = -1;
+        
         if (!owner.CanSeePlayer() || Mathf.Abs(dist) <= targetDistance)
         {
+            owner.RotateByX(xDir);
             isFinished = true;
             owner.Run(0); // включение анимации покоя
         }
         else
         {
-            if (playerPos.x - owner.transform.position.x > 0)
-            {
-                xDir = 1;
-            }
-            else
-            {
-                xDir = -1;
-            }
-
             if (owner.CheckEdge())
             {
                 owner.Run(xDir, 0);

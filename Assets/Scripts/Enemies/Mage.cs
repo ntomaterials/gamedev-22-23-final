@@ -22,7 +22,7 @@ public class Mage : Enemy
     private void FixedUpdate()
     {
         _teleportCooldown -= Time.fixedDeltaTime;
-        if (Player.Instance.GetCursesStucksByType(curseCaster.curseType) > GlobalConstants.S)
+        if (Player.Instance.GetCursesStucksByType(curseCaster.curseType) >= GlobalConstants.S)
         {
             _renderer.enabled = false;
         }
@@ -58,13 +58,13 @@ public class Mage : Enemy
         {
             dir = transform.position - Player.Instance.transform.position; 
             angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; // угол в сторону игрока
-            angle = angle + Random.Range(-90, 90); // получается рандомное направление в рамках противоположной от игрока полуокружности
+            angle = angle + Random.Range(-60, 60); // получается рандомное направление в рамках противоположной от игрока полуокружности
             
             rot = Quaternion.Euler(0, 0, angle);
             dir = rot * dir;
 
             pos = transform.position + dir.normalized * tpRadius;
-            if (!Physics2D.OverlapCircle(pos, r, canNotSpawnIn)) { break; }
+            if (!Physics2D.OverlapCircle(pos, 0.1f, canNotSpawnIn)) { break; }
             
         };
         if (attempts > maxAttemps) print("Out of attempts");
