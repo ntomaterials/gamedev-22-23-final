@@ -35,8 +35,9 @@ public class Player : Creature
         Instance = this;
         HpBarUpdate();
     }
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         _rollReloadTime -= Time.fixedDeltaTime;
         _blockReloadTime -= Time.fixedDeltaTime;
         _immortalTime -= Time.fixedDeltaTime;
@@ -59,7 +60,7 @@ public class Player : Creature
     public override void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
-        if (weapon.slashActive) return;
+        if (!canMove) return;
         base.Run(direction);
     }
 
@@ -71,7 +72,7 @@ public class Player : Creature
     }
     public void Jump()
     {
-        if (!isGrounded || isImpact || blocking) return;
+        if (!isGrounded || isImpact || blocking || stunned) return;
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -91,22 +92,26 @@ public class Player : Creature
 
     public void StartBaseAttack()
     {
-        animator.SetTrigger("baseSwordAttack");
+        if (weapon.ready && !stunned)
+        {
+            animator.SetTrigger("baseSwordAttack");
+        }
     }
 
     public void Roll()
     {
-        if (_rollReloadTime > 0) return;;
-        _rollReloadTime = rollReload + rollDuration;
-        animator.SetTrigger("roll");
-        StartCoroutine(GetImpact(new Vector2(rollSpeed * GetXDirection(), 0), rollDuration));
+        if (_rollReloadTime > 0 || stunned || isImpact || !canMove) return;;
         BecomeImmortal(rollDuration);
+        animator.SetTrigger("roll");
+        _rollReloadTime = rollReload + rollDuration;
+        StartCoroutine(GetImpact(new Vector2(rollSpeed * GetXDirection(), 0), rollDuration));
     }
     public void Block()
     {
         if (!weapon.hasBlock) return;
-        if (!(isImpact || weapon.slashActive) && _blockReloadTime <= 0)
+        if (!(isImpact || weapon.slashActive) && _blockReloadTime <= 0 && !stunned)
         {
+            Run(0);
             _blockReloadTime = weapon.blockReload;
             animator.SetTrigger("block");
         }
@@ -118,7 +123,11 @@ public class Player : Creature
         if (blocking)
         {
             if (GetXDirection() * direction.x < 0) return; // если атака спереди
-            else StopBlock();
+            else
+            {
+                StopBlock();
+                canMove = true;
+            }
         }
         BecomeImmortal();
         weapon.SlashStop();
@@ -168,7 +177,7 @@ public class Player : Creature
         base.OnCollisionExit2D(collider);
         animator.SetBool("grounded", isGrounded);
     }
-    
+
     #region Animation Triggers
 
     public void SlashStart()

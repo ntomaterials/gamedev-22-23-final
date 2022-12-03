@@ -24,7 +24,7 @@ public class CurseCleaner : MonoBehaviour
     private void Update()
     {
         float dist = (Player.Instance.transform.position - caster.transform.position).magnitude;
-        if (Player.Instance.GetCursesStucksByType(caster.curseType) >= GlobalConstants.S || dist > caster.radius * 1.5f)
+        if (Player.Instance.GetCursesStucksByType(caster.curseType) >= CursesManager.Instance.S || dist > caster.radius * 1.5f)
         {
             _effect.enabled = false;
         }

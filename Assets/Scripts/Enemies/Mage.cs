@@ -8,21 +8,19 @@ public class Mage : Enemy
     [SerializeField] private CurseCaster curseCaster;
     [SerializeField] private LayerMask canNotSpawnIn;
     private float _teleportCooldown = 2f;
-
-    private BoxCollider2D _collider;
+    
     private SpriteRenderer _renderer;
 
     protected override void Awake()
     {
         base.Awake();
         _renderer = GetComponent<SpriteRenderer>();
-        _collider = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
     {
         _teleportCooldown -= Time.fixedDeltaTime;
-        if (Player.Instance.GetCursesStucksByType(curseCaster.curseType) >= GlobalConstants.S)
+        if (Player.Instance.GetCursesStucksByType(curseCaster.curseType) >= CursesManager.Instance.S)
         {
             _renderer.enabled = false;
         }
@@ -49,7 +47,7 @@ public class Mage : Enemy
         int attempts = 0;
         int maxAttemps = 1000;
         Vector3 pos = Vector2.zero;
-        float r = Mathf.Max(_collider.bounds.extents.x, _collider.bounds.extents.y);
+        float r = Mathf.Max(collider.bounds.extents.x, collider.bounds.extents.y);
         float tpRadius = curseCaster.radius * curseCaster.transform.localScale.x;
         Vector3 dir = Vector2.zero;
         Quaternion rot;

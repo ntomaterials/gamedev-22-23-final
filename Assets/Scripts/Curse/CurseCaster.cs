@@ -89,7 +89,7 @@ public class CurseCaster : MonoBehaviour
         
         float inten = Mathf.Clamp(radius / distance - 0.5f, 0, 2);
         curseSphere.SetFloat("Intensity", inten);
-        if (Player.Instance.GetCursesStucksByType(curseType) >= GlobalConstants.S)
+        if (Player.Instance.GetCursesStucksByType(curseType) >= CursesManager.Instance.S)
         {
             curseSphere.enabled = false;
         }

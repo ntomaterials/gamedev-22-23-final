@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowCurses : MonoBehaviour
+public class CursesManager : MonoBehaviour
 {
+    public static CursesManager Instance;
+    public int S=25;
     [SerializeField] private CurseIcon[] curseIcons;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private struct CurseInfo
     {
@@ -26,13 +33,13 @@ public class ShowCurses : MonoBehaviour
 
         foreach (var icon in curseIcons)
         {
-            if (icon.stacks == 0 || icon.stacks >= GlobalConstants.S * 2)
+            if (icon.stacks == 0 || icon.stacks >= CursesManager.Instance.S * 2)
             {
-                icon.gameObject.SetActive(false);
+                icon.image.gameObject.SetActive(false);
             }
             else
             {
-                icon.gameObject.SetActive(true);
+                icon.image.gameObject.SetActive(true);
             }
             icon.Update();
         }
@@ -61,16 +68,21 @@ public class ShowCurses : MonoBehaviour
 public class CurseIcon
 {
     public CurseType type;
-    [Tooltip("Ссылка на обьект в канвасе")] public GameObject gameObject;
+    [Tooltip("Ссылка на обьект в канвасе")] public Image image;
     public GameObject fullscreenEffect;
     public Text text;
-    [HideInInspector]public int stacks;
+    [HideInInspector] public int stacks;
 
     public void Update()
     {
         if (stacks == 1) text.text = ""; 
         else text.text = stacks.ToString();
-        if (stacks > GlobalConstants.S)
+        float alpha = (float)stacks / (float)(CursesManager.Instance.S * 2);
+        Color c = image.color;
+        c.a = alpha;
+        image.color = c;
+        
+        if (stacks >= CursesManager.Instance.S)
         {
             fullscreenEffect.SetActive(true);
         }

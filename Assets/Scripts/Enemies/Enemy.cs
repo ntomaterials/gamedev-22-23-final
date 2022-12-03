@@ -8,7 +8,7 @@ public class Enemy : Creature
     protected State currentState;
     
     private float checkRadius=0.15f;
-    
+
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +34,10 @@ public class Enemy : Creature
     protected void Update()
     {
         UpdateStates();
+        if (!canMove)
+        {
+            rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        }
     }
 
     private void UpdateStates()
@@ -109,20 +113,6 @@ public class Enemy : Creature
     }
     # endregion
     
-    
-    private void OnDrawGizmosSelected()
-    {
-        Vector3 pos = transform.position + transform.right * collider.bounds.extents.x + Vector3.down * collider.bounds.extents.y;
-        Collider2D[] cols = Physics2D.OverlapCircleAll(pos, checkRadius, groundLayerMask);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(pos, checkRadius);
-        
-        
-        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x * transform.right;
-        Vector2 size = new Vector2(0.2f, collider.bounds.size.y - 0.01f);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireCube(positionToCheck, size);
-    }
     public override void Die()
     {
         base.Die();
@@ -130,5 +120,4 @@ public class Enemy : Creature
         collider.isTrigger = true;
         this.enabled = false;
     }
-
 }
