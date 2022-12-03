@@ -126,6 +126,11 @@ public class Player : Creature
         float amount = 1000 / maxHealth * health;
         hpBar.fillAmount = amount / 1000;
     }
+    public void FullHeal()
+    {
+        Heal(maxHealth);
+        HpBarUpdate();
+    }
     public override void Die()
     {
         base.Die();

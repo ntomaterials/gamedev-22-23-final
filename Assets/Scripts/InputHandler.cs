@@ -7,7 +7,15 @@ public class InputHandler : MonoBehaviour
     private Vector2 _lastInputAxis;
 
     public event ActionBtnUp onActionBtnUp;
-    public delegate void ActionBtnUp();  
+    public delegate void ActionBtnUp();
+    
+    public event MenuBtnUp onMenuBtnUp;
+    public delegate void MenuBtnUp();
+    //private MainMenu menu;
+    private void Awake()
+    {
+        //menu = FindObjectOfType<MainMenu>();
+    }
 
     private void Update()
     {
@@ -35,6 +43,10 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.E))
         {
             onActionBtnUp.Invoke();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            onMenuBtnUp.Invoke();
         }
         
         _lastInputAxis = inputAxis;
