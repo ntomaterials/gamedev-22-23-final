@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665ddca2c772e474a958ec824d509b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorR: {fileID: 22100000, guid: c3c18b1688594064787cf032688caafe, type: 2}
+  animatorL: {fileID: 22100000, guid: ad8770f7b9b4f1c478025b58ff99302c, type: 2}
   <maxHealth>k__BackingField: 1
   speed: 3
   groundLayerMask:

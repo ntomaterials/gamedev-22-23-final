@@ -64,6 +64,7 @@ public class Sword : MonoBehaviour
     public void SlashStart()
     {
         slashActive = true;
+        _reloadTime = reload;
         StartCoroutine(DamageWhileSlash());
     }
     public void SlashStop()

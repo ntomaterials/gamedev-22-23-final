@@ -330,9 +330,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e2c96bbd177be104c8a40b34db74bb94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a4d04db9a3426a46abe43c53df7a659, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -353,6 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc07520790cdbbd489d1862851695056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorR: {fileID: 22100000, guid: d59e5d1c6a9101a40835f4457837bbe7, type: 2}
+  animatorL: {fileID: 22100000, guid: 2cf324bb3ab859b4c853edd822ba1e98, type: 2}
   <maxHealth>k__BackingField: 5
   speed: 3
   groundLayerMask:

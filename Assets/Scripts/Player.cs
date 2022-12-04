@@ -94,7 +94,7 @@ public class Player : Creature
     {
         if (weapon.ready && !stunned)
         {
-            animator.SetTrigger("baseSwordAttack");
+            animator.SetTrigger("attack");
         }
     }
 
