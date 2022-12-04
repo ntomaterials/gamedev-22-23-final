@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,29 +7,34 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Creature : MonoBehaviour
 {
+    [SerializeField ]protected AnimatorOverrideController animatorR;
+    [SerializeField ]protected AnimatorOverrideController animatorL;
     [field: SerializeField] public int maxHealth { get; private set; }
     public float speed=3f;
-    public float deafultSpeed { get; private set; }
+    
     public LayerMask groundLayerMask;
     [field: SerializeField] public float timeToDie { get; private set; } // добавил для анимаций
     public bool effectedByKnockback = true;
+
+    protected Animator animator;
     public int health{ get; private set; }
-    
+    public float deafultSpeed { get; private set; }
     public bool isGrounded { get; protected set; }
     private int _impactCol = 0;
     public bool isImpact // Нужен, чтобы враг не бегал, когда он должен отлетать
     {
         get { return _impactCol > 0; }
-    } 
+    }
+
+    protected SpriteRenderer renderer;
     [HideInInspector]public bool canMove=true;
 
     protected Collider2D collider;
     protected Rigidbody2D rigidbody;
-    protected Animator animator;
-    
+
     private List<Curse> _curses = new List<Curse>();
     private float _stunTime = 0f;
-    
+
     private const float GroundCheckDistance = 0.1f;
 
     public bool stunned
@@ -47,12 +51,22 @@ public class Creature : MonoBehaviour
         health = maxHealth;
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         InvokeRepeating("UpdateCurses", 0, 1);
     }
 
     protected virtual void FixedUpdate()
     {
+        if (xDirection == 1 && animatorR != null)
+        {
+            animator.runtimeAnimatorController = animatorR;
+            renderer.flipX = false; // флип нужен тк без этого будет "двойной поворот" спрайта и transform
+        }
+        else if (animatorL != null) {
+            animator.runtimeAnimatorController = animatorL;
+            renderer.flipX = true;
+        }
         _stunTime -= Time.fixedDeltaTime;
         if (!stunned) animator.SetBool("stun", false);
         if (stunned)
@@ -60,6 +74,7 @@ public class Creature : MonoBehaviour
             animator.SetFloat("speed", 0f);
         }
     }
+    
     virtual public void Die() // Добавил время для проигрыша анимации
     {
         if (animator != null)
@@ -139,6 +154,18 @@ public class Creature : MonoBehaviour
     public virtual void Run(float direction)
     {
         Run(direction, speed);
+    }
+
+    public int xDirection
+    {
+        get
+        {
+            if (transform.rotation.eulerAngles.y == 180)
+            {
+                return -1;
+            }
+            return 1;
+        }
     }
     #endregion
 

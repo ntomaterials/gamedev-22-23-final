@@ -100,10 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef7d70a7394d9541aa62695168611ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cleaner: {fileID: 4715849442202238699, guid: 95f2c737e7bde254187120cb2cdff8cd, type: 3}
-  cleanerCantSpawnMask:
-    serializedVersion: 2
-    m_Bits: 256
+  radius: 5
+  angle: 60
   caster: {fileID: 0}
 --- !u!2083052967 &787506164
 VisualEffect:
