@@ -9,12 +9,12 @@ public class Sword : MonoBehaviour
 {
     [SerializeField] private ContactFilter2D contactFilter;
     [SerializeField] private float damage;
-    [SerializeField] private float knockbackPower = 2f;
     [SerializeField] private float reload = 2f;
     
     public float blockReload=1f;
     public bool hasBlock; // на будущее
-    
+    [SerializeField] private Vector2 knockbackPower;
+
     private Collider2D _collider;
     
     public bool slashActive { get; private set; }
@@ -46,7 +46,7 @@ public class Sword : MonoBehaviour
                 if (creature != null && !hittedCreatures.Contains(creature))
                 {
                     hittedCreatures.Add(creature);
-                    creature.GetDamage(1, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча
+                    creature.GetDamage(1, new Vector2(transform.right.x * knockbackPower.x, knockbackPower.y) ); // направление отдачи - это направление меча
                 }
             }
             yield return null;

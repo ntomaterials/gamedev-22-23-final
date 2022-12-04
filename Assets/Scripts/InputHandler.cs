@@ -2,12 +2,21 @@
 
 public class InputHandler : MonoBehaviour
 {
+    public static InputHandler Instance;
     [SerializeField] private Player player;
 
     private Vector2 _lastInputAxis;
 
     public event ActionBtnUp onActionBtnUp;
-    public delegate void ActionBtnUp();  
+    public delegate void ActionBtnUp();
+    
+    public event MenuBtnUp onMenuBtnUp;
+    public delegate void MenuBtnUp();
+    //private MainMenu menu;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
@@ -27,7 +36,8 @@ public class InputHandler : MonoBehaviour
         {
             player.StopJump();
         }
-        if (Input.GetMouseButtonDown(0))
+        
+        if (Input.GetButtonDown("Fire1"))
         {
             player.StartBaseAttack();
         }
@@ -43,7 +53,10 @@ public class InputHandler : MonoBehaviour
         {
             player.Roll();
         }
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            onMenuBtnUp.Invoke();
+        }
         _lastInputAxis = inputAxis;
     }
 }
