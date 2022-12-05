@@ -7,23 +7,43 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Creature : MonoBehaviour
 {
+    [SerializeField ]protected AnimatorOverrideController animatorR;
+    [SerializeField ]protected AnimatorOverrideController animatorL;
     [field: SerializeField] public int maxHealth { get; private set; }
     public float speed=3f;
-    public float deafultSpeed { get; private set; }
+    
     public LayerMask groundLayerMask;
-
-    public int health{ get; private set; }
-    public bool isGrounded { get; protected set; }
     [field: SerializeField] public float timeToDie { get; private set; } // добавил для анимаций
-    public bool isImpact { get; private set; } // Нужен, чтобы враг не бегал, когда он должен отлетать
+    public bool effectedByKnockback = true;
+
+    protected Animator animator;
+    public int health{ get; private set; }
+    public float deafultSpeed { get; private set; }
+    public bool isGrounded { get; protected set; }
+    private int _impactCol = 0;
+    public bool isImpact // Нужен, чтобы враг не бегал, когда он должен отлетать
+    {
+        get { return _impactCol > 0; }
+    }
+
+    protected SpriteRenderer renderer;
+    [HideInInspector]public bool canMove=true;
 
     protected Collider2D collider;
     protected Rigidbody2D rigidbody;
-    protected Animator animator;
-    
+
     private List<Curse> _curses = new List<Curse>();
+    private float _stunTime = 0f;
 
     private const float GroundCheckDistance = 0.1f;
+
+    public bool stunned
+    {
+        get
+        {
+            return _stunTime > 0;
+        }
+    }
 
     virtual protected void Awake()
     {
@@ -31,10 +51,29 @@ public class Creature : MonoBehaviour
         health = maxHealth;
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         InvokeRepeating("UpdateCurses", 0, 1);
     }
-    
+
+    protected virtual void FixedUpdate()
+    {
+        if (xDirection == 1 && animatorR != null)
+        {
+            animator.runtimeAnimatorController = animatorR;
+            renderer.flipX = false; // флип нужен тк без этого будет "двойной поворот" спрайта и transform
+        }
+        else if (animatorL != null) {
+            animator.runtimeAnimatorController = animatorL;
+            renderer.flipX = true;
+        }
+        _stunTime -= Time.fixedDeltaTime;
+        if (!stunned) animator.SetBool("stun", false);
+        if (stunned)
+        {
+            animator.SetFloat("speed", 0f);
+        }
+    }
     
     virtual public void Die() // Добавил время для проигрыша анимации
     {
@@ -91,7 +130,7 @@ public class Creature : MonoBehaviour
     /// </summary> 
     public virtual void Run(float direction, float newSpeed)
     {
-        if ( isImpact ) return;
+        if ( isImpact || !canMove || stunned) return;
         speed = newSpeed;
         
         float vel = 0f;
@@ -116,6 +155,18 @@ public class Creature : MonoBehaviour
     {
         Run(direction, speed);
     }
+
+    public int xDirection
+    {
+        get
+        {
+            if (transform.rotation.eulerAngles.y == 180)
+            {
+                return -1;
+            }
+            return 1;
+        }
+    }
     #endregion
 
     # region Damage and heal
@@ -124,11 +175,13 @@ public class Creature : MonoBehaviour
     {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         StartCoroutine(GetImpact(direction));
+        _stunTime = 0f;
         if (health <= 0) Die();
     }
     virtual public void GetDamage(int damage)
     {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
+        _stunTime = 0f;
         if (health <= 0) Die();
     }
     public IEnumerator GetImpact(Vector2 impact)
@@ -137,11 +190,21 @@ public class Creature : MonoBehaviour
     }
     public IEnumerator GetImpact(Vector2 impact, float duration)
     {
-        isImpact = true;
-        rigidbody.AddForce(Vector2.up*impact.y, ForceMode2D.Impulse);
-        rigidbody.velocity = new Vector2(impact.x, rigidbody.velocity.y);
-        yield return new WaitForSeconds(duration); // Долго махался с физицой, единственный рабочий вариант, который нашел. 
-        isImpact = false;
+        if (effectedByKnockback)
+        {
+            _impactCol++;
+            rigidbody.AddForce(Vector2.up*impact.y, ForceMode2D.Impulse);
+            rigidbody.velocity = new Vector2(impact.x, rigidbody.velocity.y);
+            yield return new WaitForSeconds(duration); // Долго махался с физицой, единственный рабочий вариант, который нашел. 
+            _impactCol--;
+        }
+    }
+
+    public void Stun(float duration)
+    {
+        _stunTime = Mathf.Max(_stunTime, duration);
+        animator.SetBool("stun", true);
+        Run(0);
     }
 
     virtual public void Heal(int amount)
@@ -236,6 +299,16 @@ public class Creature : MonoBehaviour
             return;
         }
     }
+    # region Animation Events
+    public void StopMove()
+    {
+        canMove = false;
+    }
+    public void ContinueMove()
+    {
+        canMove = true;
+    }
+    # endregion
 
 }
 

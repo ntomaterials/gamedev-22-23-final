@@ -24,15 +24,23 @@ public class RunToPlayerState : State
         }
         else
         {
-            if (owner.CheckEdge())
+            if (!owner.canMove)
             {
-                owner.Run(xDir, 0);
+                owner.Run(0f);
             }
             else
             {
-                if (changeSpeed){owner.Run(xDir, speed);}
-                else owner.Run(xDir);
-            }
+                if (owner.CheckEdge())
+                {
+                    owner.Run(xDir, 0);
+                }
+                else
+                {
+                    if (changeSpeed){owner.Run(xDir, speed);}
+                    else owner.Run(xDir);
+                }
+        }
+            
             
         }
         

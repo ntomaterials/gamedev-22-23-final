@@ -1,13 +1,15 @@
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+/// <summary>
+/// Потом заменим событием смерти и вызовом окна смерти/возвращением к костру (Могу я этим заняться)
+/// </summary>
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public class Player : Creature
 {
     public static Player Instance;
-    [SerializeField] private float weaponCooldown;///
     public Sword weapon;
     [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
@@ -19,7 +21,6 @@ public class Player : Creature
     [SerializeField] private Image hpBar;
 
     public bool isJumping { get; private set; }
-    private bool isCooldown;//
     public bool blocking { get; private set; }
 
     private float _immortalTime = 0f;
@@ -34,8 +35,9 @@ public class Player : Creature
         Instance = this;
         HpBarUpdate();
     }
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         _rollReloadTime -= Time.fixedDeltaTime;
         _blockReloadTime -= Time.fixedDeltaTime;
         _immortalTime -= Time.fixedDeltaTime;
@@ -58,7 +60,7 @@ public class Player : Creature
     public override void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
-        if (weapon.slashActive) return;
+        if (!canMove) return;
         base.Run(direction);
     }
 
@@ -70,7 +72,7 @@ public class Player : Creature
     }
     public void Jump()
     {
-        if (!isGrounded || isImpact || blocking) return;
+        if (!isGrounded || isImpact || blocking || stunned) return;
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -87,35 +89,29 @@ public class Player : Creature
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * jumpInteruptionCoef);
         }
     }
-    //
+
     public void StartBaseAttack()
     {
-        if (!isCooldown && !(_immortalTime>0))
+        if (weapon.ready && !stunned)
         {
-            animator.SetTrigger("baseSwordAttack");
-            isCooldown = true;
-            Invoke("OverCooldown", weaponCooldown);
+            animator.SetTrigger("attack");
         }
     }
-    private void OverCooldown()
-    {
-        isCooldown = false;
-    }
-    //
 
     public void Roll()
     {
-        if (_rollReloadTime > 0) return;;
-        _rollReloadTime = rollReload + rollDuration;
-        animator.SetTrigger("roll");
-        StartCoroutine(GetImpact(new Vector2(rollSpeed * GetXDirection(), 0), rollDuration));
+        if (_rollReloadTime > 0 || stunned || isImpact || !canMove) return;;
         BecomeImmortal(rollDuration);
+        animator.SetTrigger("roll");
+        _rollReloadTime = rollReload + rollDuration;
+        StartCoroutine(GetImpact(new Vector2(rollSpeed * GetXDirection(), 0), rollDuration));
     }
     public void Block()
     {
         if (!weapon.hasBlock) return;
-        if (!(isImpact || weapon.slashActive) && _blockReloadTime <= 0)
+        if (!(isImpact || weapon.slashActive) && _blockReloadTime <= 0 && !stunned)
         {
+            Run(0);
             _blockReloadTime = weapon.blockReload;
             animator.SetTrigger("block");
         }
@@ -127,7 +123,11 @@ public class Player : Creature
         if (blocking)
         {
             if (GetXDirection() * direction.x < 0) return; // если атака спереди
-            else StopBlock();
+            else
+            {
+                StopBlock();
+                canMove = true;
+            }
         }
         BecomeImmortal();
         weapon.SlashStop();
@@ -159,16 +159,6 @@ public class Player : Creature
         float amount = 1000 / maxHealth * health;
         hpBar.fillAmount = amount / 1000;
     }
-    public void FullHeal()
-    {
-        Heal(maxHealth);
-        HpBarUpdate();
-    }
-    public override void Die()
-    {
-        base.Die();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     public int GetXDirection()
     {
@@ -187,8 +177,7 @@ public class Player : Creature
         base.OnCollisionExit2D(collider);
         animator.SetBool("grounded", isGrounded);
     }
-    
-    
+
     #region Animation Triggers
 
     public void SlashStart()

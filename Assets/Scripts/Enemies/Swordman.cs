@@ -20,7 +20,7 @@ public class Swordman : Enemy
         {
             SetState(startState);
         }
-        else
+        else if (!weapon.slashActive)
         {
             SetState(runToPlayerState);
         }
@@ -35,7 +35,7 @@ public class Swordman : Enemy
             animator.SetTrigger("attack");
         }
     }
-
+    
     #region Animation Triggers
 
     public void SlashStart()

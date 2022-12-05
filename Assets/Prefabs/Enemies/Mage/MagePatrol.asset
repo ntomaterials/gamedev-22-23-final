@@ -15,4 +15,4 @@ MonoBehaviour:
   owner: {fileID: 0}
   changeSpeed: 1
   stopWhenSeePlayerRadius: 0
-  speed: 0
+  speed: 1

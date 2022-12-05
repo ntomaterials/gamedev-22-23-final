@@ -1,30 +1,48 @@
 ﻿using UnityEngine;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(Collider2D))]
 public class CurseCleaner : MonoBehaviour
 {
-    [SerializeField] private GameObject cleaner;
-    [SerializeField] private LayerMask cleanerCantSpawnMask;
+    [SerializeField] private float radius=3;
+    [SerializeField] private float angle=30f;
     [HideInInspector] public CurseCaster caster;
     private VisualEffect _effect;
-    private Collider2D _collider;
 
     private void Awake()
     {
         _effect = GetComponent<VisualEffect>();
-        _collider = GetComponent<Collider2D>();
+        _effect.SetFloat("Arc", angle * Mathf.Deg2Rad);
+        _effect.SetFloat("Radius", radius);
+        _effect.SetFloat("Rotation", angle / 2);
     }
 
-    private void LateUpdate()
+    private void LateUpdate() 
     {
-        if (_collider.bounds.Contains(Player.Instance.transform.position)) Player.Instance.ClearCursesFromCaster(caster);
+        //Awake();
+        Vector3 dist = Player.Instance.transform.position - transform.position;
+        dist = -dist;
+        if (dist.magnitude <= radius)
+        {
+            Vector3 dir = (transform.position - Player.Instance.transform.position).normalized;
+            float a = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            a += 90f;
+            if (a < 0)
+            {
+                a += 360f;
+            }
+            //print($"a{a}, zrot{transform.rotation.eulerAngles.z}, {a - transform.rotation.eulerAngles.z}");
+            if (Mathf.Abs(a - transform.rotation.eulerAngles.z) <= angle / 2) // если в конусе
+            {
+                Player.Instance.ClearCursesFromCaster(caster);
+            }
+        }
     }
 
     private void Update()
     {
         float dist = (Player.Instance.transform.position - caster.transform.position).magnitude;
-        if (Player.Instance.GetCursesStucksByType(caster.curseType) >= GlobalConstants.S || dist > caster.radius * 1.5f)
+        if (Player.Instance.GetCursesStucksByType(caster.curseType) >= CursesManager.Instance.S || dist > caster.radius * 1.5f)
         {
             _effect.enabled = false;
         }
@@ -33,4 +51,5 @@ public class CurseCleaner : MonoBehaviour
             _effect.enabled = true;
         }
     }
+    
 }

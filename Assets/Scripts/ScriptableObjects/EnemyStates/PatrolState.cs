@@ -5,7 +5,7 @@ public class PatrolState : State
 {
     [SerializeField] private bool changeSpeed;
 
-    [Tooltip("Set zero if tou dont wont this to happend")] [SerializeField]
+    [Tooltip("Set zero if you dont wont this to happend")] [SerializeField]
     private float stopWhenSeePlayerRadius = 0f;
     [SerializeField] private float speed;
     
@@ -27,13 +27,17 @@ public class PatrolState : State
             xDir *= -1;
         }
 
-        if (changeSpeed)
+        if (owner.canMove)
         {
-            owner.Run(xDir, speed);
+            if (changeSpeed)
+            {
+                owner.Run(xDir, speed);
+            }
+            else
+            {
+                owner.Run(xDir);
+            }
         }
-        else
-        {
-            owner.Run(xDir);
-        }
+        
     }
 }
