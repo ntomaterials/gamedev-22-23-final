@@ -7,17 +7,20 @@ public class SaveFire : MonoBehaviour
     [HideInInspector] public int id;
     public Transform playerSpawn;
 
-    [SerializeField] private EnemyHolder enemyHolder;
+    public event SavedOnFire savedOnFire;
+    public delegate void SavedOnFire(int fireID);
+
+    //[SerializeField] private EnemyHolder enemyHolder;
     private bool canUse;
     private InputHandler inputHandler;
     private Player player;
-    private SaveLoadManager saveLoadManager;
+    //private SaveLoadManager saveLoadManager;
     private void Awake()
     {
         inputHandler = FindObjectOfType<InputHandler>();
         inputHandler.onActionBtnUp += Save;
         player = FindObjectOfType<Player>();
-        saveLoadManager = FindObjectOfType<SaveLoadManager>();
+        //saveLoadManager = FindObjectOfType<SaveLoadManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,9 +40,8 @@ public class SaveFire : MonoBehaviour
     {
         if (canUse)
         {
+            savedOnFire?.Invoke(id);
             player.FullHeal();
-            enemyHolder.ReloadEnemies();
-            saveLoadManager.SaveData(id);
         }
     }
 }

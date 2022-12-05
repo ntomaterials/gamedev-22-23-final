@@ -90,7 +90,7 @@ public class Player : Creature
     //
     public void StartBaseAttack()
     {
-        if (!isCooldown && !(immortalTime>0))
+        if (!isCooldown && !(_immortalTime>0))
         {
             animator.SetTrigger("baseSwordAttack");
             isCooldown = true;

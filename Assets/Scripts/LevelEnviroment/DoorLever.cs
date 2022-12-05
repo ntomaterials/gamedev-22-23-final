@@ -3,7 +3,10 @@ using UnityEngine;
 public class DoorLever : MonoBehaviour
 {
     [SerializeField] private Door door;
-    public bool IsOpen { get; set; }
+
+    [SerializeField] private Sprite Closed;
+    [SerializeField] private Sprite Opened;
+    [HideInInspector] public bool IsOpen { get; set; }
     private bool CanOpen;
     private InputHandler inputHandler;
 
@@ -41,7 +44,7 @@ public class DoorLever : MonoBehaviour
     public void CheckOpen()
     {
         door.gameObject.SetActive(!IsOpen);///////////////// допилить можно
-        if (IsOpen) spriteRenderer.color = Color.green;
-        else spriteRenderer.color = Color.red;
+        if (IsOpen) spriteRenderer.sprite=Opened;
+        else spriteRenderer.sprite=Closed;
     }
 }

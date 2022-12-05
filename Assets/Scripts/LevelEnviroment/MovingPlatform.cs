@@ -54,13 +54,22 @@ public class MovingPlatform : MonoBehaviour
         {
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
             Gizmos.color = Color.blue;
-            float width = Xamplitude * renderer.size.x + renderer.size.x;
+            float x =1.4f;
+            float width = (Xamplitude+x*Xamplitude)+(x-Xamplitude)/x+(Xamplitude-x)/x;
+            if (Xamplitude == 0) width = 0.2f;
+            float height = Yamplitude * 2;//* renderer.size.y + renderer.size.y;
+            if (Yamplitude == 0) height = 0.2f;
+            Vector2 center = startPos;
+            if (startPos == null || startPos == Vector2.zero) center = transform.position;
+            Gizmos.DrawWireCube(center, new Vector3(width, height, 0));
+            /*float x = (renderer.size.x + 1.88f);
+            float width = x*Xamplitude/1.5f+x;
             if (Xamplitude == 0) width = 0.2f;
             float height = Yamplitude * 2;//* renderer.size.y + renderer.size.y;
             if (Yamplitude == 0) height = 0.2f;
             Vector2 center = startPos;
             if (startPos == null || startPos==Vector2.zero) center = transform.position;
-            Gizmos.DrawWireCube(center, new Vector3(width, height, 0));
+            Gizmos.DrawWireCube(center, new Vector3(width, height, 0));*/
         }
         catch
         {
