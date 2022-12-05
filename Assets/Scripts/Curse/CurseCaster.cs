@@ -14,6 +14,7 @@ public class CurseCaster : MonoBehaviour
    
     [SerializeField] private bool castOnlyOnPlayer = true;
     [SerializeField] private VisualEffect curseSphere;
+    [SerializeField] private GameObject curseRayPrefab;
     [SerializeField] private int stacksPerCastMax = 5;
     [SerializeField] private GameObject curseCleaner;
 
@@ -24,24 +25,16 @@ public class CurseCaster : MonoBehaviour
     
     private CircleCollider2D _collider;
 
-    private Enemy owner;
-
     private void Awake()
     {
         _collider = GetComponent<CircleCollider2D>();
-        owner = transform.parent.GetComponent<Enemy>();
-        transform.parent = null; // fix rotation
     }
 
     private void LateUpdate()
     {
-        if (owner == null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        transform.position = owner.transform.position;
+        transform.rotation = Quaternion.Euler(new Vector3(0, transform.parent.rotation.eulerAngles.y * 2, 0)); // при развороте глоб. ротация не меняется
         UpdateVisualIntesity();
+        UpdateRays();
     }
 
     public float radius
@@ -96,6 +89,54 @@ public class CurseCaster : MonoBehaviour
         else
         {
             curseSphere.enabled = true;
+        }
+    }
+    private void UpdateRays()
+    {
+        if (!curseSphere.enabled)
+        {
+            foreach (GameObject ray in _curseRays.Values)
+            {
+                ray.SetActive(false);
+            }
+            return;
+        }
+        else
+        {
+            foreach (GameObject ray in _curseRays.Values)
+            {
+                ray.SetActive(true);
+            }
+        }
+        foreach (Creature target in _targets)
+        {
+            if (!_curseRays.ContainsKey(target))
+            {
+                _curseRays[target] = Instantiate(curseRayPrefab, this.transform);
+            }
+        }
+
+        List<Creature> toRemove = new List<Creature>();
+        foreach (Creature target in _curseRays.Keys)
+        {
+            if (!_targets.Contains(target))
+            {
+                toRemove.Add(target);
+            }
+        }
+
+        foreach (var target in toRemove)
+        {
+            Destroy(_curseRays[target]);
+            _curseRays.Remove(target);
+        }
+
+        foreach (var ray in _curseRays)
+        {
+            Vector2 dir = transform.position - ray.Key.transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            ray.Value.transform.eulerAngles = new Vector3(0, 0, angle + 90f);
+            ray.Value.transform.localScale = new Vector3(1, dir.magnitude, 1) / transform.localScale.x;
         }
     }
 

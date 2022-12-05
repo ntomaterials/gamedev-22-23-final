@@ -23,8 +23,12 @@ public class InputHandler : MonoBehaviour
         if (player == null) return;
         Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            player.Roll();
+        }
         // нужно чтобы при смене направления движения не срабатывала idle анимация
-        if (!(inputAxis.x == 0 && _lastInputAxis.x != 0))
+        else if (!(inputAxis.x == 0 && _lastInputAxis.x != 0))
         {
             player.Run(inputAxis.x);
         }
@@ -49,14 +53,22 @@ public class InputHandler : MonoBehaviour
         {
             onActionBtnUp.Invoke();
         }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            player.Roll();
-        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             onMenuBtnUp.Invoke();
         }
+        CheckForWeaponChange();
         _lastInputAxis = inputAxis;
+    }
+
+    private void CheckForWeaponChange() // судя по всему без новой InputSystem по другому никак
+    {
+        if (!Input.anyKeyDown) return;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            player.SetWeapon(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) player.SetWeapon(1);
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) player.SetWeapon(2);
     }
 }

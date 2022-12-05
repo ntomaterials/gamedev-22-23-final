@@ -220,10 +220,10 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   damage: 20
-  knockbackPower: 10
   reload: 2
   blockReload: 1
   hasBlock: 0
+  knockbackPower: {x: 0, y: 0}
 --- !u!61 &377947543146264079
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   effectedByKnockback: 0
   canMove: 1
   <touchDamage>k__BackingField: 0
-  knockbackPower: 1.5
+  knockbackPower: {x: 0, y: 0}
   startState: {fileID: 11400000, guid: ae5486e0d8db555498d4c550522bb3d9, type: 2}
   attackZone: {fileID: 377947543146264079}
   runToPlayerState: {fileID: 11400000, guid: be8908ea47af8994689f3ae9dda09ab8, type: 2}
@@ -388,7 +388,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 5966861487331329606}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 44b3ec2d5945d264fa3f2be50d68b395, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

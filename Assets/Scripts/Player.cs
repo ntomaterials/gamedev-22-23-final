@@ -7,9 +7,7 @@ using UnityEngine.SceneManagement;
 public class Player : Creature
 {
     public static Player Instance;
-    [SerializeField] private Sword weapon;
-    [SerializeField] private float weaponCooldown;///
-    [SerializeField] private float dashingSpeed = 3f;
+    [SerializeField] private GameObject[] weapons;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float immortalDuration = 1f;
     [Tooltip("Отсчёт идёт с момета конца кувырка")][SerializeField] private float rollReload=3f;
@@ -21,19 +19,19 @@ public class Player : Creature
     public bool isJumping { get; private set; }
     public bool blocking { get; private set; }
 
-    private bool isCooldown;//
-
     private float _immortalTime = 0f;
     private int deafultLayer = GlobalConstants.PlayerLayer;
     private int immortalLayer = GlobalConstants.ImmortalLayer;
     private float _rollReloadTime;
     private float _blockReloadTime=0f;
+    private Weapon currentWeapon;
 
     private void Awake()
     {
         base.Awake();
         Instance = this;
         HpBarUpdate();
+        SetWeapon(weapons[0]);
     }
     protected override void FixedUpdate()
     {
@@ -51,9 +49,9 @@ public class Player : Creature
             isJumping = false;
             animator.SetBool("jumping", isJumping);
         }
-        if (weapon.slashActive)
+        if (currentWeapon.slashActive)
         {
-            rigidbody.velocity = transform.right * dashingSpeed;
+            rigidbody.velocity = transform.right * currentWeapon.dashSpeed;
         }
     }
     # region Movement
@@ -62,6 +60,11 @@ public class Player : Creature
         // во время атаки нельзя менять направление движения
         if (!canMove) return;
         base.Run(direction);
+    }
+    public int GetXDirection()
+    {
+        if (transform.rotation.eulerAngles.y == 0) return 1;
+        else return -1;
     }
     
     protected override void CheckIfGrounded()
@@ -90,7 +93,7 @@ public class Player : Creature
     }
     public void StartBaseAttack()
     {
-        if (weapon.ready && !stunned)
+        if (currentWeapon.ready && !stunned)
         {
             animator.SetTrigger("attack");
         }
@@ -106,16 +109,32 @@ public class Player : Creature
     }
     public void Block()
     {
-        if (!weapon.hasBlock) return;
-        if (!(isImpact || weapon.slashActive) && _blockReloadTime <= 0 && !stunned)
+        if (!currentWeapon.hasBlock) return;
+        if (!(isImpact || currentWeapon.slashActive) && _blockReloadTime <= 0 && !stunned)
         {
             Run(0);
-            _blockReloadTime = weapon.blockReload;
+            _blockReloadTime = currentWeapon.blockReload;
             animator.SetTrigger("block");
         }
     }
     # endregion
 
+    public void SetWeapon(GameObject newWeaponPrefab)
+    {
+        if (currentWeapon != null) Destroy(currentWeapon.gameObject);
+        GameObject newWeapon = Instantiate(newWeaponPrefab, transform);
+        currentWeapon = newWeapon.GetComponent<Weapon>();
+        animatorL = currentWeapon.leftPlayerAnimation;
+        animatorR = currentWeapon.rightPlayerAnimation;
+    }
+
+    public void SetWeapon(int id)
+    {
+        if (weapons.Length <= id) return;
+        SetWeapon(weapons[id]);
+    }
+
+    # region Damage Health Die
     override public void GetDamage(int damage, Vector2 direction)
     {
         if (_immortalTime > 0) return;
@@ -129,7 +148,7 @@ public class Player : Creature
             }
         }
         BecomeImmortal();
-        weapon.SlashStop();
+        currentWeapon.SlashStop();
         blocking = false;
         animator.SetTrigger("damage");
         base.GetDamage(damage, direction);
@@ -168,12 +187,7 @@ public class Player : Creature
         base.Die();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-    public int GetXDirection()
-    {
-        if (transform.rotation.eulerAngles.y == 0) return 1;
-        else return -1;
-    }
+    # endregion
 
     protected override void OnCollisionStay2D(Collision2D collider)
     {
@@ -191,11 +205,16 @@ public class Player : Creature
 
     public void SlashStart()
     {
-        weapon.SlashStart();
+        currentWeapon.SlashStart();
     }
     public void SlashStop()
     {
-        weapon.SlashStop();
+        currentWeapon.SlashStop();
+    }
+
+    public void Fire()
+    {
+        currentWeapon.Fire();
     }
     public void StartBlock()
     {

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -173,15 +175,18 @@ public class Creature : MonoBehaviour
 
     virtual public void GetDamage(int damage, Vector2 direction)
     {
+        RotateByX(-direction.x);
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         StartCoroutine(GetImpact(direction));
         _stunTime = 0f;
+        canMove = true;
         if (health <= 0) Die();
     }
     virtual public void GetDamage(int damage)
     {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         _stunTime = 0f;
+        canMove = true;
         if (health <= 0) Die();
     }
     public IEnumerator GetImpact(Vector2 impact)

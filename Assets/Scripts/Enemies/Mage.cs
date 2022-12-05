@@ -41,13 +41,14 @@ public class Mage : Enemy
         if (distance <= teleportTriggerRadius && _teleportCooldown <= 0)
         { 
             animator.SetTrigger("teleport");
-            _teleportCooldown = teleportReload;
         }
     }
 
     # region Animation Events
     private void Teleport()
     {
+        animator.ResetTrigger("teleport");
+        _teleportCooldown = teleportReload;
         int attempts = 0;
         int maxAttemps = 1000;
         Vector3 pos = Vector2.zero;
@@ -87,6 +88,22 @@ public class Mage : Enemy
         transform.position = pos;
     }
     # endregion
+
+    public float teleportCooldown
+    {
+        get
+        {
+            return _teleportCooldown;
+        }
+    }
+
+    public bool visiable
+    {
+        get
+        {
+            return renderer.enabled;
+        }
+    }
 
     private void OnDrawGizmos()
     {

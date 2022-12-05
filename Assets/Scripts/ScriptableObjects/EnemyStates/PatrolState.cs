@@ -8,6 +8,7 @@ public class PatrolState : State
     [Tooltip("Set zero if you dont wont this to happend")] [SerializeField]
     private float stopWhenSeePlayerRadius = 0f;
     [SerializeField] private float speed;
+    [SerializeField] private bool flipWhenNearToPlayer;
     
     private int xDir = 1;
     public override void Init(Enemy enemy)
@@ -18,6 +19,14 @@ public class PatrolState : State
 
     public override void Run()
     {
+        if (flipWhenNearToPlayer)
+        {
+            float dist = owner.transform.position.x - Player.Instance.transform.position.x;
+            Vector3 playerPos = Player.Instance.transform.position;
+            if (playerPos.x - owner.transform.position.x > 0) xDir = 1;
+            else xDir = -1;
+        }
+        
         if (owner.CanSeePlayer(stopWhenSeePlayerRadius))
         {
             isFinished = true;

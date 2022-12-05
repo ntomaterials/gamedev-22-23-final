@@ -8,7 +8,7 @@ public class CurseCleaner : MonoBehaviour
     [SerializeField] private float angle=30f;
     [HideInInspector] public CurseCaster caster;
     private VisualEffect _effect;
-
+    private bool _isPlaying=true;
     private void Awake()
     {
         _effect = GetComponent<VisualEffect>();
@@ -41,14 +41,30 @@ public class CurseCleaner : MonoBehaviour
 
     private void Update()
     {
-        float dist = (Player.Instance.transform.position - caster.transform.position).magnitude;
-        if (Player.Instance.GetCursesStucksByType(caster.curseType) >= CursesManager.Instance.S || dist > caster.radius * 1.5f)
+        if (Player.Instance.GetCursesStucksByType(caster.curseType) >= CursesManager.Instance.S)
         {
             _effect.enabled = false;
         }
         else
         {
             _effect.enabled = true;
+        }
+        float dist = (Player.Instance.transform.position - caster.transform.position).magnitude;
+        if (dist > caster.radius * 1.5f)
+        {
+            if (_isPlaying)
+            {
+                _effect.Stop();
+                _isPlaying = false;
+            }
+        }
+        else
+        {
+            if (!_isPlaying)
+            {
+                _isPlaying = true;
+                _effect.Play();
+            }
         }
     }
     

@@ -1,32 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Collider2D))]
-public class Sword : MonoBehaviour
+public class Sword : Weapon
 {
     [SerializeField] private ContactFilter2D contactFilter;
-    [SerializeField] private float damage;
-    [SerializeField] private float reload = 2f;
-    
-    public float blockReload=1f;
-    public bool hasBlock; // на будущее
     [SerializeField] private Vector2 knockbackPower;
 
     private Collider2D _collider;
-    
-    public bool slashActive { get; private set; }
-    private float _reloadTime = 0f;
     private void Awake()
     {
         _collider = GetComponent<Collider2D>();
-    }
-
-    private void Update()
-    {
-        _reloadTime -= Time.deltaTime;
     }
 
     /// <summary>
@@ -52,22 +37,15 @@ public class Sword : MonoBehaviour
             yield return null;
         }
     }
-
-    public bool ready
-    {
-        get
-        {
-            return _reloadTime <= 0;
-        }
-    }
     
-    public void SlashStart()
+    
+    public override void SlashStart()
     {
         slashActive = true;
-        _reloadTime = reload;
+        reloadTime = reload;
         StartCoroutine(DamageWhileSlash());
     }
-    public void SlashStop()
+    public override void SlashStop()
     {
         slashActive = false;
     }
