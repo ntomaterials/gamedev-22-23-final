@@ -38,14 +38,14 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
-            collision.transform.parent = this.transform;
+            collision.collider.transform.SetParent(transform);
         }
     }
     protected void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
-            collision.transform.parent=null;
+            collision.collider.transform.SetParent(null);
         }
     }
     protected void OnDrawGizmos()

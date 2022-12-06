@@ -211,6 +211,10 @@ public class Creature : MonoBehaviour
     {
         health = Mathf.Clamp(health + amount, 0, maxHealth);
     }
+    virtual public void FullHeal()
+    {
+        health = maxHealth;
+    }
     # endregion
 
     # region Curses

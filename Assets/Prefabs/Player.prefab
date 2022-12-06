@@ -84,7 +84,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.59375, y: 0.90625}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -102,20 +102,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c13fe1ce7048b439227ea55353057e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <maxHealth>k__BackingField: 20
+  animatorR: {fileID: 22100000, guid: c63af74147ace58438dfdeb37977e5fb, type: 2}
+  animatorL: {fileID: 22100000, guid: b6bcee17676a20d4887468bc82edc43c, type: 2}
+  <maxHealth>k__BackingField: 100
   speed: 3
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
   <timeToDie>k__BackingField: 0
-  weaponCooldown: 0.7
+  effectedByKnockback: 1
+  canMove: 1
   weapon: {fileID: 9217571171763744069}
-  dashingSpeed: 3
+  dashingSpeed: 2
   jumpForce: 12
   immortalDuration: 1
   rollReload: 0.5
-  rollDuration: 0.2
-  rollSpeed: 3
+  rollDuration: 0.5
+  rollSpeed: 5
   jumpInteruptionCoef: 0.2
   hpBar: {fileID: 0}
 --- !u!50 &9217571171358458620
@@ -310,7 +313,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   damage: 1
-  knockbackPower: {x: 0, y: 0}
+  knockbackPower: 2
+  reload: 2
   blockReload: 1
   hasBlock: 1
 --- !u!61 &9217571171763744090
