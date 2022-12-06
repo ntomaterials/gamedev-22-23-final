@@ -8,6 +8,12 @@ public class Sword : Weapon
     [SerializeField] private ContactFilter2D contactFilter;
     [SerializeField] private Vector2 knockbackPower;
 
+    [SerializeField] private float damage;
+    [SerializeField] private float reload = 2f;
+    
+    public float blockReload=1f;
+    public bool hasBlock; // на будущее
+    
     private Collider2D _collider;
     private void Awake()
     {
@@ -31,7 +37,7 @@ public class Sword : Weapon
                 if (creature != null && !hittedCreatures.Contains(creature))
                 {
                     hittedCreatures.Add(creature);
-                    creature.GetDamage(1, new Vector2(transform.right.x * knockbackPower.x, knockbackPower.y) ); // направление отдачи - это направление меча
+                    creature.GetDamage(1, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча
                 }
             }
             yield return null;

@@ -54,4 +54,16 @@ public class Archer : Enemy
             return 0;
         }
     }
+    private void OnDrawGizmos()
+    {
+        try
+        {
+            float dist = Player.Instance.transform.position.x - transform.position.x;
+            Gizmos.DrawRay(transform.position, (Vector2.right * dist).normalized * Mathf.Abs((dist)));
+        }
+        catch
+        {
+            return;
+        }
+    }
 }

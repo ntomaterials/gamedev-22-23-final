@@ -5,6 +5,7 @@ public class InputHandler : MonoBehaviour
     public static InputHandler Instance;
     [SerializeField] private Player player;
 
+    public Vector2 inputAxis { get; private set; }
     private Vector2 _lastInputAxis;
 
     public event ActionBtnUp onActionBtnUp;
@@ -12,6 +13,9 @@ public class InputHandler : MonoBehaviour
     
     public event MenuBtnUp onMenuBtnUp;
     public delegate void MenuBtnUp();
+
+    public event Xinput isXinput;
+    public delegate void Xinput(bool isInput);
     //private MainMenu menu;
     private void Awake()
     {
@@ -22,16 +26,18 @@ public class InputHandler : MonoBehaviour
     {
         if (player == null) return;
         Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
         if (Input.GetKeyUp(KeyCode.S))
         {
             player.Roll();
-        }
-        // нужно чтобы при смене направления движения не срабатывала idle анимация
+        } // нужно чтобы при смене направления движения не срабатывала idle анимация
         else if (!(inputAxis.x == 0 && _lastInputAxis.x != 0))
         {
             player.Run(inputAxis.x);
+            isXinput?.Invoke(true);
         }
+        else isXinput?.Invoke(false);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -40,7 +46,6 @@ public class InputHandler : MonoBehaviour
         {
             player.StopJump();
         }
-        
         if (Input.GetButtonDown("Fire1"))
         {
             player.StartBaseAttack();
@@ -51,11 +56,15 @@ public class InputHandler : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.E))
         {
-            onActionBtnUp.Invoke();
+            onActionBtnUp?.Invoke();
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             onMenuBtnUp.Invoke();
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            player.Roll();
         }
         CheckForWeaponChange();
         _lastInputAxis = inputAxis;

@@ -3,7 +3,7 @@
 public class Enemy : Creature
 {
     [field: SerializeField] public int touchDamage { get; private set; }
-    [SerializeField] protected Vector2 knockbackPower;
+    [SerializeField] protected float knockbackPower = 1.5f;
     [SerializeField] protected State startState;
     protected State currentState;
     
@@ -15,8 +15,9 @@ public class Enemy : Creature
         SetState(startState);
     }
 
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionStay2D(Collision2D collision)
     {
+        base.OnCollisionStay2D(collision);
         if (touchDamage == 0) return;
         if (GlobalConstants.PlayerLayer == collision.gameObject.layer)
         {
@@ -24,14 +25,10 @@ public class Enemy : Creature
             Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
             Vector2 dir;
 
-            if (player.transform.position.x >= transform.position.x) dir = new Vector2(knockbackPower.x, knockbackPower.y);
-            else dir = new Vector2(-knockbackPower.x, knockbackPower.y);
+            if (player.transform.position.x >= transform.position.x) dir = new Vector2(knockbackPower, knockbackPower);
+            else dir = new Vector2(-knockbackPower, knockbackPower * 0.5f);
             player.GetDamage(touchDamage, dir);
         }
-    }
-    protected virtual void OnCollisionStay2D(Collision2D collision)
-    {
-        base.OnCollisionStay2D(collision);
     }
 
     protected void Update()
@@ -72,7 +69,7 @@ public class Enemy : Creature
 
     public bool MustTurn()
     {
-        return (CheckWall() || CheckEdge() ) && isGrounded;
+        return (CheckWall() || CheckEdge()) && isGrounded;
     }
 
     public bool CanSeePlayer(float dist)

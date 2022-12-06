@@ -2,12 +2,18 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Потом заменим событием смерти и вызовом окна смерти/возвращением к костру (Могу я этим заняться)
+/// </summary>
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public class Player : Creature
 {
     public static Player Instance;
     [SerializeField] private GameObject[] weapons;
+    public Sword weapon;
+    [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float immortalDuration = 1f;
     [Tooltip("Отсчёт идёт с момета конца кувырка")][SerializeField] private float rollReload=3f;
@@ -61,12 +67,6 @@ public class Player : Creature
         if (!canMove) return;
         base.Run(direction);
     }
-    public int GetXDirection()
-    {
-        if (transform.rotation.eulerAngles.y == 0) return 1;
-        else return -1;
-    }
-    
     protected override void CheckIfGrounded()
     {
         base.CheckIfGrounded();
@@ -91,6 +91,7 @@ public class Player : Creature
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * jumpInteruptionCoef);
         }
     }
+
     public void StartBaseAttack()
     {
         if (currentWeapon.ready && !stunned)
@@ -189,6 +190,12 @@ public class Player : Creature
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     # endregion
+
+    public int GetXDirection()
+    {
+        if (transform.rotation.eulerAngles.y == 0) return 1;
+        else return -1;
+    }
 
     protected override void OnCollisionStay2D(Collision2D collider)
     {
