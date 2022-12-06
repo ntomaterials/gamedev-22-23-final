@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -20,7 +22,7 @@ public class CurseCaster : MonoBehaviour
 
     private List<Creature> _targets = new List<Creature>();
     private const float castSpeed = 1f;
-    private bool _activatorSpawned;
+    private GameObject _activator;
     private Dictionary<Creature, GameObject> _curseRays = new Dictionary<Creature, GameObject>(); // ссылка на цель и на сам луч
     
     private CircleCollider2D _collider;
@@ -35,6 +37,16 @@ public class CurseCaster : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, transform.parent.rotation.eulerAngles.y * 2, 0)); // при развороте глоб. ротация не меняется
         UpdateVisualIntesity();
         UpdateRays();
+        if (!CheckIfInRadius(Player.Instance.transform.position))
+        {
+            Destroy(_activator);
+        }else if (CheckIfInRadius(Player.Instance.transform.position))
+        {
+            if (_activator == null)
+            {
+                SpawnCleaner();
+            }
+        }
     }
 
     public float radius
@@ -53,19 +65,24 @@ public class CurseCaster : MonoBehaviour
         {
             if (!CheckIfInRadius(col.transform.position)) return;
             _targets.Add(creature);
-            if (!_activatorSpawned)
+            if (_activator == null)
             {
-                _activatorSpawned = true;
-                GameObject activator = Instantiate(curseCleaner, transform);
-                // поворот в сторону противоположну от игрока
-                Vector2 dir = col.bounds.center - transform.position;
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                activator.transform.localEulerAngles = new Vector3(0, 0, angle + 90f); // криво импортировл тестовый конус, поэтому +90)
-                activator.GetComponent<CurseCleaner>().caster = this;
+                SpawnCleaner();
             }
             StartCoroutine(CastCurseOverTime(creature));
         }
     }
+
+    private void SpawnCleaner()
+    {
+        _activator = Instantiate(curseCleaner, transform);
+        // поворот в сторону противоположну от игрока
+        Vector2 dir = Player.Instance.transform.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        _activator.transform.localEulerAngles = new Vector3(0, 0, angle + 90f); // криво импортировл тестовый конус, поэтому +90)
+        _activator.GetComponent<CurseCleaner>().caster = this;
+    }
+    
 
     private void UpdateVisualIntesity()
     {

@@ -176,6 +176,7 @@ public class Creature : MonoBehaviour
     virtual public void GetDamage(int damage, Vector2 direction)
     {
         RotateByX(-direction.x);
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         StartCoroutine(GetImpact(direction));
         _stunTime = 0f;

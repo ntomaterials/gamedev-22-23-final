@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.VFX;
-using Random = UnityEngine.Random;
 
 public class CurseCleaner : MonoBehaviour
 {

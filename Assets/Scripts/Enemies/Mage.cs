@@ -31,6 +31,7 @@ public class Mage : Enemy
         {
             _renderer.enabled = true;
         }
+
         CheckForTeleport();
     }
 

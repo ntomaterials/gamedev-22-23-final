@@ -8,12 +8,6 @@ public class Sword : Weapon
     [SerializeField] private ContactFilter2D contactFilter;
     [SerializeField] private Vector2 knockbackPower;
 
-    [SerializeField] private float damage;
-    [SerializeField] private float reload = 2f;
-    
-    public float blockReload=1f;
-    public bool hasBlock; // на будущее
-    
     private Collider2D _collider;
     private void Awake()
     {
