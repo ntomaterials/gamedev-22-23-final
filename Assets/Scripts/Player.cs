@@ -121,6 +121,7 @@ public class Player : Creature
 
     public void SetWeapon(GameObject newWeaponPrefab)
     {
+        if (!canMove) return;
         if (currentWeapon != null) Destroy(currentWeapon.gameObject);
         GameObject newWeapon = Instantiate(newWeaponPrefab, transform);
         currentWeapon = newWeapon.GetComponent<Weapon>();

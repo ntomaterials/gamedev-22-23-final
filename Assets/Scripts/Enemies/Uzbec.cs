@@ -66,11 +66,11 @@ public class Uzbec : Enemy
     }
     public void BowAttack()
     {
-        bow.Attack();
+        bow.Fire();
     }
     public void MagicAttack()
     {
-        magicCaster.Attack();
+        magicCaster.Fire();
     }
 
     public void StompAttack()

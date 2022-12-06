@@ -4,7 +4,7 @@ public class Bow : Weapon
 {
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject projectilePrefab;
-    public void Attack()
+    public override void Fire()
     {
         if (reloadTime > 0f) return;
         reloadTime = reload;

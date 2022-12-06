@@ -308,6 +308,7 @@ public class Creature : MonoBehaviour
     public void StopMove()
     {
         canMove = false;
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
     }
     public void ContinueMove()
     {
