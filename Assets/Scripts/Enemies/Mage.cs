@@ -9,7 +9,7 @@ public class Mage : Enemy
     [SerializeField] private float teleportRadius = 4f;
     [SerializeField] private CurseCaster curseCaster;
     [SerializeField] private LayerMask canNotSpawnIn;
-    private float _teleportCooldown = 2f;
+    private float _teleportCooldown = 0f;
     
     private SpriteRenderer _renderer;
 

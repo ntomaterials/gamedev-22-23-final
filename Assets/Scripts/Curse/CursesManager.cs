@@ -8,6 +8,7 @@ public class CursesManager : MonoBehaviour
     public static CursesManager Instance;
     public int S=25;
     [SerializeField] private CurseIcon[] curseIcons;
+    public bool disableFullscreenEffect;
 
     private void Awake()
     {
@@ -77,7 +78,7 @@ public class CurseIcon
     {
         if (stacks == 1) text.text = ""; 
         else text.text = stacks.ToString();
-        float alpha = (float)stacks / (float)(CursesManager.Instance.S * 2);
+        float alpha = (float)stacks / (float)(CursesManager.Instance.S * 2) * 0.9f + 0.1f;
         Color c = image.color;
         c.a = alpha;
         image.color = c;
@@ -89,6 +90,14 @@ public class CurseIcon
         else
         {
             fullscreenEffect.SetActive(false);
+        }
+
+        if (CursesManager.Instance.disableFullscreenEffect)
+        {
+            if (stacks >= CursesManager.Instance.S * 2)
+            {
+                fullscreenEffect.SetActive(false);
+            }
         }
     }
 }
