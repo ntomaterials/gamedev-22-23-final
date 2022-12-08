@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cinemachine.PostFX;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Vignette = UnityEngine.Rendering.Universal.Vignette;
 
 public class CursesManager : MonoBehaviour
 {
@@ -10,9 +13,14 @@ public class CursesManager : MonoBehaviour
     [SerializeField] private CurseIcon[] curseIcons;
     public bool disableFullscreenEffect;
 
+    [SerializeField] private CinemachineVolumeSettings postProcessVolume;
+    [HideInInspector]public Vignette vignette;
+    
     private void Awake()
     {
         Instance = this;
+        postProcessVolume.m_Profile.TryGet(out vignette);
+        vignette.intensity.value = 0f;
     }
 
     private struct CurseInfo
@@ -23,6 +31,7 @@ public class CursesManager : MonoBehaviour
 
     private void Update()
     {
+        
         ResetCurseIconsStacks();
         List <Curse> curses = Player.Instance.GetCurses();
         //curses = curses.OrderBy(w => w.GetType().Name).ToList();
@@ -34,7 +43,7 @@ public class CursesManager : MonoBehaviour
 
         foreach (var icon in curseIcons)
         {
-            if (icon.stacks == 0 || icon.stacks >= CursesManager.Instance.S * 2)
+            if (icon.stacks == 0 || icon.stacks >= S * 2)
             {
                 icon.image.gameObject.SetActive(false);
             }

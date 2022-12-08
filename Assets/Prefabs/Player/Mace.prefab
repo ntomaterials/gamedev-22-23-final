@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1916259890360067132}
   - component: {fileID: 6135246220863217694}
   m_Layer: 10
-  m_Name: Sword 2
+  m_Name: Mace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf872eb5f33ca545a14ac597b93e9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftPlayerAnimation: {fileID: 22100000, guid: b6bcee17676a20d4887468bc82edc43c,
+  leftPlayerAnimation: {fileID: 22100000, guid: 30f5ea1f1c118944fb19d8a7581aabe5,
     type: 2}
-  rightPlayerAnimation: {fileID: 22100000, guid: c63af74147ace58438dfdeb37977e5fb,
+  rightPlayerAnimation: {fileID: 22100000, guid: 37c41323adb68154fba4662dd57bc4f8,
     type: 2}
   reload: 2
   damage: 1

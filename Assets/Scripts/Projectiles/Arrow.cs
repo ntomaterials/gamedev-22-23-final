@@ -26,7 +26,7 @@ public class Arrow : MonoBehaviour
             Creature cr = col.collider.GetComponent<Creature>();
             if (cr)
             {
-                Vector2 knock = (transform.right + Vector3.up * 0.5f) * knockbackPower;
+                Vector2 knock = ((_rigidbody.velocity.x * Vector2.right).normalized + Vector2.up * 0.5f) * knockbackPower;
                 cr.GetDamage(damage, knock);
             }
         }

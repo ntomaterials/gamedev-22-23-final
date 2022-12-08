@@ -28,7 +28,7 @@ public class InputHandler : MonoBehaviour
         Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
-        if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             player.Roll();
         } // нужно чтобы при смене направления движения не срабатывала idle анимация

@@ -45,90 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b079031d9bea248a6de1865c18da7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftPlayerAnimation: {fileID: 0}
+  rightPlayerAnimation: {fileID: 0}
+  reload: 4
+  damage: 0
+  hasBlock: 0
+  blockReload: 1
+  dashSpeed: 0
   firePoint: {fileID: 1900320161}
   projectilePrefab: {fileID: 7884177984360497432, guid: 37f4b4cdd90efde4ebfda16e3d8db756,
     type: 3}
-  reload: 4
---- !u!1 &1240116582
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1240116583}
-  - component: {fileID: 1240116584}
-  m_Layer: 9
-  m_Name: Magic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1240116583
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240116582}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1483002114}
-  m_Father: {fileID: 5966861487331329624}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1240116584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240116582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b079031d9bea248a6de1865c18da7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 1483002114}
-  projectilePrefab: {fileID: 7884177984360497432, guid: 7f47390718c0cf9499465e6555ad4ae2,
-    type: 3}
-  reload: 10
---- !u!1 &1483002113
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1483002114}
-  m_Layer: 9
-  m_Name: Firepoint
-  m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1483002114
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1483002113}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.434, y: -0.006, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1240116583}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1900320160
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +131,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf872eb5f33ca545a14ac597b93e9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftPlayerAnimation: {fileID: 0}
+  rightPlayerAnimation: {fileID: 0}
+  reload: 2
+  damage: 20
+  hasBlock: 0
+  blockReload: 1
+  dashSpeed: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -219,10 +152,6 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  damage: 20
-  reload: 2
-  blockReload: 1
-  hasBlock: 0
   knockbackPower: {x: 0, y: 0}
 --- !u!61 &377947543146264079
 BoxCollider2D:
@@ -285,7 +214,6 @@ Transform:
   m_Children:
   - {fileID: 4748663474012549707}
   - {fileID: 198127021}
-  - {fileID: 1240116583}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -364,13 +292,13 @@ MonoBehaviour:
   effectedByKnockback: 0
   canMove: 1
   <touchDamage>k__BackingField: 0
-  knockbackPower: {x: 0, y: 0}
+  knockbackPower: 1.5
   startState: {fileID: 11400000, guid: ae5486e0d8db555498d4c550522bb3d9, type: 2}
   attackZone: {fileID: 377947543146264079}
   runToPlayerState: {fileID: 11400000, guid: be8908ea47af8994689f3ae9dda09ab8, type: 2}
   sword: {fileID: 7158847015513684897}
   bow: {fileID: 198127020}
-  magicCaster: {fileID: 1240116584}
+  magicCaster: {fileID: 0}
   attackLayers:
     serializedVersion: 2
     m_Bits: 1024
