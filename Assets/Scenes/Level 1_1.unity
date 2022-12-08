@@ -31597,6 +31597,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9217571171358458622, guid: 4c2d3a8983bad73439354243b3f4316c,
+        type: 3}
+      propertyPath: hpBar
+      value: 
+      objectReference: {fileID: 1721832319}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c2d3a8983bad73439354243b3f4316c, type: 3}
 --- !u!1 &1298156166
@@ -31959,6 +31964,18 @@ PrefabInstance:
       objectReference: {fileID: 877050137}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a890736eea66cd43a5a29ff48f2b91a, type: 3}
+--- !u!114 &1721832319 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5931388382479811480, guid: 1a890736eea66cd43a5a29ff48f2b91a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1721832318}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1721832320 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5931388381601458149, guid: 1a890736eea66cd43a5a29ff48f2b91a,

@@ -114,6 +114,9 @@ MonoBehaviour:
   <timeToDie>k__BackingField: 0
   effectedByKnockback: 1
   canMove: 1
+  runSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  dieSound: {fileID: 0}
   dieXp: 200
   <touchDamage>k__BackingField: 0
   knockbackPower: 1.5
