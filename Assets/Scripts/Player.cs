@@ -27,6 +27,9 @@ public class Player : Creature
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
 
+    [SerializeField]
+    private SpriteRenderer stunIndicator;
+
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip rollSound;
 
@@ -59,6 +62,8 @@ public class Player : Creature
         _rollReloadTime -= Time.fixedDeltaTime;
         _blockReloadTime -= Time.fixedDeltaTime;
         _immortalTime -= Time.fixedDeltaTime;
+
+        stunIndicator.enabled = stunned;
         
         if (_immortalTime <= 0)
         {

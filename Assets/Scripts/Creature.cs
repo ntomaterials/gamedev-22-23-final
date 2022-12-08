@@ -48,7 +48,7 @@ public class Creature : MonoBehaviour
     {
         get
         {
-            return _stunTime > 0;
+            return _stunTime > 0f;
         }
     }
 
