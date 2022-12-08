@@ -31624,6 +31624,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4070605635839218464, guid: 00f073035cbbd624d8aac88d0162b484,
         type: 3}
+    - target: {fileID: 9217571171358458622, guid: 4c2d3a8983bad73439354243b3f4316c,
+        type: 3}
+      propertyPath: <maxHealth>k__BackingField
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c2d3a8983bad73439354243b3f4316c, type: 3}
 --- !u!1 &1298156166
