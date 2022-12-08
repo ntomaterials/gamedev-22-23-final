@@ -332,5 +332,13 @@ public class Creature : MonoBehaviour
     }
     # endregion
 
+    public float healthPercent
+    {
+        get
+        {
+            return (float)health / (float)maxHealth;
+        }
+    }
+
 }
 
