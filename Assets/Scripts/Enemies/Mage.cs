@@ -69,22 +69,22 @@ public class Mage : Enemy
             if (!Physics2D.OverlapCircle(pos, 0.1f, canNotSpawnIn)) { break; }
             
         };
-        if (attempts > maxAttemps) print("Out of attempts");
-        
-        /*
-        attempts = attempts / 2;
-        while (attempts++ <= maxAttemps) // повторно пробуем телепортироваться, на этот рас хоть в какую нибудь точку окружности(костыльно немного но вроде работает)
+        if (attempts > maxAttemps)
         {
-            dir = transform.position - Player.Instance.transform.position; 
-            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; // угол в сторону игрока
-            angle = angle + Random.Range(-180, 180); // получается рандомное направление в рамках противоположной от игрока полуокружности
-            
-            rot = Quaternion.Euler(0, 0, angle);
-            dir = rot * dir;
-
-            pos = transform.position + dir.normalized * tpRadius * Random.Range(0.8f, 1.5f);
-            if (!Physics2D.OverlapCircle(pos, r, canNotSpawnIn)) { break; }
-        };*/
+            print("Out of attempts");
+            attempts = attempts / 2;
+            while (attempts++ <= maxAttemps) // повторно пробуем телепортироваться, на этот рас хоть в какую нибудь точку окружности(костыльно немного но вроде работает)
+            {
+                dir = (transform.position - Player.Instance.transform.position).normalized;
+                angle = Mathf.Atan2(dir.y, dir.x); // угол в сторону игрока
+                angle = angle + Random.Range(-180, 180) * Mathf.Deg2Rad; // получается рандомное направление в рамках противоположной от игрока полуокружности
+                float x = Mathf.Cos(angle);
+                float y = Mathf.Sin(angle);
+                dir = new Vector2(x, y);
+                pos = transform.position + dir * teleportRadius * Random.Range(0.7f, 1.5f);
+                if (!Physics2D.OverlapCircle(pos, 0.1f, canNotSpawnIn)) { break; }
+            };
+        }
 
         transform.position = pos;
     }
