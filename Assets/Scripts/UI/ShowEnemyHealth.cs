@@ -12,9 +12,11 @@ public class ShowEnemyHealth : MonoBehaviour
     [SerializeField] private Image healhbarBG;
 
     private SpriteRenderer _targetRenderer; // for mages
+    private SpriteRenderer _renderer;
 
     private void Start()
     {
+        _renderer = GetComponent<SpriteRenderer>();
         if (target == null)
         {
             target = transform.parent.GetComponent<Enemy>();
