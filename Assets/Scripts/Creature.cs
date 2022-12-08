@@ -35,6 +35,9 @@ public class Creature : MonoBehaviour
     protected Collider2D collider;
     protected Rigidbody2D rigidbody;
     protected AudioSource audioSource;
+    [SerializeField] private AudioClip runSound;
+    [SerializeField] private AudioClip damageSound;
+    [SerializeField] private AudioClip dieSound;
 
     private List<Curse> _curses = new List<Curse>();
     private float _stunTime = 0f;
@@ -90,6 +93,7 @@ public class Creature : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Die");
+            if (dieSound != null) audioSource.PlayOneShot(dieSound);
         }
         Destroy(this.gameObject, timeToDie);
     }
@@ -155,8 +159,20 @@ public class Creature : MonoBehaviour
             vel = -speed;
         }
 
-        if (direction != 0) animator.SetFloat("speed", Mathf.Abs(speed));
-        else animator.SetFloat("speed", 0);
+        if (direction != 0)
+        {
+            animator.SetFloat("speed", Mathf.Abs(speed));
+            /*if (runSound != null)
+            {
+                audioSource.clip = runSound;
+                audioSource.Play();
+            }*/
+        }
+        else
+        {
+            //audioSource.Stop();
+            animator.SetFloat("speed", 0);
+        }
         
         rigidbody.velocity = new Vector2(vel, rigidbody.velocity.y);
     }
@@ -183,6 +199,7 @@ public class Creature : MonoBehaviour
 
     virtual public void GetDamage(int damage, Vector2 direction)
     {
+        if (damageSound != null) audioSource.PlayOneShot(damageSound);
         RotateByX(-direction.x);
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         health = Mathf.Clamp(health - damage, 0, maxHealth);
@@ -193,6 +210,7 @@ public class Creature : MonoBehaviour
     }
     virtual public void GetDamage(int damage)
     {
+        if (damageSound != null) audioSource.PlayOneShot(damageSound);
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         _stunTime = 0f;
         canMove = true;

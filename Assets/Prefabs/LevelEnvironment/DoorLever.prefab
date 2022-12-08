@@ -101,6 +101,7 @@ MonoBehaviour:
   door: {fileID: 0}
   Closed: {fileID: 21300000, guid: 60205be09c098ea4a8c47f99c13e3ef5, type: 3}
   Opened: {fileID: 21300000, guid: 1434c9ac3d3686e4d9d6d228f8bb4e60, type: 3}
+  leverSound: {fileID: 8300000, guid: e8bb42e35fd199b4e9917f1d9bb6f2fb, type: 3}
 --- !u!61 &5149557437564853662
 BoxCollider2D:
   m_ObjectHideFlags: 0

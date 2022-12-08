@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelsData : MonoBehaviour
 {
     [field: SerializeField] public List<Level> allLevels { get; private set; }
+    [SerializeField] private GameObject musicObj;
     //[HideInInspector] public int loadingLevelID; //Уровень, который мы хотим загрузить
     public Level levelOnScene { get; private set; }//Уровень, который сейчас загружен на карте
     public int lastSavedLevelID;
@@ -39,6 +40,7 @@ public class LevelsData : MonoBehaviour
     {
         levelOnScene= Instantiate(allLevels[loadingID].gameObject, Vector2.zero, Quaternion.identity).GetComponent<Level>();
         levelOnScene.id = loadingID;
+        Instantiate(musicObj);
         //player.transform.position = levelOnScene.playerSpawn.position;
     }
 }

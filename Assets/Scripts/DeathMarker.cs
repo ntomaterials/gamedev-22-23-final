@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+[RequireComponent(typeof(AudioSource))]
 
 public class DeathMarker : MonoBehaviour
 {
@@ -12,6 +11,8 @@ public class DeathMarker : MonoBehaviour
     private InputHandler inputHandler;
     private Player player;
     //private Rigidbody2D rigidbody;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip OpenSound;
     private void Awake()
     {
         canUse = false;
@@ -19,14 +20,19 @@ public class DeathMarker : MonoBehaviour
         inputHandler = FindObjectOfType<InputHandler>();
         inputHandler.onActionBtnUp += GetXp;
         collider = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
         //rigidbody = GetComponent<Rigidbody2D>();
         //rigidbody.bodyType = RigidbodyType2D.Dynamic;
     }
     public void GetXp()
     {
-        player.GetXp(Score);
-        canUse = false;
-        Destroy(gameObject);
+        if (canUse)
+        {
+            audioSource.PlayOneShot(OpenSound);
+            player.GetXp(Score);
+            canUse = false;
+            Destroy(gameObject);
+        }
     }
     /*private void OnCollisionEnter2D(Collision2D collision)
     {

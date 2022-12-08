@@ -27,6 +27,9 @@ public class Player : Creature
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
 
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip rollSound;
+
     public bool isJumping { get; private set; }
     public bool blocking { get; private set; }
 
@@ -100,6 +103,7 @@ public class Player : Creature
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
         animator.SetBool("jumping", isJumping);
+        if(jumpSound!=null) audioSource.PlayOneShot(jumpSound);
     }
 
     public void StopJump()
@@ -128,6 +132,7 @@ public class Player : Creature
         animator.SetTrigger("roll");
         _rollReloadTime = rollReload + rollDuration;
         StartCoroutine(GetImpact(new Vector2(rollSpeed * GetXDirection(), 0), rollDuration));
+        if(rollSound!=null) audioSource.PlayOneShot(rollSound);
     }
     public void Block()
     {

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 
 [RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class CurseCaster : MonoBehaviour
 {
     public CurseType curseType;
@@ -22,10 +23,16 @@ public class CurseCaster : MonoBehaviour
     private Dictionary<Creature, GameObject> _curseRays = new Dictionary<Creature, GameObject>(); // ссылка на цель и на сам луч
     
     private CircleCollider2D _collider;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip curseSound;
 
     private void Awake()
     {
         _collider = GetComponent<CircleCollider2D>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = curseSound;
+        audioSource.Play();
+        audioSource.volume = 0;
     }
 
     private void LateUpdate()
@@ -94,7 +101,9 @@ public class CurseCaster : MonoBehaviour
         }
         
         float inten = Mathf.Clamp(radius / distance - 0.5f, 0, 1.5f);
+        float soundVolume = Mathf.Clamp(radius / distance - 0.5f, 0, 1f);
         curseSphere.SetFloat("Intensity", inten);
+        audioSource.volume = soundVolume;
         if (Player.Instance.GetCursesStucksByType(curseType) >= CursesManager.Instance.S)
         {
             curseSphere.enabled = false;
