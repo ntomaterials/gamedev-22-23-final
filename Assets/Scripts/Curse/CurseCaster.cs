@@ -5,10 +5,6 @@ using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public enum CurseType
-{
-    Fire, Water,
-}
 [RequireComponent(typeof(CircleCollider2D))]
 public class CurseCaster : MonoBehaviour
 {
@@ -19,9 +15,9 @@ public class CurseCaster : MonoBehaviour
     [SerializeField] private GameObject curseRayPrefab;
     [SerializeField] private int stacksPerCastMax = 5;
     [SerializeField] private GameObject curseCleaner;
+    [SerializeField] float castSpeed = 1f;
 
     private List<Creature> _targets = new List<Creature>();
-    private const float castSpeed = 1f;
     private GameObject _activator;
     private Dictionary<Creature, GameObject> _curseRays = new Dictionary<Creature, GameObject>(); // ссылка на цель и на сам луч
     
@@ -171,7 +167,7 @@ public class CurseCaster : MonoBehaviour
             }
             int n = Mathf.Clamp(Mathf.CeilToInt((1 - distance / (_collider.radius * transform.localScale.x)) * stacksPerCastMax), 1, stacksPerCastMax);
             CastCurse(target, n);
-            yield return new WaitForSeconds(castSpeed);
+            yield return new WaitForSeconds(1 / castSpeed);
         }
     }
 
@@ -183,6 +179,8 @@ public class CurseCaster : MonoBehaviour
             case CurseType.Fire: target.AttachCurse(new FireCurse(target, this, stacks));
                 break;
             case CurseType.Water: target.AttachCurse(new WaterCurse(target, this, stacks));
+                break;
+            case CurseType.Darkness: target.AttachCurse(new DarknessCurse(target, this, stacks));
                 break;
         };
     }

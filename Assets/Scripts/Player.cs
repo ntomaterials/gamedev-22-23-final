@@ -18,7 +18,6 @@ public class Player : Creature
     //private LevelsData levelsData;
 
     [SerializeField] private GameObject[] weapons;
-    public Sword weapon;
     [SerializeField] private float dashingSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float immortalDuration = 1f;
@@ -252,6 +251,7 @@ public class Player : Creature
     public void Fire()
     {
         currentWeapon.Fire();
+        animator.ResetTrigger("attack");
     }
     public void StartBlock()
     {

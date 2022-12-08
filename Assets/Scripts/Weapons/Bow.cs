@@ -10,5 +10,4 @@ public class Bow : Weapon
         reloadTime = reload;
         GameObject pr = Instantiate(projectilePrefab, firePoint.position, transform.parent.rotation);
     }
-    
 }

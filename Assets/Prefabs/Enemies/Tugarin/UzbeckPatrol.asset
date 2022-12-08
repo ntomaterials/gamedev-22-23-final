@@ -15,4 +15,5 @@ MonoBehaviour:
   owner: {fileID: 0}
   changeSpeed: 1
   stopWhenSeePlayerRadius: 100
-  speed: 0.2
+  speed: 0
+  flipWhenNearToPlayer: 0

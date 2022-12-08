@@ -1,4 +1,8 @@
-﻿public abstract class Curse
+﻿public enum CurseType
+{
+    Fire, Water, Darkness,
+}
+public abstract class Curse
 {
     public int stacks = 1;
     public CurseCaster caster;

@@ -78,6 +78,11 @@ public class Creature : MonoBehaviour
         {
             animator.SetFloat("speed", 0f);
         }
+
+        if (stunned && !isImpact)
+        {
+            rigidbody.velocity = new Vector2(0f, rigidbody.velocity.y);
+        }
     }
     
     virtual public void Die() // Добавил время для проигрыша анимации
@@ -181,8 +186,8 @@ public class Creature : MonoBehaviour
         RotateByX(-direction.x);
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         health = Mathf.Clamp(health - damage, 0, maxHealth);
-        StartCoroutine(GetImpact(direction));
         _stunTime = 0f;
+        StartCoroutine(GetImpact(direction));
         canMove = true;
         if (health <= 0) Die();
     }
@@ -207,6 +212,12 @@ public class Creature : MonoBehaviour
             yield return new WaitForSeconds(duration); // Долго махался с физицой, единственный рабочий вариант, который нашел. 
             _impactCol--;
         }
+        while (rigidbody.velocity.y > 0f)
+        {
+            rigidbody.velocity = new Vector2(impact.x, rigidbody.velocity.y);
+            yield return new WaitForSeconds(0.1f);
+        }
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
     }
 
     public void Stun(float duration)
@@ -323,6 +334,14 @@ public class Creature : MonoBehaviour
         canMove = true;
     }
     # endregion
+
+    public float healthPercent
+    {
+        get
+        {
+            return (float)health / (float)maxHealth;
+        }
+    }
 
 }
 
