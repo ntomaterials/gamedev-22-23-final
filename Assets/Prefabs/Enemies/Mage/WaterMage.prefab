@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 7e8c57522a2cb5f4b8f4b0ec26af8826, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -109,10 +109,11 @@ MonoBehaviour:
   speed: 3
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 65792
   <timeToDie>k__BackingField: 0
   effectedByKnockback: 1
   canMove: 1
+  dieXp: 150
   <touchDamage>k__BackingField: 0
   knockbackPower: 1.5
   startState: {fileID: 11400000, guid: 40506618e48e29c4f9385d7e1a3888ca, type: 2}
@@ -122,7 +123,7 @@ MonoBehaviour:
   curseCaster: {fileID: 3438924293276898433}
   canNotSpawnIn:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 262400
 --- !u!50 &7292348038819317046
 Rigidbody2D:
   serializedVersion: 4
@@ -348,6 +349,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 7292348038819317047}
+    - target: {fileID: 1741513966865824888, guid: ab8d7a8eb8c150b4e971a9432e3bb5e5,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1741513966865824890, guid: ab8d7a8eb8c150b4e971a9432e3bb5e5,
         type: 3}
       propertyPath: m_Pivot.x
@@ -688,7 +694,7 @@ PrefabInstance:
         type: 3}
       propertyPath: curseCleaner
       value: 
-      objectReference: {fileID: 4160732885375446718, guid: 094144c59396d424aa69914344a8ca35,
+      objectReference: {fileID: 4160732885375446718, guid: 95f2c737e7bde254187120cb2cdff8cd,
         type: 3}
     - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
         type: 3}

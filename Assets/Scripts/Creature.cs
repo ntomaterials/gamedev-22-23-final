@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class Creature : MonoBehaviour
 {
     [SerializeField ]protected AnimatorOverrideController animatorR;
@@ -33,6 +34,7 @@ public class Creature : MonoBehaviour
 
     protected Collider2D collider;
     protected Rigidbody2D rigidbody;
+    protected AudioSource audioSource;
 
     private List<Curse> _curses = new List<Curse>();
     private float _stunTime = 0f;
@@ -55,6 +57,7 @@ public class Creature : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         renderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
         InvokeRepeating("UpdateCurses", 0, 1);
     }
 

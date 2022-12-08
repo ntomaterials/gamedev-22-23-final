@@ -12,6 +12,9 @@ public class SaveLoadManager : MonoBehaviour
     public string fileName="reservSave";
 
     public LevelsData levelsData;
+
+    //public DeathMarker deathMarker;
+   // public Transform deathMarkerPos;
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);

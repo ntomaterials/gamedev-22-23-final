@@ -13,7 +13,8 @@ public class TriggeringPlatform : MovingPlatform
     private void Update()
     {
         base.Update();
-        if (transform.position.x - endPos.x>=0) canMoving = false;
+        if (endPos.x!=0 && transform.position.x - endPos.x>=0) canMoving = false;
+        if (endPos.y!=0 && transform.position.y - endPos.y >= 0) canMoving = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

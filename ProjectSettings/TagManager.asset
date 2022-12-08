@@ -18,13 +18,13 @@ TagManager:
   - Enemies
   - Player
   - Immortal
-  - 
+  - Dangerous
   - EnemyProjectiles
   - PlayerProjectiles
   - Collectiables
   - EnemiesBorder
   - Props
-  - 
+  - MageTpBorder
   - 
   - 
   - 

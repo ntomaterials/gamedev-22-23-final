@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6807174262842912068}
   - component: {fileID: 1491860679479985083}
   - component: {fileID: 3939536163289315037}
+  - component: {fileID: 4505816757981417330}
   m_Layer: 0
   m_Name: chest
   m_TagString: Untagged
@@ -111,3 +112,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.90163994, y: 0.55278677}
   m_EdgeRadius: 0
+--- !u!114 &4505816757981417330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8635103663821975359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadd523a270d0340b0cc9d8301268d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score: 1000
+  teleportRadius: 0
