@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class Sword : Weapon
 {
     [SerializeField] private ContactFilter2D contactFilter;
     [SerializeField] private Vector2 knockbackPower;
 
     private Collider2D _collider;
+    private AudioSource audioSource;
+    [SerializeField] private List<AudioClip> attackSounds;
     private void Awake()
     {
         _collider = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     /// <summary>
@@ -41,6 +46,11 @@ public class Sword : Weapon
     
     public override void SlashStart()
     {
+        if (attackSounds.Count > 0)
+        {
+            int i = Random.Range(0, attackSounds.Count);
+            audioSource.PlayOneShot(attackSounds[i]);
+        }
         slashActive = true;
         reloadTime = reload;
         StartCoroutine(DamageWhileSlash());

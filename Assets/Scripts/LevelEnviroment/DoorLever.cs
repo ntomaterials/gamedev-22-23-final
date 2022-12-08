@@ -1,5 +1,6 @@
 using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class DoorLever : MonoBehaviour
 {
     [SerializeField] private Door door;
@@ -11,6 +12,8 @@ public class DoorLever : MonoBehaviour
     private InputHandler inputHandler;
 
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip leverSound;
     private void Awake()
     {
         //IsOpen = false;
@@ -18,6 +21,7 @@ public class DoorLever : MonoBehaviour
         inputHandler.onActionBtnUp += TryOpen;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -46,5 +50,6 @@ public class DoorLever : MonoBehaviour
         door.gameObject.SetActive(!IsOpen);///////////////// допилить можно
         if (IsOpen) spriteRenderer.sprite=Opened;
         else spriteRenderer.sprite=Closed;
+        audioSource.PlayOneShot(leverSound);
     }
 }

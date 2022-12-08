@@ -9,6 +9,7 @@ public class Archer : Enemy
     private float reloadTime = 0f;
     private float hight; // макс возможная разница в y оординатах для попадания в игрока
     private const float repeatRate = 0.2f;
+    [SerializeField] private AudioClip arrowSound;
     protected void Start()
     {
         hight = Player.Instance.GetComponent<Collider2D>().bounds.extents.y;
@@ -33,6 +34,7 @@ public class Archer : Enemy
 
     public void ShootArrow()
     {
+        audioSource.PlayOneShot(arrowSound);
         Instantiate(projectilePref, shootPosition.transform.position, transform.rotation);
     }
 
