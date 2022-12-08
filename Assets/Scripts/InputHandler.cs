@@ -60,7 +60,7 @@ public class InputHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            onMenuBtnUp.Invoke();
+            onMenuBtnUp?.Invoke();
         }
         if (Input.GetKeyUp(KeyCode.S))
         {

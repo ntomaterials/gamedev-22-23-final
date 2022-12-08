@@ -1077,9 +1077,6 @@ MonoBehaviour:
     fullscreenEffect: {fileID: 2077160091}
     text: {fileID: 1496304642}
     stacks: 0
-  disableFullscreenEffect: 0
-  postProcessVolume: {fileID: 0}
-  vignette: {fileID: 0}
 --- !u!1 &1234987618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1813,6 +1810,7 @@ GameObject:
   - component: {fileID: 2118932930}
   - component: {fileID: 2118932929}
   - component: {fileID: 2118932928}
+  - component: {fileID: 2118932932}
   m_Layer: 5
   m_Name: MainCamera
   m_TagString: Untagged
@@ -1886,3 +1884,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2118932932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118932927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ConfineMode: 0
+  m_BoundingVolume: {fileID: 0}
+  m_BoundingShape2D: {fileID: 0}
+  m_ConfineScreenEdges: 1
+  m_Damping: 3.81
