@@ -2,17 +2,20 @@
 
 public class Enemy : Creature
 {
+    [SerializeField] private int dieXp;
     [field: SerializeField] public int touchDamage { get; private set; }
     [SerializeField] protected float knockbackPower = 1.5f;
     [SerializeField] protected State startState;
     protected State currentState;
     
     private float checkRadius=0.15f;
+    private Player player;
 
     protected override void Awake()
     {
         base.Awake();
         SetState(startState);
+        player = FindObjectOfType<Player>();
     }
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
@@ -116,6 +119,7 @@ public class Enemy : Creature
     public override void Die()
     {
         base.Die();
+        player.GetXp(dieXp);
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         collider.isTrigger = true;
         this.enabled = false;

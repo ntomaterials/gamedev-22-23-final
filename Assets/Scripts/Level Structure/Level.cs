@@ -36,8 +36,16 @@ public class Level : MonoBehaviour
     }
     public void LoadLevelObjects(List<bool> leversStates)
     {
-        player.transform.position = saveFires[lastFireID].playerSpawn.position;
+        if(levelsData.lastSavedLevelID==id && !(id == 0 && lastFireID==0)) player.transform.position = saveFires[lastFireID].playerSpawn.position;
+        else player.transform.position = playerSpawn.position;
         enemyHolder.ReloadEnemies();
+
+        /*if (saveLoadManager.deathMarker != null)
+        {
+            DeathMarker marker = Instantiate(saveLoadManager.deathMarker, saveLoadManager.deathMarkerPos.position, Quaternion.identity);
+            marker.Score = saveLoadManager.deathMarker.Score;
+            //DontDestroyOnLoad(marker);
+        }*/
 
         if (leversStates == null) // Если новая игра, все двери закрыты
         { 

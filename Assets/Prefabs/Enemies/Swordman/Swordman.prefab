@@ -61,6 +61,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf872eb5f33ca545a14ac597b93e9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftPlayerAnimation: {fileID: 0}
+  rightPlayerAnimation: {fileID: 0}
+  reload: 0
+  damage: 1
+  hasBlock: 0
+  blockReload: 1
+  dashSpeed: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -75,10 +82,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  damage: 1
-  knockbackPower: 2
-  blockReload: 1
-  hasBlock: 0
+  knockbackPower: {x: 0, y: 0}
 --- !u!1 &6691033818557025595
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +160,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 3bd91567a4e3347449785a8f5c908ff5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -180,12 +184,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5012714c4a45b4bb73f6802203c592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorR: {fileID: 0}
+  animatorL: {fileID: 0}
   <maxHealth>k__BackingField: 3
   speed: 1
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 65792
   <timeToDie>k__BackingField: 1
+  effectedByKnockback: 0
+  canMove: 1
+  dieXp: 100
   <touchDamage>k__BackingField: 0
   knockbackPower: 0
   startState: {fileID: 11400000, guid: d4a983138acd73e46a9c5357390c4164, type: 2}

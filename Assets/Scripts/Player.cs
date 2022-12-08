@@ -11,6 +11,12 @@ using UnityEngine.SceneManagement;
 public class Player : Creature
 {
     public static Player Instance;
+
+    public int playerXp { get; private set; }///
+    //[SerializeField] private DeathMarker deathMarker;///
+    //private SaveLoadManager saveLoadManager;//
+    //private LevelsData levelsData;
+
     [SerializeField] private GameObject[] weapons;
     public Sword weapon;
     [SerializeField] private float dashingSpeed = 3f;
@@ -25,6 +31,9 @@ public class Player : Creature
     public bool isJumping { get; private set; }
     public bool blocking { get; private set; }
 
+    public event XpChanged onXpChanged;
+    public delegate void XpChanged(int value);
+
     private float _immortalTime = 0f;
     private int deafultLayer = GlobalConstants.PlayerLayer;
     private int immortalLayer = GlobalConstants.ImmortalLayer;
@@ -38,6 +47,9 @@ public class Player : Creature
         Instance = this;
         HpBarUpdate();
         SetWeapon(weapons[0]);
+
+        //saveLoadManager = FindObjectOfType<SaveLoadManager>();
+        //levelsData = FindObjectOfType<LevelsData>();
     }
     protected override void FixedUpdate()
     {
@@ -59,6 +71,16 @@ public class Player : Creature
         {
             rigidbody.velocity = transform.right * currentWeapon.dashSpeed;
         }
+    }
+
+    public void GetXp(int xp)
+    {
+        onXpChanged?.Invoke(xp);
+        playerXp += xp;
+    }
+    public void ResetXp()
+    {
+        GetXp(-playerXp);
     }
     # region Movement
     public override void Run(float direction)
@@ -187,6 +209,13 @@ public class Player : Creature
     public override void Die()
     {
         base.Die();
+        /*DeathMarker marker = Instantiate(deathMarker.gameObject, transform.position, Quaternion.identity).GetComponent<DeathMarker>();
+        marker.Score = playerXp;
+        saveLoadManager.deathMarker = marker;
+        saveLoadManager.deathMarkerPos = marker.transform;
+        ResetXp();
+        levelsData.LoadLevel(levelsData.lastSavedLevelID);*/
+        ResetXp();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     # endregion

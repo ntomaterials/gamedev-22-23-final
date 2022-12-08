@@ -19,6 +19,13 @@ public class Uzbec : Enemy
 
     private float _stompReloadTime = 0f;
 
+    private BossTrigger bossTrigger; // одноразовый
+    private void Awake()
+    {
+        base.Awake();
+        bossTrigger = FindObjectOfType<BossTrigger>();
+    }//
+
     protected override void ChooseNewState()
     {
         Vector2 dir = Player.Instance.transform.position - transform.position;
@@ -51,7 +58,13 @@ public class Uzbec : Enemy
         else if (bow.ready && canMove && Mathf.Abs(xDist) >= startDistanceAttackDistance)
         {
             animator.SetTrigger("shoot");
+        
         }
+    }
+    public override void Die()
+    {
+        bossTrigger.OpenDoors();
+        base.Die();
     }
 
     #region Animation Triggers

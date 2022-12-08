@@ -39,6 +39,6 @@ public class LevelsData : MonoBehaviour
     {
         levelOnScene= Instantiate(allLevels[loadingID].gameObject, Vector2.zero, Quaternion.identity).GetComponent<Level>();
         levelOnScene.id = loadingID;
-        player.transform.position = levelOnScene.playerSpawn.position;
+        //player.transform.position = levelOnScene.playerSpawn.position;
     }
 }
