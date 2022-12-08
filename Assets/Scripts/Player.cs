@@ -87,7 +87,7 @@ public class Player : Creature
     }
     public void ResetXp()
     {
-        GetXp(-playerXp+50);
+        GetXp(-playerXp);
     }
     # region Movement
     public override void Run(float direction)

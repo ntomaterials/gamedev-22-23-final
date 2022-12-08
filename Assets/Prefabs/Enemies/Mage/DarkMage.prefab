@@ -117,7 +117,7 @@ MonoBehaviour:
   runSound: {fileID: 0}
   damageSound: {fileID: 0}
   dieSound: {fileID: 0}
-  dieXp: 100
+  dieXp: 0
   <touchDamage>k__BackingField: 0
   knockbackPower: 1.5
   startState: {fileID: 11400000, guid: 40506618e48e29c4f9385d7e1a3888ca, type: 2}

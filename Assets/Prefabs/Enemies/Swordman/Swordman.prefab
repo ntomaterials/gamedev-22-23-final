@@ -300,7 +300,7 @@ MonoBehaviour:
   runSound: {fileID: 8300000, guid: eb9e36187c160a749869a0a2a97a46e1, type: 3}
   damageSound: {fileID: 8300000, guid: 32469058c808dba42be5b88d2759f886, type: 3}
   dieSound: {fileID: 8300000, guid: b9ced56c943adf643aed0eec238e8752, type: 3}
-  dieXp: 100
+  dieXp: 0
   <touchDamage>k__BackingField: 0
   knockbackPower: 0
   startState: {fileID: 11400000, guid: d4a983138acd73e46a9c5357390c4164, type: 2}
@@ -380,7 +380,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
