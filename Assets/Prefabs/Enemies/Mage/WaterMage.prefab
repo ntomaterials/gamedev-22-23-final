@@ -114,6 +114,9 @@ MonoBehaviour:
   <timeToDie>k__BackingField: 0
   effectedByKnockback: 1
   canMove: 1
+  runSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  dieSound: {fileID: 0}
   dieXp: 150
   <touchDamage>k__BackingField: 0
   knockbackPower: 1.5
@@ -671,6 +674,36 @@ PrefabInstance:
     - target: {fileID: 7278570430903855428, guid: d86adbde070481f40b0a5db982c25aaa,
         type: 3}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.b
+      value: 0.93333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.g
+      value: 0.2494055
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.r
+      value: 0.039215684
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key1.g
+      value: 0.8446672
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key1.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
