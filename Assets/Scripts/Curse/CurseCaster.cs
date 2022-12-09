@@ -207,12 +207,4 @@ public class CurseCaster : MonoBehaviour
         float distance = (pos - transform.position).magnitude;
         return (distance <= _collider.radius * transform.localScale.x);
     }
-
-    private void OnValidate()
-    {
-        if (transform.parent == null)
-        {
-            Debug.LogWarning($"Нужен родитель {gameObject.name}");
-        }
-    }
 }
