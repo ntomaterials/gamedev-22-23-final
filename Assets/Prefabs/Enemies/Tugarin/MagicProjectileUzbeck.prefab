@@ -51,7 +51,7 @@ MonoBehaviour:
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  damage: 5
+  damage: 2
   knockbackPower: 4
   speed: 4
 --- !u!61 &7884177984360497438
