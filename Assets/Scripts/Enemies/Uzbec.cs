@@ -75,7 +75,7 @@ public class Uzbec : Enemy
     }
     public override void Die()
     {
-        bossTrigger.OpenDoors();
+        bossTrigger.BossDead();
         base.Die();
     }
 
@@ -115,7 +115,11 @@ public class Uzbec : Enemy
 
     private void OnDrawGizmosSelected()
     {
+        try
+        {
             Gizmos.DrawRay(transform.position, magicCaster1.transform.position - transform.position);
             Gizmos.DrawRay(transform.position, magicCaster2.transform.position - transform.position);
+        }
+        catch { return; }
     }
 }
