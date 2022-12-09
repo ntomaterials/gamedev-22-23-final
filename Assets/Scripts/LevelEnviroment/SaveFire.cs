@@ -1,5 +1,5 @@
 using UnityEngine;
-
+[RequireComponent (typeof(AudioSource))]
 public class SaveFire : MonoBehaviour
 {
     [HideInInspector] public int id;
@@ -12,12 +12,15 @@ public class SaveFire : MonoBehaviour
     private bool canUse;
     private InputHandler inputHandler;
     private Player player;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip saveSound;
     //private SaveLoadManager saveLoadManager;
     private void Awake()
     {
         inputHandler = FindObjectOfType<InputHandler>();
         inputHandler.onActionBtnUp += Save;
         player = FindObjectOfType<Player>();
+        audioSource = GetComponent<AudioSource>();
         //saveLoadManager = FindObjectOfType<SaveLoadManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,6 +41,7 @@ public class SaveFire : MonoBehaviour
     {
         if (canUse)
         {
+            if (saveSound != null) audioSource.PlayOneShot(saveSound);
             savedOnFire?.Invoke(id);
             player.FullHeal();
         }

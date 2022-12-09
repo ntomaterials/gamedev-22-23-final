@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   playerSpawn: {fileID: 1554871578454279857}
+  saveSound: {fileID: 8300000, guid: fdff9abacb662084799f2b2768d705cb, type: 3}
 --- !u!114 &-868243129026152296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +242,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
