@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorR: {fileID: 22100000, guid: d59e5d1c6a9101a40835f4457837bbe7, type: 2}
   animatorL: {fileID: 22100000, guid: 2cf324bb3ab859b4c853edd822ba1e98, type: 2}
-  <maxHealth>k__BackingField: 100
+  <maxHealth>k__BackingField: 15
   speed: 3
   groundLayerMask:
     serializedVersion: 2
@@ -396,7 +396,7 @@ MonoBehaviour:
   runSound: {fileID: 0}
   damageSound: {fileID: 0}
   dieSound: {fileID: 0}
-  dieXp: 0
+  dieXp: 3000
   <touchDamage>k__BackingField: 0
   knockbackPower: 1.5
   startState: {fileID: 11400000, guid: ae5486e0d8db555498d4c550522bb3d9, type: 2}

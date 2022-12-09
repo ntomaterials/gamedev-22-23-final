@@ -115,7 +115,7 @@ public class Uzbec : Enemy
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawRay(transform.position, magicCaster1.transform.position - transform.position);
-        Gizmos.DrawRay(transform.position, magicCaster2.transform.position - transform.position);
+            Gizmos.DrawRay(transform.position, magicCaster1.transform.position - transform.position);
+            Gizmos.DrawRay(transform.position, magicCaster2.transform.position - transform.position);
     }
 }
