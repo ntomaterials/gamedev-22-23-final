@@ -33,7 +33,7 @@ public class Uzbec : Enemy
     {
         base.Awake();
         bossTrigger = FindObjectOfType<BossTrigger>();
-    }//
+    }
 
     protected override void ChooseNewState()
     {
