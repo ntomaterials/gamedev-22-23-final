@@ -227,7 +227,7 @@ MonoBehaviour:
   - {fileID: 4965490076838667676, guid: 356dadba21b0c0d48bb080b8de0c6a0d, type: 3}
   dashingSpeed: 3
   jumpForce: 12
-  immortalDuration: 0
+  immortalDuration: 0.3
   rollReload: 3
   rollDuration: 0.5
   rollSpeed: 5
@@ -384,7 +384,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.11
   m_Pitch: 1
   Loop: 0
   Mute: 0

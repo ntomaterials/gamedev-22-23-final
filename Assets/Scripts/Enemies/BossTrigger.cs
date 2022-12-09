@@ -5,6 +5,7 @@ public class BossTrigger : MonoBehaviour // Одноразовый код
 {
     [SerializeField] private List<Door> doors;
     private bool isClosed;
+    [SerializeField] private WinPanel winPanel;
     private void Awake()
     {
         isClosed = false;
@@ -26,7 +27,13 @@ public class BossTrigger : MonoBehaviour // Одноразовый код
                 door.gameObject.SetActive(true);
             }
             isClosed = true;
+       
         }
+    }
+    public void BossDead()
+    {
+        OpenDoors();
+        winPanel.Open();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

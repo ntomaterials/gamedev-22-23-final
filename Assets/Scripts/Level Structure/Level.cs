@@ -36,7 +36,11 @@ public class Level : MonoBehaviour
     }
     public void LoadLevelObjects(List<bool> leversStates)
     {
-        if(levelsData.lastSavedLevelID==id && !(id == 0 && lastFireID==0)) player.transform.position = saveFires[lastFireID].playerSpawn.position;
+        if (levelsData.lastSavedLevelID == id && !(id == 0 && lastFireID == 0))
+        {
+            Vector3 pos = saveFires[lastFireID].playerSpawn.position;
+            player.transform.position =new Vector3(pos.x, pos.y, 0);
+        }
         else player.transform.position = playerSpawn.position;
         enemyHolder.ReloadEnemies();
 
