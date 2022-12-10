@@ -36,7 +36,7 @@ public class Sword : Weapon
                 if (creature != null && !hittedCreatures.Contains(creature))
                 {
                     hittedCreatures.Add(creature);
-                    creature.GetDamage(1, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча
+                    creature.GetDamage(damage, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча
                 }
             }
             yield return null;

@@ -24,6 +24,7 @@ public class Uzbec : Enemy
     [SerializeField] private float startStompDistance = 6f;
     [SerializeField] private float stompReload = 5f; // stomp - топот
     [SerializeField] private int stompDamage = 1;
+    [SerializeField] private float stompattackStunDuration = 3f;
 
     private float _stompReloadTime = 0f;
     private float _magicReloadTime = 10f;
@@ -103,12 +104,11 @@ public class Uzbec : Enemy
     {
         particleRight.Play();
         particleLeft.Play();
-        float yDif = Player.Instance.transform.position.y - transform.position.y;
-        if (Player.Instance.isGrounded && Mathf.Abs(yDif) <= 0.1f)
+        if (Player.Instance.isGrounded)
         {
             Player.Instance.GetDamage(stompDamage, Vector2.up * 1);
             Player.Instance.StartCoroutine(Player.Instance.GetImpact(Vector2.up * 5, 2));
-            Player.Instance.Stun(4f);
+            Player.Instance.Stun(stompattackStunDuration);
         }
     }
     #endregion
