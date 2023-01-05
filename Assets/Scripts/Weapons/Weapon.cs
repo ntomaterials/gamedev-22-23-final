@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Player only")] // в идеале написать кастомный испектор чтоб это всё скрывать если оружие не для игрока предназначено
-    public AnimatorOverrideController leftPlayerAnimation;
-    public AnimatorOverrideController rightPlayerAnimation;
+    //public AnimatorOverrideController leftPlayerAnimation;
+    //public AnimatorOverrideController rightPlayerAnimation;
 
     [Header("Base stats")]
     [SerializeField] protected float reload;

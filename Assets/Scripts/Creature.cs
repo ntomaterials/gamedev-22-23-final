@@ -10,6 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Creature : MonoBehaviour
 {
+    [Header("Creature base")]
     [SerializeField ]protected AnimatorOverrideController animatorR;
     [SerializeField ]protected AnimatorOverrideController animatorL;
     [field: SerializeField] public int maxHealth { get; private set; }
@@ -41,8 +42,9 @@ public class Creature : MonoBehaviour
 
     private List<Curse> _curses = new List<Curse>();
     private float _stunTime = 0f;
-
+    
     private const float GroundCheckDistance = 0.1f;
+    
 
     public bool stunned
     {
