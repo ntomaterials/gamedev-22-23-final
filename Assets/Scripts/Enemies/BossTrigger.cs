@@ -33,6 +33,7 @@ public class BossTrigger : MonoBehaviour // Одноразовый код
     public void BossDead()
     {
         OpenDoors();
+        winPanel.gameObject.SetActive(true);
         winPanel.Open();
     }
     private void OnTriggerEnter2D(Collider2D collision)

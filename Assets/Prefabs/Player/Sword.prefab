@@ -50,7 +50,7 @@ MonoBehaviour:
     type: 2}
   rightPlayerAnimation: {fileID: 22100000, guid: c63af74147ace58438dfdeb37977e5fb,
     type: 2}
-  reload: 2
+  reload: 1
   damage: 1
   hasBlock: 1
   blockReload: 1
