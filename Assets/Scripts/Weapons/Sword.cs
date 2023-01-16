@@ -10,7 +10,6 @@ public class Sword : Weapon
     [SerializeField] private Vector2 knockbackPower;
 
     private Collider2D _collider;
-    private AudioSource audioSource;
     [SerializeField] private List<AudioClip> attackSounds;
     private void Awake()
     {

@@ -1,5 +1,6 @@
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -16,13 +17,13 @@ public class Player : Creature
     //[SerializeField] private DeathMarker deathMarker;///
     //private SaveLoadManager saveLoadManager;//
     //private LevelsData levelsData;
-
-    [SerializeField] private GameObject[] weapons;
-    [SerializeField] private float dashingSpeed = 3f;
+    [Header("Player")]
+    [SerializeField] private PlayerWeaponInfo[] weaponsInfo;
+    
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float immortalDuration = 1f;
     [Tooltip("Отсчёт идёт с момета конца кувырка")][SerializeField] private float rollReload=3f;
-    [SerializeField] private float rollDuration = 0.5f; // надо подгонять под длительность анимации, ну или наоборот(
+    [SerializeField] private float rollDuration = 0.5f; // надо подгонять под длительность анимации(
     [SerializeField] private float rollSpeed=3f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
@@ -51,7 +52,7 @@ public class Player : Creature
         base.Awake();
         Instance = this;
         HpBarUpdate();
-        SetWeapon(weapons[0]);
+        SetWeapon(weaponsInfo[0]);
 
         //saveLoadManager = FindObjectOfType<SaveLoadManager>();
         //levelsData = FindObjectOfType<LevelsData>();
@@ -151,20 +152,20 @@ public class Player : Creature
     }
     # endregion
 
-    public void SetWeapon(GameObject newWeaponPrefab)
+    public void SetWeapon(PlayerWeaponInfo weaponInfo)
     {
         if (!canMove) return;
         if (currentWeapon != null) Destroy(currentWeapon.gameObject);
-        GameObject newWeapon = Instantiate(newWeaponPrefab, transform);
+        GameObject newWeapon = Instantiate(weaponInfo.weaponPrefab, transform);
         currentWeapon = newWeapon.GetComponent<Weapon>();
-        animatorL = currentWeapon.leftPlayerAnimation;
-        animatorR = currentWeapon.rightPlayerAnimation;
+        animatorL = weaponInfo.leftPlayerAnimation;
+        animatorR = weaponInfo.rightPlayerAnimation;
     }
 
     public void SetWeapon(int id)
     {
-        if (weapons.Length <= id) return;
-        SetWeapon(weapons[id]);
+        if (weaponsInfo.Length <= id) return;
+        SetWeapon(weaponsInfo[id]);
     }
 
     # region Damage Health Die
@@ -273,4 +274,12 @@ public class Player : Creature
         blocking = false;
     }
     #endregion
+}
+
+[System.Serializable]
+public class PlayerWeaponInfo
+{
+    public GameObject weaponPrefab;
+    public AnimatorOverrideController leftPlayerAnimation;
+    public AnimatorOverrideController rightPlayerAnimation;
 }
