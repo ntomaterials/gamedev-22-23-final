@@ -293,7 +293,7 @@ MonoBehaviour:
   speed: 1
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 65792
   <timeToDie>k__BackingField: 1
   effectedByKnockback: 1
   canMove: 1

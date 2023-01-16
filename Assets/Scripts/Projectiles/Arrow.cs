@@ -16,7 +16,7 @@ public class Arrow : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.velocity = new Vector3(0, _rigidbody.velocity.y) + transform.right * speed;
+        _rigidbody.velocity = transform.right * speed;// new Vector3(0, _rigidbody.velocity.y) + transform.right * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
