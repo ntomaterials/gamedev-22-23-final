@@ -210,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorR: {fileID: 0}
   animatorL: {fileID: 0}
-  <maxHealth>k__BackingField: 300
+  <maxHealth>k__BackingField: 25
   speed: 3
   groundLayerMask:
     serializedVersion: 2
@@ -221,11 +221,25 @@ MonoBehaviour:
   runSound: {fileID: 8300000, guid: eb9e36187c160a749869a0a2a97a46e1, type: 3}
   damageSound: {fileID: 8300000, guid: d416593ab6725da4e8504a9bfd50ebd8, type: 3}
   dieSound: {fileID: 8300000, guid: b9ced56c943adf643aed0eec238e8752, type: 3}
-  weapons:
-  - {fileID: 4965490076838667676, guid: 88161654615f7984c89de38a4de0a4fd, type: 3}
-  - {fileID: 4070605635839218464, guid: 00f073035cbbd624d8aac88d0162b484, type: 3}
-  - {fileID: 4965490076838667676, guid: 356dadba21b0c0d48bb080b8de0c6a0d, type: 3}
-  dashingSpeed: 3
+  weaponsInfo:
+  - weaponPrefab: {fileID: 4965490076838667676, guid: 88161654615f7984c89de38a4de0a4fd,
+      type: 3}
+    leftPlayerAnimation: {fileID: 22100000, guid: b6bcee17676a20d4887468bc82edc43c,
+      type: 2}
+    rightPlayerAnimation: {fileID: 22100000, guid: c63af74147ace58438dfdeb37977e5fb,
+      type: 2}
+  - weaponPrefab: {fileID: 4965490076838667676, guid: 356dadba21b0c0d48bb080b8de0c6a0d,
+      type: 3}
+    leftPlayerAnimation: {fileID: 22100000, guid: 30f5ea1f1c118944fb19d8a7581aabe5,
+      type: 2}
+    rightPlayerAnimation: {fileID: 22100000, guid: 37c41323adb68154fba4662dd57bc4f8,
+      type: 2}
+  - weaponPrefab: {fileID: 4070605635839218464, guid: 00f073035cbbd624d8aac88d0162b484,
+      type: 3}
+    leftPlayerAnimation: {fileID: 22100000, guid: 3793a871b273c1c4aa1daf7c48b42b88,
+      type: 2}
+    rightPlayerAnimation: {fileID: 22100000, guid: c038d6789c23c304e98bb0512cfd44e1,
+      type: 2}
   jumpForce: 12
   immortalDuration: 0.3
   rollReload: 3
@@ -384,7 +398,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.11
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -6,8 +6,11 @@ public class BossTrigger : MonoBehaviour // Одноразовый код
     [SerializeField] private List<Door> doors;
     private bool isClosed;
     [SerializeField] private WinPanel winPanel;
+    private Collider2D collider;
     private void Awake()
     {
+        collider = GetComponent<Collider2D>();
+        collider.enabled = true;
         isClosed = false;
         OpenDoors();
     }
@@ -41,6 +44,7 @@ public class BossTrigger : MonoBehaviour // Одноразовый код
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
             CloseDoors();
+            collider.enabled=false;
         }
     }
 }
