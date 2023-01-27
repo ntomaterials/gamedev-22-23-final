@@ -119,6 +119,13 @@ public class Uzbec : Enemy
         {
             Gizmos.DrawRay(transform.position, magicCaster1.transform.position - transform.position);
             Gizmos.DrawRay(transform.position, magicCaster2.transform.position - transform.position);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, startStompDistance);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, startMagicAttackDistance);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, startDistanceAttackDistance);
         }
         catch { return; }
     }
