@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Uzbec : Enemy
 {
@@ -17,7 +17,8 @@ public class Uzbec : Enemy
     [SerializeField] private ParticleSystem particleRight;
     [SerializeField] private ParticleSystem particleLeft;
 
-    [Header("Balance")]
+    [Header("Balance")] 
+    [SerializeField] private float canSeeDistance = 10f;
     [SerializeField] private float startDistanceAttackDistance = 1f;
     [SerializeField] private float startMagicAttackDistance = 3f;
     [SerializeField] private float magicAttackReload = 3f;
@@ -26,7 +27,7 @@ public class Uzbec : Enemy
     [SerializeField] private int stompDamage = 1;
     [SerializeField] private float stompattackStunDuration = 3f;
 
-    private float _stompReloadTime = 0f;
+    private float _stompReloadTime = 10f;
     private float _magicReloadTime = 10f;
 
     private BossTrigger bossTrigger; // одноразовый
@@ -39,7 +40,7 @@ public class Uzbec : Enemy
     protected override void ChooseNewState()
     {
         Vector2 dir = Player.Instance.transform.position - transform.position;
-        if (!CanSeePlayer())
+        if (!CanSeePlayer(canSeeDistance))
         {
             SetState(startState);
         }
@@ -54,10 +55,14 @@ public class Uzbec : Enemy
         _magicReloadTime -= Time.fixedDeltaTime;
         _stompReloadTime -= Time.fixedDeltaTime;
         float xDist = Player.Instance.transform.position.x - transform.position.x;
-        if (!CanSeePlayer()) return;
+        if (!CanSeePlayer(canSeeDistance)) return;
         if(attackZone.bounds.Contains(Player.Instance.transform.position) && sword.ready)
         {
             animator.SetTrigger("baseSwordAttack");
+            if (Random.Range(0, 3) == 0)
+            {
+                sword.SetReloadTime(0f);
+            }
         }else if (_stompReloadTime <= 0 && canMove && Mathf.Abs(xDist) >= startStompDistance)
         {
             _stompReloadTime = stompReload;
