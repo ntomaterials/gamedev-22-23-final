@@ -66,6 +66,15 @@ public class InputHandler : MonoBehaviour
         {
             player.Roll();
         }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            player.StartCrouch();
+        }
+        else
+        {
+            player.StopCrouch();
+        }
         CheckForWeaponChange();
         _lastInputAxis = inputAxis;
     }

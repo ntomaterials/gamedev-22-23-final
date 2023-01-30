@@ -27,6 +27,7 @@ public class Player : Creature
     [SerializeField] private float rollSpeed=3f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
+    [SerializeField] private Collider2D crouchCollider;
 
     [SerializeField]
     private SpriteRenderer stunIndicator;
@@ -36,6 +37,7 @@ public class Player : Creature
 
     public bool isJumping { get; private set; }
     public bool blocking { get; private set; }
+    public bool crouching { get; private set; }
 
     public event XpChanged onXpChanged;
     public delegate void XpChanged(int value);
@@ -94,7 +96,7 @@ public class Player : Creature
     public override void Run(float direction)
     {
         // во время атаки нельзя менять направление движения
-        if (!canMove) return;
+        if (!canMove || crouching) return;
         base.Run(direction);
     }
     protected override void CheckIfGrounded()
@@ -104,7 +106,7 @@ public class Player : Creature
     }
     public void Jump()
     {
-        if (!isGrounded || isImpact || blocking || stunned) return;
+        if (!isGrounded || isImpact || blocking || stunned || crouching) return;
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -150,6 +152,21 @@ public class Player : Creature
             animator.SetTrigger("block");
         }
     }
+
+    public void StartCrouch()
+    {
+        
+        collider.enabled = false;
+        crouchCollider.enabled = true;
+        animator.SetBool("crouch", true);
+    }
+
+    public void StopCrouch()
+    {
+        collider.enabled = true;
+        crouchCollider.enabled = false;
+        animator.SetBool("crouch", false);
+    }
     # endregion
 
     public void SetWeapon(PlayerWeaponInfo weaponInfo)
@@ -174,7 +191,11 @@ public class Player : Creature
         if (_immortalTime > 0) return;
         if (blocking)
         {
-            if (GetXDirection() * direction.x < 0) return; // если атака спереди
+            print($"{GetXDirection()}, {direction.x }");
+            if (GetXDirection() * direction.x < 0)
+            {
+                return;
+            } // если атака спереди
             else
             {
                 StopBlock();
