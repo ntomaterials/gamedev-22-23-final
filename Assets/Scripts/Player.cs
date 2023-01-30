@@ -27,6 +27,7 @@ public class Player : Creature
     [SerializeField] private float rollSpeed=3f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
+    [SerializeField] private Collider2D defaultCollider;
     [SerializeField] private Collider2D crouchCollider;
 
     [SerializeField]
@@ -52,6 +53,7 @@ public class Player : Creature
     private void Awake()
     {
         base.Awake();
+        defaultCollider = collider;
         Instance = this;
         HpBarUpdate();
         SetWeapon(weaponsInfo[0]);
@@ -155,15 +157,19 @@ public class Player : Creature
 
     public void StartCrouch()
     {
-        
-        collider.enabled = false;
+        moveDirection = 0;
+        crouching = true;
         crouchCollider.enabled = true;
+        collider = crouchCollider;
+        defaultCollider.enabled = false;
         animator.SetBool("crouch", true);
     }
 
     public void StopCrouch()
     {
-        collider.enabled = true;
+        crouching = false;
+        defaultCollider.enabled = true;
+        collider = defaultCollider;
         crouchCollider.enabled = false;
         animator.SetBool("crouch", false);
     }

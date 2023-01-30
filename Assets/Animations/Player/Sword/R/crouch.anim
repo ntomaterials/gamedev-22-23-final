@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: crouchR
+  m_Name: crouch
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 9823feb7724f67f4eb15ac81c2e1e50f, type: 3}
-    - time: 0.53333336
+    - time: 0.16666667
       value: {fileID: 21300000, guid: 5a4b7e8f9348c6541ab7881a0675eb3c, type: 3}
     - time: 2.0333333
       value: {fileID: 21300000, guid: 5a4b7e8f9348c6541ab7881a0675eb3c, type: 3}
