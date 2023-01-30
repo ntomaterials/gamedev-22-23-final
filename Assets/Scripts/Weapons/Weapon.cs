@@ -11,7 +11,6 @@ public abstract class Weapon : MonoBehaviour
     [Header("Base stats")]
     [SerializeField] protected float reload;
     public int damage;
-    
     [Header("Melee")]
     public bool hasBlock;
     public float blockReload=1f;
@@ -43,6 +42,11 @@ public abstract class Weapon : MonoBehaviour
     protected virtual void Update()
     {
         reloadTime -= Time.deltaTime;
+    }
+
+    public void SetReloadTime(float time)
+    {
+        reloadTime = time;
     }
 
     public virtual bool ready

@@ -247,7 +247,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  knockbackPower: {x: 0, y: 0}
+  knockbackPower: {x: 10, y: 2}
   attackSounds: []
 --- !u!61 &377947543146264079
 BoxCollider2D:
@@ -506,6 +506,7 @@ MonoBehaviour:
     m_Bits: 1024
   particleRight: {fileID: 2887310000582907464}
   particleLeft: {fileID: 959567986439782892}
+  canSeeDistance: 14
   startDistanceAttackDistance: 1.5
   startMagicAttackDistance: 3
   magicAttackReload: 3
