@@ -191,7 +191,6 @@ public class Player : Creature
         if (_immortalTime > 0) return;
         if (blocking)
         {
-            print($"{GetXDirection()}, {direction.x }");
             if (GetXDirection() * direction.x < 0)
             {
                 return;
