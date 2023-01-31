@@ -40,6 +40,8 @@ public class Creature : MonoBehaviour
     [SerializeField] private AudioClip damageSound;
     [SerializeField] private AudioClip dieSound;
 
+    protected float moveDirection=0f;
+
     private List<Curse> _curses = new List<Curse>();
     private float _stunTime = 0f;
     
@@ -84,7 +86,7 @@ public class Creature : MonoBehaviour
             animator.SetFloat("speed", 0f);
         }
 
-        if (stunned && !isImpact)
+        if (moveDirection == 0 && !isImpact)
         {
             rigidbody.velocity = new Vector2(0f, rigidbody.velocity.y);
         }
@@ -132,6 +134,7 @@ public class Creature : MonoBehaviour
     /// </summary>
     public virtual void RotateByX(float direction)
     {
+        moveDirection = direction;
         if (direction == 0) return;
         else if (direction > 0)
         {
@@ -147,6 +150,7 @@ public class Creature : MonoBehaviour
     public virtual void Run(float direction, float newSpeed)
     {
         if ( isImpact || !canMove || stunned) return;
+        moveDirection = direction;
         speed = newSpeed;
         
         float vel = 0f;

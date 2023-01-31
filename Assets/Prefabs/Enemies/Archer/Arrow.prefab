@@ -135,8 +135,8 @@ MonoBehaviour:
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  damage: 2
-  knockbackPower: 0
+  damage: 3
+  knockbackPower: 3
   speed: 5
 --- !u!61 &7884177984360497438
 BoxCollider2D:
