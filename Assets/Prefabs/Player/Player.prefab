@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 9217571171358458620}
   - component: {fileID: 9217571171358458621}
   - component: {fileID: 1740727574}
+  - component: {fileID: 7200078332278989927}
   - component: {fileID: 4213171789397758884}
   - component: {fileID: 3518203490348457216}
   m_Layer: 10
@@ -247,6 +248,8 @@ MonoBehaviour:
   rollSpeed: 5
   jumpInteruptionCoef: 0.2
   hpBar: {fileID: 0}
+  defaultCollider: {fileID: 1740727574}
+  crouchCollider: {fileID: 7200078332278989927}
   stunIndicator: {fileID: 1969886669}
   jumpSound: {fileID: 8300000, guid: fba5d5585e72fe24db96b174e23466be, type: 3}
   rollSound: {fileID: 8300000, guid: 598307c82cbd3c947936e17e9788ccfa, type: 3}
@@ -306,6 +309,22 @@ CapsuleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.1}
   m_Size: {x: 0.28, y: 0.8}
+  m_Direction: 0
+--- !u!70 &7200078332278989927
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217571171358458619}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03950423, y: -0.25404322}
+  m_Size: {x: 0.3970667, y: 0.49191356}
   m_Direction: 0
 --- !u!114 &4213171789397758884
 MonoBehaviour:
@@ -374,7 +393,7 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
+  m_PointLightInnerRadius: 0.025001343
   m_PointLightOuterRadius: 1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0

@@ -6,6 +6,7 @@ public class LevelsData : MonoBehaviour
 {
     [field: SerializeField] public List<Level> allLevels { get; private set; }
     [SerializeField] private GameObject musicObj;
+    [SerializeField] private Cutscene startCutscene;
     //[HideInInspector] public int loadingLevelID; //Уровень, который мы хотим загрузить
     public Level levelOnScene { get; private set; }//Уровень, который сейчас загружен на карте
     public int lastSavedLevelID;
@@ -23,6 +24,7 @@ public class LevelsData : MonoBehaviour
         saveLoadManager.levelsData = this;
         Debug.Log(saveLoadManager.levelsData);
         saveLoadManager.LoadData();
+        startCutscene.onCutsceneEnded += LoadNewGame;
     }
     public void LoadLevel(int loadingID)
     {
@@ -35,6 +37,16 @@ public class LevelsData : MonoBehaviour
             }
         }
         else Loading(loadingID);
+    }
+    public void StartLoadNewGame()
+    {
+        startCutscene.PlayCutscene();
+    }
+    public void LoadNewGame()
+    {
+        LoadLevel(0);
+        levelOnScene.lastFireID = 0;
+        levelOnScene.LoadLevelObjects(null);
     }
     private void Loading(int loadingID)
     {
