@@ -107,7 +107,7 @@ public class Creature : MonoBehaviour
     protected virtual void CheckIfGrounded()
     {
         RaycastHit2D hit;
-        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.y * Vector3.down ;
+        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.y * Vector3.down;
         
         // box должен быть чуть меньше чтобы избежать срабатываний при приблежении вплотную к стене
         Vector2 size = new Vector2(collider.bounds.size.x - 0.01f, GroundCheckDistance);
