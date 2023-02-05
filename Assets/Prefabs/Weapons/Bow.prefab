@@ -81,7 +81,7 @@ MonoBehaviour:
   rightPlayerAnimation: {fileID: 22100000, guid: c038d6789c23c304e98bb0512cfd44e1,
     type: 2}
   reload: 1
-  damage: 1
+  damage: 3
   hasBlock: 0
   blockReload: 1
   dashSpeed: 0
