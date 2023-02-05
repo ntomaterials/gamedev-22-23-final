@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 9217571171358458620}
   - component: {fileID: 9217571171358458621}
   - component: {fileID: 1740727574}
+  - component: {fileID: 7200078332278989927}
   - component: {fileID: 4213171789397758884}
   - component: {fileID: 3518203490348457216}
   m_Layer: 10
@@ -137,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 9217571171358458619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.42, y: -0.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1969886667}
@@ -211,7 +212,7 @@ MonoBehaviour:
   animatorR: {fileID: 0}
   animatorL: {fileID: 0}
   <maxHealth>k__BackingField: 25
-  speed: 3
+  speed: 3.5
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -242,11 +243,13 @@ MonoBehaviour:
       type: 2}
   jumpForce: 12
   immortalDuration: 0.3
-  rollReload: 3
+  rollReload: 1.5
   rollDuration: 0.5
   rollSpeed: 5
   jumpInteruptionCoef: 0.2
   hpBar: {fileID: 0}
+  defaultCollider: {fileID: 1740727574}
+  crouchCollider: {fileID: 7200078332278989927}
   stunIndicator: {fileID: 1969886669}
   jumpSound: {fileID: 8300000, guid: fba5d5585e72fe24db96b174e23466be, type: 3}
   rollSound: {fileID: 8300000, guid: 598307c82cbd3c947936e17e9788ccfa, type: 3}
@@ -307,6 +310,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.1}
   m_Size: {x: 0.28, y: 0.8}
   m_Direction: 0
+--- !u!70 &7200078332278989927
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217571171358458619}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03950423, y: -0.25404322}
+  m_Size: {x: 0.3970667, y: 0.49191356}
+  m_Direction: 0
 --- !u!114 &4213171789397758884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,8 +342,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.4
+  m_Color: {r: 0.8962264, g: 0.700901, b: 0.33312562, a: 1}
+  m_Intensity: 0.6
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -374,7 +393,7 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
+  m_PointLightInnerRadius: 0.025001343
   m_PointLightOuterRadius: 1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0

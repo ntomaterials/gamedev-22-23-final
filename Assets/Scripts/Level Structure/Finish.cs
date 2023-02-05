@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-    [SerializeField] private int loadingID;
-    private LevelsData levelsData;
-    private void Awake()
+    [SerializeField] protected int loadingID;
+    protected LevelsData levelsData;
+    protected void Awake()
     {
         levelsData = FindObjectOfType<LevelsData>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
-            levelsData.levelOnScene.enemyHolder.KillEnemies();
-            levelsData.LoadLevel(loadingID);     
+            LoadNextLevel();
         }
+    }
+    protected void LoadNextLevel()
+    {
+        levelsData.levelOnScene.enemyHolder.KillEnemies();
+        levelsData.LoadLevel(loadingID);
     }
 }

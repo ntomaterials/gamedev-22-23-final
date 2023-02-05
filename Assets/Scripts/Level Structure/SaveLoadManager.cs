@@ -12,7 +12,6 @@ public class SaveLoadManager : MonoBehaviour
     public string fileName="reservSave";
 
     public LevelsData levelsData;
-
     //public DeathMarker deathMarker;
    // public Transform deathMarkerPos;
     private void Start()
@@ -65,10 +64,9 @@ public class SaveLoadManager : MonoBehaviour
     public void NewGame()
     {
         Debug.Log("New Game");
-        levelsData.LoadLevel(0);
-        levelsData.levelOnScene.lastFireID = 0;
-        levelsData.levelOnScene.LoadLevelObjects(null);
+        levelsData.StartLoadNewGame();
     }
+
     [System.Serializable]
     public class Save
     {
