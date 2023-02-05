@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reload: 1
-  damage: 3
+  damage: 1
   hasBlock: 0
   blockReload: 1
   dashSpeed: 0
