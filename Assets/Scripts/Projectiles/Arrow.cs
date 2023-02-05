@@ -7,7 +7,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     [SerializeField] private LayerMask attackLayerMask;
-    [SerializeField] private int damage = 1;
+    public int damage = 1;
     [SerializeField] private float knockbackPower = 2f;
     public float speed = 5f;
 

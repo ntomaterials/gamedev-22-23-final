@@ -90,9 +90,9 @@ public class Enemy : Creature
     public bool CheckWall()
     {
         RaycastHit2D hit;
-        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x * transform.right;
+        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x*transform.localScale.x * transform.right;
         
-        Vector2 size = new Vector2(0.2f, collider.bounds.size.y - 0.01f);
+        Vector2 size = new Vector2(0.2f, collider.bounds.size.y- 0.01f);
         
         hit = Physics2D.BoxCast(positionToCheck, size, 0f, transform.right, 0.1f, groundLayerMask);
         if (hit.collider != null)
@@ -108,7 +108,7 @@ public class Enemy : Creature
     public bool CheckEdge()
     {
         bool mustTurn=false;
-        Vector3 pos = transform.position + transform.right * collider.bounds.extents.x + Vector3.down * collider.bounds.extents.y;
+        Vector3 pos = transform.position + transform.right * collider.bounds.extents.x*transform.localScale.x + Vector3.down * collider.bounds.extents.y;
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, checkRadius, groundLayerMask);
         if (cols.Length == 0) mustTurn = true;
         return mustTurn;
