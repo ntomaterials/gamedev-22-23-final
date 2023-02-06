@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: a8ddec12ec397d549ac8ee9690410ae7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   animatorR: {fileID: 0}
   animatorL: {fileID: 0}
   <maxHealth>k__BackingField: 25
-  speed: 3
+  speed: 2.5
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -241,7 +241,7 @@ MonoBehaviour:
       type: 2}
     rightPlayerAnimation: {fileID: 22100000, guid: c038d6789c23c304e98bb0512cfd44e1,
       type: 2}
-  jumpForce: 12
+  jumpForce: 9
   immortalDuration: 0.3
   rollReload: 1.5
   rollDuration: 0.5
