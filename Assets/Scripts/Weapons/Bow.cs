@@ -10,7 +10,7 @@ public class Bow : Weapon
         if (reloadTime > 0f) return;
         if(shotSound!=null) audioSource.PlayOneShot(shotSound);
         reloadTime = reload;
-        Arrow pr = Instantiate(projectilePrefab, firePoint.position, transform.parent.rotation);
-        pr.damage = this.damage;//“ак будет удобнее настраивать урон стрел. ћожно еще к лучнику похожее написать
+        Arrow arrow = Instantiate(projectilePrefab, firePoint.position, transform.parent.rotation).GetComponent<Arrow>();
+        arrow.damage = this.damage;//“еперь урон лука удобнее настроить из префаба лука (надо бы еще лучником похожее прикрутить)
     }
 }

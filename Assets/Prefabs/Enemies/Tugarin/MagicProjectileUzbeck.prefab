@@ -52,8 +52,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   damage: 1
-  knockbackPower: 1
-  speed: 3
+  knockbackPower: 4
+  speed: 4
 --- !u!61 &7884177984360497438
 BoxCollider2D:
   m_ObjectHideFlags: 0
