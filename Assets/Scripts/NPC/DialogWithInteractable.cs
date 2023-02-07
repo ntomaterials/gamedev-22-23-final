@@ -25,10 +25,15 @@ public class DialogWithInteractable : MonoBehaviour
 
     protected void TryShowTutorial()
     {
-        float dist = (Player.Instance.transform.position - transform.position).magnitude;
-        if (dist > _collider.size.x/2) return;
-        if (dialogScreen.active) HideTutorial();
-        else { ShowTutorial(); }
+        //float dist = (Player.Instance.transform.position - transform.position).magnitude;
+        //if (dist > _collider.size.x/2) return;
+        print("beba");
+        if (dialogScreen.activeInHierarchy) HideTutorial();
+        else 
+        {
+
+            ShowTutorial();
+        }
     }
 
     protected void ShowTutorial()
