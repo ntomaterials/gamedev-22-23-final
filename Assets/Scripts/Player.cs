@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -27,8 +28,12 @@ public class Player : Creature
     [SerializeField] private float rollSpeed=3f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private Image hpBar;
-    [SerializeField] private Collider2D defaultCollider;
-    [SerializeField] private Collider2D crouchCollider;
+    
+    private CapsuleCollider2D _capsuleCollider;
+    [SerializeField] private PlayerColliderInfo deafultColliderInfo;
+    [SerializeField] private PlayerColliderInfo crouchColliderInfo;
+    [SerializeField] private PlayerColliderInfo rollColliderInfo;
+
 
     [SerializeField]
     private SpriteRenderer stunIndicator;
@@ -49,11 +54,12 @@ public class Player : Creature
     private float _rollReloadTime;
     private float _blockReloadTime=0f;
     private Weapon currentWeapon;
+    
 
     private void Awake()
     {
         base.Awake();
-        defaultCollider = collider;
+        _capsuleCollider = (CapsuleCollider2D)collider;
         Instance = this;
         HpBarUpdate();
         SetWeapon(weaponsInfo[0]);
@@ -139,10 +145,14 @@ public class Player : Creature
     {
         if (_rollReloadTime > 0 || stunned || isImpact || !canMove) return;;
         BecomeImmortal(rollDuration);
+        
         animator.SetTrigger("roll");
         _rollReloadTime = rollReload + rollDuration;
         StartCoroutine(GetImpact(new Vector2(rollSpeed * GetXDirection(), 0), rollDuration));
         if(rollSound!=null) audioSource.PlayOneShot(rollSound);
+        
+        SetPlayerCollider(rollColliderInfo);
+        StartCoroutine(SetPlayerCollider(deafultColliderInfo, rollDuration));
     }
     public void Block()
     {
@@ -159,20 +169,31 @@ public class Player : Creature
     {
         moveDirection = 0;
         crouching = true;
-        crouchCollider.enabled = true;
-        collider = crouchCollider;
-        defaultCollider.enabled = false;
+        SetPlayerCollider(crouchColliderInfo);
         animator.SetBool("crouch", true);
     }
 
     public void StopCrouch()
     {
+        if (!crouching) return;
         crouching = false;
-        defaultCollider.enabled = true;
-        collider = defaultCollider;
-        crouchCollider.enabled = false;
+        SetPlayerCollider(deafultColliderInfo);
         animator.SetBool("crouch", false);
     }
+
+    private void SetPlayerCollider(PlayerColliderInfo info)
+    {
+        _capsuleCollider.size = info.size;
+        _capsuleCollider.offset = info.offset;
+    }
+
+    private IEnumerator SetPlayerCollider(PlayerColliderInfo info, float time)
+    {
+        yield return new WaitForSeconds(time);
+        
+        SetPlayerCollider(info);
+    }
+    
     # endregion
 
     public void SetWeapon(PlayerWeaponInfo weaponInfo)
@@ -299,6 +320,15 @@ public class Player : Creature
     {
         blocking = false;
     }
+    public void StartRoll()
+    {
+        blocking = true;
+    }
+
+    public void StopRoll()
+    {
+        blocking = false;
+    }
     #endregion
 }
 
@@ -308,4 +338,11 @@ public class PlayerWeaponInfo
     public GameObject weaponPrefab;
     public AnimatorOverrideController leftPlayerAnimation;
     public AnimatorOverrideController rightPlayerAnimation;
+}
+
+[System.Serializable]
+public class PlayerColliderInfo
+{
+    public Vector2 size=new Vector2(0.28f, 0.8f);
+    public Vector2 offset=new Vector2(0, -0.1f);
 }
