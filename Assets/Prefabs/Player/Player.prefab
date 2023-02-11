@@ -240,6 +240,7 @@ MonoBehaviour:
   rollDuration: 0.5
   rollSpeed: 5
   jumpInteruptionCoef: 0.2
+  climbingSpeed: 1.5
   hpBar: {fileID: 0}
   deafultColliderInfo:
     size: {x: 0.28, y: 0.8}
@@ -253,6 +254,9 @@ MonoBehaviour:
   stunIndicator: {fileID: 1969886669}
   jumpSound: {fileID: 8300000, guid: fba5d5585e72fe24db96b174e23466be, type: 3}
   rollSound: {fileID: 8300000, guid: 598307c82cbd3c947936e17e9788ccfa, type: 3}
+  climbingZoneLayerMask:
+    serializedVersion: 2
+    m_Bits: 1048576
 --- !u!50 &9217571171358458620
 Rigidbody2D:
   serializedVersion: 4
