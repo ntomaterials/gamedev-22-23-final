@@ -27,6 +27,9 @@ public class Player : Creature
     [SerializeField] private float rollDuration = 0.5f; // надо подгонять под длительность анимации(
     [SerializeField] private float rollSpeed=3f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
+    [SerializeField] private float climbingSpeed = 1.5f;
+    
+    [Header("Init")]
     [SerializeField] private Image hpBar;
     
     private CapsuleCollider2D _capsuleCollider;
@@ -41,9 +44,13 @@ public class Player : Creature
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip rollSound;
 
+    [SerializeField] private LayerMask climbingZoneLayerMask;
+
     public bool isJumping { get; private set; }
     public bool blocking { get; private set; }
     public bool crouching { get; private set; }
+    public bool climbing { get; private set; }
+    public bool canClimb { get; private set; }
 
     public event XpChanged onXpChanged;
     public delegate void XpChanged(int value);
@@ -70,6 +77,7 @@ public class Player : Creature
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        CheckCanClimbing();
         _rollReloadTime -= Time.fixedDeltaTime;
         _blockReloadTime -= Time.fixedDeltaTime;
         _immortalTime -= Time.fixedDeltaTime;
@@ -89,6 +97,8 @@ public class Player : Creature
         {
             rigidbody.velocity = transform.right * currentWeapon.dashSpeed;
         }
+        
+        if (!canClimb && climbing) StopClimbing();
     }
 
     public void GetXp(int xp)
@@ -112,14 +122,19 @@ public class Player : Creature
         base.CheckIfGrounded();
         if (isGrounded) isJumping = false;
     }
-    public void Jump()
+    public void Jump(bool checkGrounded)
     {
-        if (!isGrounded || isImpact || blocking || stunned || crouching) return;
+        if (checkGrounded &&(!isGrounded || isImpact || blocking || stunned || crouching)) return;
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
         animator.SetBool("jumping", isJumping);
         if(jumpSound!=null) audioSource.PlayOneShot(jumpSound);
+    }
+
+    public void Jump()
+    {
+        Jump(true);
     }
 
     public void StopJump()
@@ -181,6 +196,35 @@ public class Player : Creature
         animator.SetBool("crouch", false);
     }
 
+    public void StartClimbing()
+    {
+        if (climbing) return;
+        if (!canMove || crouching) return;
+        
+        RotateByX(1);
+        rigidbody.velocity = Vector2.zero;
+        climbing = true;
+        rigidbody.isKinematic = true;
+        animator.SetBool("climbing", true);
+    }
+    public void StopClimbing()
+    {
+        climbing = false;
+        rigidbody.isKinematic = false;
+        animator.SetBool("climbing", false);
+    }
+
+    private void CheckCanClimbing()
+    {
+        canClimb = Physics2D.OverlapCircle(transform.position, 0.1f, climbingZoneLayerMask);
+    }
+
+    public void Climb(Vector2 direction)
+    {
+        transform.Translate(direction.normalized * climbingSpeed * Time.deltaTime);
+    }
+
+    # endregion
     private void SetPlayerCollider(PlayerColliderInfo info)
     {
         _capsuleCollider.size = info.size;
@@ -193,8 +237,6 @@ public class Player : Creature
         
         SetPlayerCollider(info);
     }
-    
-    # endregion
 
     public void SetWeapon(PlayerWeaponInfo weaponInfo)
     {

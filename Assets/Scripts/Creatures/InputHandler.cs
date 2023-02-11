@@ -16,6 +16,7 @@ public class InputHandler : MonoBehaviour
 
     public event Xinput isXinput;
     public delegate void Xinput(bool isInput);
+    
     //private MainMenu menu;
     private void Awake()
     {
@@ -25,20 +26,68 @@ public class InputHandler : MonoBehaviour
     private void Update()
     {
         if (player == null) return;
-        Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
-        if (Input.GetKeyDown(KeyCode.S))
+        if (!(inputAxis.x == 0 && _lastInputAxis.x != 0))
         {
-            player.Roll();
-        } // нужно чтобы при смене направления движения не срабатывала idle анимация
-        else if (!(inputAxis.x == 0 && _lastInputAxis.x != 0))
-        {
-            player.Run(inputAxis.x);
             isXinput?.Invoke(true);
         }
         else isXinput?.Invoke(false);
 
+        BaseCheck();
+        if (!player.climbing)
+        {
+            DefaultMovementCheck();
+        }
+        else
+        {
+         ClimbingCheck();   
+        }
+        
+        CheckForWeaponChange();
+        
+        _lastInputAxis = inputAxis;
+    }
+
+    private void ClimbingCheck()
+    {
+        player.Climb(new Vector2(inputAxis.x, inputAxis.y));
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player.StopClimbing();
+            player.Jump(false);
+        }
+    }
+
+    private void BaseCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) onMenuBtnUp?.Invoke();
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            onActionBtnUp?.Invoke();
+            if (!player.climbing && player.canClimb)
+            {
+                player.StartClimbing();
+            }
+            else
+            {
+                player.StopClimbing();
+            }
+        }
+    }
+
+    private void DefaultMovementCheck()
+    {
+        player.Run(inputAxis.x);
+        if (Input.GetButtonDown("Fire1")) player.StartBaseAttack();
+        
+        else if(Input.GetMouseButtonDown(1)) player.Block();
+
+        if (Input.GetKeyUp(KeyCode.S)) player.Roll();
+
+        if (Input.GetKey(KeyCode.LeftShift)) player.StartCrouch();
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             player.Jump();
@@ -46,38 +95,9 @@ public class InputHandler : MonoBehaviour
         {
             player.StopJump();
         }
-        if (Input.GetButtonDown("Fire1"))
-        {
-            player.StartBaseAttack();
-        }
-        else if(Input.GetMouseButtonDown(1))
-        {
-            player.Block();
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            onActionBtnUp?.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            onMenuBtnUp?.Invoke();
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            player.Roll();
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            player.StartCrouch();
-        }
-        else
-        {
-            player.StopCrouch();
-        }
-        CheckForWeaponChange();
-        _lastInputAxis = inputAxis;
+        else player.StopCrouch();
     }
+    
 
     private void CheckForWeaponChange() // судя по всему без новой InputSystem по другому никак
     {
