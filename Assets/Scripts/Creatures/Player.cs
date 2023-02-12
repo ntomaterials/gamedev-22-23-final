@@ -274,6 +274,8 @@ public class Player : Creature
         currentWeapon.SlashStop();
         blocking = false;
         animator.SetTrigger("damage");
+        
+        StopClimbing();
         base.GetDamage(damage, direction);
         HpBarUpdate();
     }
