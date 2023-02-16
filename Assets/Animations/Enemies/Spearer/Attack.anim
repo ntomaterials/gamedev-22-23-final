@@ -21,11 +21,11 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 06ac9e296889f644bb86198afa09aa19, type: 3}
-    - time: 0.16666667
+    - time: 0.1
       value: {fileID: 21300000, guid: 01de3e322b05e674992ef1ff17cf0f56, type: 3}
-    - time: 0.33333334
+    - time: 0.18333334
       value: {fileID: 21300000, guid: 3ffb62b18e6f4754dbebc1bea5251bc6, type: 3}
-    - time: 0.5833333
+    - time: 0.33333334
       value: {fileID: 21300000, guid: 3ffb62b18e6f4754dbebc1bea5251bc6, type: 3}
     attribute: m_Sprite
     path: 
@@ -55,7 +55,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.59999996
+    m_StopTime: 0.35000002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,22 +82,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.16666667
+  - time: 0.13333334
     functionName: SlashStart
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.56666666
-    functionName: SlashStop
+  - time: 0.33333334
+    functionName: ContinueMove
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.56666666
-    functionName: ContinueMove
+  - time: 0.33333334
+    functionName: SlashStop
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

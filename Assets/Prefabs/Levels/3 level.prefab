@@ -3747,8 +3747,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.40468195, y: -0.091471046}
-  m_Size: {x: 0.67484385, y: 0.07432843}
+  m_Offset: {x: 0.43352488, y: -0.091471046}
+  m_Size: {x: 0.7325297, y: 0.07432843}
   m_Direction: 1
 --- !u!114 &2440559876960868177
 MonoBehaviour:
@@ -3763,7 +3763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reload: 0
-  damage: 2
+  damage: 4
   hasBlock: 0
   blockReload: 1
   dashSpeed: 0
@@ -3781,7 +3781,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  knockbackPower: {x: 0, y: 0}
+  knockbackPower: {x: 4, y: 0}
   attackSounds:
   - {fileID: 8300000, guid: ce38385e626b1a749a24435686221754, type: 3}
   - {fileID: 8300000, guid: 0df287f1a1111e24eb51c8ec6399c5d8, type: 3}
