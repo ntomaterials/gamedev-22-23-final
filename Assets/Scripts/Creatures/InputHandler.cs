@@ -14,6 +14,9 @@ public class InputHandler : MonoBehaviour
     public event MenuBtnUp onMenuBtnUp;
     public delegate void MenuBtnUp();
 
+    public event DropBtnUp onDropBtnUp;
+    public delegate void DropBtnUp();
+
     public event Xinput isXinput;
     public delegate void Xinput(bool isInput);
     
@@ -75,6 +78,7 @@ public class InputHandler : MonoBehaviour
                 player.StopClimbing();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Q)) onDropBtnUp?.Invoke();
     }
 
     private void DefaultMovementCheck()

@@ -10,9 +10,11 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(PlayerInventory))]
 public class Player : Creature
 {
     public static Player Instance;
+    public static PlayerInventory Inventory;
 
     public int playerXp { get; private set; }///
     //[SerializeField] private DeathMarker deathMarker;///
@@ -28,8 +30,9 @@ public class Player : Creature
     [SerializeField] private float rollSpeed=3f;
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
     [SerializeField] private float climbingSpeed = 1.5f;
-    
+
     [Header("Init")]
+    public Transform dropPoint;
     [SerializeField] private Image hpBar;
     
     private CapsuleCollider2D _capsuleCollider;
@@ -68,6 +71,7 @@ public class Player : Creature
         base.Awake();
         _capsuleCollider = (CapsuleCollider2D)collider;
         Instance = this;
+        Inventory = GetComponent<PlayerInventory>();
         HpBarUpdate();
         SetWeapon(weaponsInfo[0]);
 
@@ -105,6 +109,11 @@ public class Player : Creature
     {
         onXpChanged?.Invoke(xp);
         playerXp += xp;
+    }
+    public void SpendXp(int xp)
+    {
+        onXpChanged?.Invoke(xp);
+        playerXp -= xp;
     }
     public void ResetXp()
     {
