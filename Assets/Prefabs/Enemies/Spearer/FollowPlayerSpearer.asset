@@ -15,4 +15,4 @@ MonoBehaviour:
   owner: {fileID: 0}
   changeSpeed: 1
   speed: 1.5
-  targetDistance: 0.8
+  targetDistance: 0.9

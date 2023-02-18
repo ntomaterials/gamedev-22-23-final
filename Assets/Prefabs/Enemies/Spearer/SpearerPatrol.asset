@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   changeSpeed: 1
-  stopWhenSeePlayerRadius: 3
+  stopWhenSeePlayerRadius: 0.5
   speed: 1
+  flipWhenNearToPlayer: 0
