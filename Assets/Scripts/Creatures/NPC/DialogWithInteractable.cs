@@ -8,7 +8,7 @@ public class DialogWithInteractable : MonoBehaviour
     protected Animator _animator;
     protected BoxCollider2D _collider;
     protected bool canShow;
-    protected void Start()
+    protected virtual void Start()
     {
         InputHandler.Instance.onActionBtnUp += TryShowTutorial;
         _animator = GetComponent<Animator>();
@@ -47,7 +47,7 @@ public class DialogWithInteractable : MonoBehaviour
         }
     }
 
-    protected void ShowTutorial()
+    protected virtual void ShowTutorial()
     {
         dialogScreen.gameObject.SetActive(true);
     }

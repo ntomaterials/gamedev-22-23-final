@@ -108,9 +108,15 @@ public class InputHandler : MonoBehaviour
         if (!Input.anyKeyDown) return;
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            player.SetWeapon(0);
+            if (player.IsWeaponsActive[0]) player.SetWeapon(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) player.SetWeapon(1);
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) player.SetWeapon(2);
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (player.IsWeaponsActive[1]) player.SetWeapon(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (player.IsWeaponsActive[2]) player.SetWeapon(2);
+        }
     }
 }

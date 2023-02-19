@@ -267,6 +267,13 @@ MonoBehaviour:
       type: 2}
     rightPlayerAnimation: {fileID: 22100000, guid: c038d6789c23c304e98bb0512cfd44e1,
       type: 2}
+  - weaponPrefab: {fileID: 4965490076838667676, guid: 356dadba21b0c0d48bb080b8de0c6a0d,
+      type: 3}
+    leftPlayerAnimation: {fileID: 22100000, guid: 30f5ea1f1c118944fb19d8a7581aabe5,
+      type: 2}
+    rightPlayerAnimation: {fileID: 22100000, guid: 37c41323adb68154fba4662dd57bc4f8,
+      type: 2}
+  <IsWeaponsActive>k__BackingField: 010100
   jumpForce: 10
   immortalDuration: 0.3
   rollReload: 1.5
