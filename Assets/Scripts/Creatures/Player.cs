@@ -22,6 +22,7 @@ public class Player : Creature
     //private LevelsData levelsData;
     [Header("Player")]
     [SerializeField] private PlayerWeaponInfo[] weaponsInfo;
+    [field: SerializeField] public bool[] IsWeaponsActive { get; private set; }
     
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float immortalDuration = 1f;
@@ -261,6 +262,10 @@ public class Player : Creature
     {
         if (weaponsInfo.Length <= id) return;
         SetWeapon(weaponsInfo[id]);
+    }
+    public void ActiveNewWeapon(int id)
+    {
+        IsWeaponsActive[id] = true;
     }
 
     # region Damage Health Die
