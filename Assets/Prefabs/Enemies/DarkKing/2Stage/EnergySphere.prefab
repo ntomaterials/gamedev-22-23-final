@@ -117,7 +117,7 @@ MonoBehaviour:
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 17408
-  damage: 1
+  damage: 5
   knockbackPower: 3
 --- !u!58 &1116678792686368441
 CircleCollider2D:

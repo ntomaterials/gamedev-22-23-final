@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9054581399579293864}
   - component: {fileID: 6453854531593735027}
   - component: {fileID: 2020344812485509878}
+  - component: {fileID: 5756092749960812054}
   m_Layer: 0
   m_Name: MagicCloud
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4549810267803590697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 31defe911358c0e40afc759b0de219fb,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd44c266405433049a04f4e766797f60, type: 3}
   m_Color: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,9 +100,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectiles:
   - {fileID: 7884177984360497432, guid: b747e1b213e521746ae0a5ac8dbba938, type: 3}
+  - {fileID: 7884177984360497432, guid: 0e3d2e37fd1afc74392af3d7ad870ef2, type: 3}
+  - {fileID: 7884177984360497432, guid: 4093c26ce404c92408d0f33ed1df5511, type: 3}
   rotations:
   - {x: 0, y: 0, z: 0, w: 1}
   - {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
   - {x: 0, y: 0, z: 1, w: -0.00000004371139}
   - {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
   shootDelay: 1
+--- !u!95 &5756092749960812054
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4549810267803590697}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d38a2d0ba7a9e1429930275d9a8e791, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
