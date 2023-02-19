@@ -11,12 +11,12 @@ public class Arrow : MonoBehaviour
     [SerializeField] private float knockbackPower = 2f;
     public float speed = 5f;
 
-    private Rigidbody2D _rigidbody;
+    protected Rigidbody2D rigidbody;
 
-    private void Start()
+    protected virtual void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.velocity = transform.right * speed;// new Vector3(0, _rigidbody.velocity.y) + transform.right * speed;
+        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.velocity = transform.right * speed;// new Vector3(0, _rigidbody.velocity.y) + transform.right * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -26,7 +26,7 @@ public class Arrow : MonoBehaviour
             Creature cr = col.collider.GetComponent<Creature>();
             if (cr)
             {
-                Vector2 knock = ((_rigidbody.velocity.x * Vector2.right).normalized + Vector2.up * 0.5f) * knockbackPower;
+                Vector2 knock = ((rigidbody.velocity.x * Vector2.right).normalized + Vector2.up * 0.5f) * knockbackPower;
                 cr.GetDamage(damage, knock);
             }
         }
