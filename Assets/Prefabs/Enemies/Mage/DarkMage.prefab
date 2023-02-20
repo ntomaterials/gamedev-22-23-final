@@ -123,7 +123,7 @@ MonoBehaviour:
   startState: {fileID: 11400000, guid: 40506618e48e29c4f9385d7e1a3888ca, type: 2}
   teleportReload: 5
   teleportTriggerRadius: 2
-  teleportRadius: 4
+  teleportRadius: 2
   curseCaster: {fileID: 9203948129396513305}
   canNotSpawnIn:
     serializedVersion: 2

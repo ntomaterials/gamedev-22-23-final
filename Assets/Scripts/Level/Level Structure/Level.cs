@@ -11,6 +11,7 @@ public class Level : MonoBehaviour
 
     public EnemyHolder enemyHolder;
     [field: SerializeField] public Transform playerSpawn { get; private set; }
+    //[field: SerializeField] public AudioClip levelMusic { get; private set; }
 
     private LevelsData levelsData;
     private SaveLoadManager saveLoadManager;

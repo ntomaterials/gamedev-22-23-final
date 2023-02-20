@@ -14,6 +14,9 @@ public class InputHandler : MonoBehaviour
     public event MenuBtnUp onMenuBtnUp;
     public delegate void MenuBtnUp();
 
+    public event DropBtnUp onDropBtnUp;
+    public delegate void DropBtnUp();
+
     public event Xinput isXinput;
     public delegate void Xinput(bool isInput);
     
@@ -75,6 +78,7 @@ public class InputHandler : MonoBehaviour
                 player.StopClimbing();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Q)) onDropBtnUp?.Invoke();
     }
 
     private void DefaultMovementCheck()
@@ -104,9 +108,15 @@ public class InputHandler : MonoBehaviour
         if (!Input.anyKeyDown) return;
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            player.SetWeapon(0);
+            if (player.IsWeaponsActive[0]) player.SetWeapon(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) player.SetWeapon(1);
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) player.SetWeapon(2);
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (player.IsWeaponsActive[1]) player.SetWeapon(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (player.IsWeaponsActive[2]) player.SetWeapon(2);
+        }
     }
 }

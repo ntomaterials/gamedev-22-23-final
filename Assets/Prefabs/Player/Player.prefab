@@ -105,6 +105,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &3008870034733768248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 906746666525467973}
+  m_Layer: 10
+  m_Name: DropPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &906746666525467973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008870034733768248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.25, y: 0.178, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9217571171358458617}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9217571171358458619
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,6 +152,7 @@ GameObject:
   - component: {fileID: 1740727574}
   - component: {fileID: 4213171789397758884}
   - component: {fileID: 3518203490348457216}
+  - component: {fileID: 1181889378610454517}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -141,6 +173,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1969886667}
+  - {fileID: 906746666525467973}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -234,6 +267,13 @@ MonoBehaviour:
       type: 2}
     rightPlayerAnimation: {fileID: 22100000, guid: c038d6789c23c304e98bb0512cfd44e1,
       type: 2}
+  - weaponPrefab: {fileID: 4965490076838667676, guid: 356dadba21b0c0d48bb080b8de0c6a0d,
+      type: 3}
+    leftPlayerAnimation: {fileID: 22100000, guid: 30f5ea1f1c118944fb19d8a7581aabe5,
+      type: 2}
+    rightPlayerAnimation: {fileID: 22100000, guid: 37c41323adb68154fba4662dd57bc4f8,
+      type: 2}
+  <IsWeaponsActive>k__BackingField: 010100
   jumpForce: 10
   immortalDuration: 0.3
   rollReload: 1.5
@@ -241,6 +281,7 @@ MonoBehaviour:
   rollSpeed: 5
   jumpInteruptionCoef: 0.2
   climbingSpeed: 1.5
+  dropPoint: {fileID: 906746666525467973}
   hpBar: {fileID: 0}
   deafultColliderInfo:
     size: {x: 0.28, y: 0.8}
@@ -405,7 +446,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -489,3 +530,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1181889378610454517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217571171358458619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb86327a3e07104898da0bcf552ce11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCapacity: 0
+  baseProduct: {fileID: 0}
+  icon: {fileID: 0}
+  countText: {fileID: 0}

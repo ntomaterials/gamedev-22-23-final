@@ -122,8 +122,8 @@ MonoBehaviour:
   knockbackPower: 1.5
   startState: {fileID: 11400000, guid: 40506618e48e29c4f9385d7e1a3888ca, type: 2}
   teleportReload: 5
-  teleportTriggerRadius: 2
-  teleportRadius: 4
+  teleportTriggerRadius: 1
+  teleportRadius: 2
   curseCaster: {fileID: 3438924293276898433}
   canNotSpawnIn:
     serializedVersion: 2
