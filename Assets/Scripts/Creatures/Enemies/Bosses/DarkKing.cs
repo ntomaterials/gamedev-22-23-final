@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public class DarkKing : Enemy
 {
     [Header("Init")]
@@ -12,6 +15,7 @@ public class DarkKing : Enemy
     [SerializeField] private State dancingState;
     [SerializeField] private Sword sword;
     [SerializeField] private GameObject magicCloudPrefab;
+    [SerializeField] private Animator[] platformAnimators;
     [Space(5)]
     [SerializeField] private LayerMask attackLayers;
     
@@ -39,6 +43,11 @@ public class DarkKing : Enemy
     {
         base.Awake();
         bossTrigger = FindObjectOfType<BossTrigger>();
+    }
+
+    private void Start()
+    {
+        SetActivePlatforms(false);
     }
 
     protected override void ChooseNewState()
@@ -89,6 +98,7 @@ public class DarkKing : Enemy
 
     private IEnumerator LightingAttack()
     {
+        SetActivePlatforms(true);
         Instantiate(floorLightingWarningPrefab, floorLightingSpawnPosition.position,
             Quaternion.identity);
         
@@ -101,6 +111,7 @@ public class DarkKing : Enemy
             yield return new WaitForSeconds(timeBetweenLightingAttack);
         }
         SetState(runToPlayerState);
+        SetActivePlatforms(false);
         
         animator.SetBool("laught", false);
         _dancing = false;
@@ -141,7 +152,16 @@ public class DarkKing : Enemy
     {
         head.transform.position = transform.position;
         head.SetActive(true);
+        SetActivePlatforms(false);
         base.Die();
+    }
+
+    private void SetActivePlatforms(bool active)
+    {
+        foreach (var anim in platformAnimators)
+        {
+            anim.SetBool("active", active);
+        }
     }
     #endregion
 

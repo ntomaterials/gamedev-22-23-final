@@ -179,8 +179,16 @@ public class DarkKingHead : Enemy
         float x = Player.Instance.transform.position.x;
         x += Random.Range(-portalsSpawnMaxDif, portalsSpawnMaxDif);
         Vector2 pos = new Vector2(x, battleZone.bounds.max.y);
-        GameObject portal = Instantiate(portalPrefab, pos, Quaternion.identity);
-        spawnedPortals.Add(portal);
+        if (pos.x > battleZone.bounds.min.x && pos.x < battleZone.bounds.max.x)
+        {
+            GameObject portal = Instantiate(portalPrefab, pos, portalPrefab.transform.rotation);
+            spawnedPortals.Add(portal);
+        }
+        else
+        {
+            SpawnPortal();
+        }
+        
     }
 
     private void JumpAttack()

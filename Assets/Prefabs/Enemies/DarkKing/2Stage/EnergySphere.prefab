@@ -117,6 +117,8 @@ MonoBehaviour:
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 17408
+  dieFlash: {fileID: 8855848394644052755, guid: 7884d0fa781e41945b22f6aa5ca389ef,
+    type: 3}
   damage: 5
   knockbackPower: 3
 --- !u!58 &1116678792686368441

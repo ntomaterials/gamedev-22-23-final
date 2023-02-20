@@ -4,6 +4,7 @@ using UnityEngine;
 public class Sphere : Creature
 {
     [SerializeField] private LayerMask attackLayerMask;
+    [SerializeField] private GameObject dieFlash;
     public int damage = 1;
     [SerializeField] private float knockbackPower = 2f;
     private void OnTriggerEnter2D(Collider2D col)
@@ -25,6 +26,11 @@ public class Sphere : Creature
     }
 
     public override void Die(){
+        if (dieFlash != null)
+        {
+            GameObject flash = Instantiate(dieFlash, transform.position, dieFlash.transform.rotation);
+            Destroy(flash, 0.2f);
+        }
         this.gameObject.SetActive(false);
     }
 }

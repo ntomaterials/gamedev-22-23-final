@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 47974888863636498}
   - component: {fileID: 2065850657745814861}
   - component: {fileID: 2698126782655291245}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,8 @@ GameObject:
   - component: {fileID: 4963863005329860436}
   - component: {fileID: 6703311904566424559}
   - component: {fileID: 1487789581839141985}
-  m_Layer: 8
+  - component: {fileID: 7558474784400318988}
+  m_Layer: 6
   m_Name: Platform Effector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,6 +512,26 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!95 &7558474784400318988
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963863005329860394}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3d3afcd8a908c7e4984bbc4a183fbb2a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8536507009579885868
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +545,7 @@ GameObject:
   - component: {fileID: 1130525851334348143}
   - component: {fileID: 4277098811364957499}
   - component: {fileID: 2831658549203541838}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
