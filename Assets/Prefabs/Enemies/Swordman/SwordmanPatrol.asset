@@ -16,3 +16,4 @@ MonoBehaviour:
   changeSpeed: 1
   stopWhenSeePlayerRadius: 3
   speed: 1
+  flipWhenNearToPlayer: 0

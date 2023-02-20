@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 public class Enemy : Creature
 {
     [SerializeField] private int dieXp;
@@ -6,6 +7,7 @@ public class Enemy : Creature
     [SerializeField] protected float knockbackPower = 1.5f;
     [SerializeField] protected State startState;
     protected State currentState;
+    
     
     private float checkRadius=0.15f;
     private Player player;
@@ -66,12 +68,13 @@ public class Enemy : Creature
     {
         transform.Rotate(Vector3.up, 180);
     }
+    
     # endregion
     # region Check func
 
     public bool MustTurn()
     {
-        return (CheckWall() || CheckEdge()) && isGrounded;
+        return CheckWall() || (CheckEdge() && isGrounded);
     }
 
     public bool CanSeePlayer(float dist)
@@ -89,13 +92,13 @@ public class Enemy : Creature
 
     public bool CheckWall()
     {
-        RaycastHit2D hit;
-        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x*transform.localScale.x * transform.right;
+        Collider2D hit;
+        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x*transform.localScale.x * transform.right + transform.right * 0.15f;
         
-        Vector2 size = new Vector2(0.2f, collider.bounds.size.y- 0.01f);
+        Vector2 size = new Vector2(0.01f, collider.bounds.size.y* 0.9f);
         
-        hit = Physics2D.BoxCast(positionToCheck, size, 0f, transform.right, 0.1f, groundLayerMask);
-        if (hit.collider != null)
+        hit = Physics2D.OverlapBox(positionToCheck, size, 0f,  groundLayerMask, -1f, 1f);
+        if (hit != null)
         {
             return true;
         }
@@ -103,6 +106,22 @@ public class Enemy : Creature
         {
             return false;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x*transform.localScale.x * transform.right;
+        
+        Vector2 size = new Vector2(0.2f, collider.bounds.size.y* 0.6f);
+        if (CheckWall())
+        {
+            Gizmos.color = Color.green;
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+        }
+        Gizmos.DrawWireCube(positionToCheck, size);
     }
 
     public bool CheckEdge()
@@ -117,10 +136,10 @@ public class Enemy : Creature
     
     public override void Die()
     {
-        base.Die();
         player.GetXp(dieXp);
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         collider.isTrigger = true;
         this.enabled = false;
+        base.Die();
     }
 }

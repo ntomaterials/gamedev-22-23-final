@@ -15,7 +15,6 @@ public class Sword : Weapon
     {
         _collider = GetComponent<Collider2D>();
         audioSource = GetComponent<AudioSource>();
-
     }
 
     /// <summary>
@@ -51,8 +50,25 @@ public class Sword : Weapon
             audioSource.PlayOneShot(attackSounds[i]);
         }
         slashActive = true;
-        reloadTime = reload;
         StartCoroutine(DamageWhileSlash());
+    }
+
+    public void SingleAttack()
+    {
+        List<Collider2D> hitColliders = new List<Collider2D>();
+        List<Creature> hittedCreatures = new List<Creature>();
+        Physics2D.OverlapCollider(_collider, contactFilter, hitColliders);
+
+        foreach (var col in hitColliders)
+        {
+            Creature creature = col.GetComponent<Creature>();
+            if (creature != null && !hittedCreatures.Contains(creature))
+            {
+                hittedCreatures.Add(creature);
+                creature.GetDamage(damage, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча
+            }
+        }
+        
     }
     public override void SlashStop()
     {

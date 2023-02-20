@@ -46,17 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf872eb5f33ca545a14ac597b93e9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftPlayerAnimation: {fileID: 22100000, guid: b6bcee17676a20d4887468bc82edc43c,
-    type: 2}
-  rightPlayerAnimation: {fileID: 22100000, guid: c63af74147ace58438dfdeb37977e5fb,
-    type: 2}
   reload: 1
   damage: 1
   hasBlock: 1
   blockReload: 1
   dashSpeed: 1
   contactFilter:
-    useTriggers: 0
+    useTriggers: 1
     useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0

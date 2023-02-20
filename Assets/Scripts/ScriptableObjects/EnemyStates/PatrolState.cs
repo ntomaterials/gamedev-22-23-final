@@ -10,7 +10,7 @@ public class PatrolState : State
     [SerializeField] private float speed;
     [SerializeField] private bool flipWhenNearToPlayer;
     
-    private int xDir = 1;
+    protected int xDir = 1;
     public override void Init(Enemy enemy)
     {
         base.Init(enemy);
@@ -33,7 +33,7 @@ public class PatrolState : State
         }
         if (owner.MustTurn())
         {
-            xDir *= -1;
+            Turn();
         }
 
         if (owner.canMove)
@@ -47,6 +47,10 @@ public class PatrolState : State
                 owner.Run(xDir);
             }
         }
-        
+    }
+
+    protected virtual void Turn()
+    {
+        xDir *= -1;
     }
 }

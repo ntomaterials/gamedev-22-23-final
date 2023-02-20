@@ -162,6 +162,7 @@ public class Player : Creature
     {
         if (currentWeapon.ready && !stunned)
         {
+            currentWeapon.ResetReload();
             animator.SetTrigger("attack");
         }
     }
@@ -367,7 +368,6 @@ public class Player : Creature
     public void Fire()
     {
         currentWeapon.Fire();
-        animator.ResetTrigger("attack");
     }
     public void StartBlock()
     {

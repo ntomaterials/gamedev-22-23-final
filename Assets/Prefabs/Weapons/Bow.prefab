@@ -83,7 +83,7 @@ MonoBehaviour:
   blockReload: 1
   dashSpeed: 0
   firePoint: {fileID: 4070605634889704073}
-  projectilePrefab: {fileID: 7884177984360497439, guid: bf0968a2afb092844accc0ca193cbe00,
+  projectilePrefab: {fileID: 7884177984360497432, guid: 40af64c3899b73e4bb272e59e4391446,
     type: 3}
   shotSound: {fileID: 0}
 --- !u!82 &931496728304969812
