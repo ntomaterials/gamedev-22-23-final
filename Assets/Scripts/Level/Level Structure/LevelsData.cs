@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelsData : MonoBehaviour
 {
     [field: SerializeField] public List<Level> allLevels { get; private set; }
-    [SerializeField] private GameObject musicObj;
+    //[SerializeField] private AudioSource musicObj;
     [SerializeField] private Cutscene startCutscene;
     //[HideInInspector] public int loadingLevelID; //Уровень, который мы хотим загрузить
     public Level levelOnScene { get; private set; }//Уровень, который сейчас загружен на карте
@@ -52,7 +52,8 @@ public class LevelsData : MonoBehaviour
     {
         levelOnScene= Instantiate(allLevels[loadingID].gameObject, Vector2.zero, Quaternion.identity).GetComponent<Level>();
         levelOnScene.id = loadingID;
-        Instantiate(musicObj);
-        //player.transform.position = levelOnScene.playerSpawn.position;
+        //AudioSource music = Instantiate(musicObj).GetComponent<AudioSource>();
+        //music.clip = levelOnScene.levelMusic;
+        player.transform.position = levelOnScene.playerSpawn.position;
     }
 }
