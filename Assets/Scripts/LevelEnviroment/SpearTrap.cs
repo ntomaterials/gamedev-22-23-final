@@ -15,13 +15,14 @@ public class SpearTrap : ToActiveCycle
     private Rigidbody2D rb;
     private float xEdgePoint;
     private bool isRight;
+    private const float woodY=0.067f;
     protected override void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
         startPos = transform.localPosition;
         xEdgePoint = startPos.x + length / 2;
-        woodSprite.size = new Vector2(length / 2, 0.5f);
+        woodSprite.size = new Vector2(length / 2, woodY);
         isRight = true;
     }
     private void Update()
