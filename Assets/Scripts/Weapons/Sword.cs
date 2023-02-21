@@ -46,8 +46,12 @@ public class Sword : Weapon
     {
         if (attackSounds.Count > 0)
         {
-            int i = Random.Range(0, attackSounds.Count);
-            audioSource.PlayOneShot(attackSounds[i]);
+            try
+            {
+                int i = Random.Range(0, attackSounds.Count);
+                audioSource.PlayOneShot(attackSounds[i]);
+            }
+            catch {  }
         }
         slashActive = true;
         StartCoroutine(DamageWhileSlash());

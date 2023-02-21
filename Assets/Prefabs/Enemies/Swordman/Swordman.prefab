@@ -289,6 +289,7 @@ MonoBehaviour:
   animatorR: {fileID: 0}
   animatorL: {fileID: 0}
   <maxHealth>k__BackingField: 3
+  _immunityLayers: 0e000000
   speed: 1
   groundLayerMask:
     serializedVersion: 2

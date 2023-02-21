@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1969886667
 Transform:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   speed: 2.4
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 67109184
   <timeToDie>k__BackingField: 0
   effectedByKnockback: 1
   canMove: 1

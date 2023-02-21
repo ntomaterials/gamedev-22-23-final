@@ -106,7 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorR: {fileID: 22100000, guid: c3c18b1688594064787cf032688caafe, type: 2}
   animatorL: {fileID: 22100000, guid: ad8770f7b9b4f1c478025b58ff99302c, type: 2}
-  <maxHealth>k__BackingField: 1
+  <maxHealth>k__BackingField: 2
+  _immunityLayers: 
   speed: 3
   groundLayerMask:
     serializedVersion: 2

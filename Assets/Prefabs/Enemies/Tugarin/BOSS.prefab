@@ -51,8 +51,7 @@ PrefabInstance:
         type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 7884177984360497439, guid: 7f47390718c0cf9499465e6555ad4ae2,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3613788856300184180, guid: 79bf5412ecdd3324a9274a66ec4b6059,
         type: 3}
       propertyPath: m_RootOrder
@@ -206,6 +205,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1952292502293623204, guid: eb6449e533e00c84a974906b921a96e4,
         type: 3}
+      propertyPath: _immunityLayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952292502293623204, guid: eb6449e533e00c84a974906b921a96e4,
+        type: 3}
       propertyPath: startDistanceAttackDistance
       value: 0.86
       objectReference: {fileID: 0}
@@ -213,6 +217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: <touchDamage>k__BackingField
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952292502293623204, guid: eb6449e533e00c84a974906b921a96e4,
+        type: 3}
+      propertyPath: _immunityLayers.Array.data[0]
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3331549262926212714, guid: eb6449e533e00c84a974906b921a96e4,
         type: 3}
@@ -418,8 +427,7 @@ PrefabInstance:
         type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 7884177984360497439, guid: 7f47390718c0cf9499465e6555ad4ae2,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3613788856300184180, guid: 79bf5412ecdd3324a9274a66ec4b6059,
         type: 3}
       propertyPath: m_RootOrder
