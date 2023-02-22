@@ -14,9 +14,7 @@ using UnityEngine.SceneManagement;
 public class Player : Creature
 {
     public static Player Instance;
-    public PlayerInventory KvasInventory;
-    public PlayerInventory MeetInventory;
-    //public PlayerInventory ArrowsInventory;
+    public static PlayerInventory Inventory;
 
     public int playerXp { get; private set; }///
     //[SerializeField] private DeathMarker deathMarker;///
@@ -87,10 +85,9 @@ public class Player : Creature
         _stamina = maxStamina;
         _capsuleCollider = (CapsuleCollider2D)collider;
         Instance = this;
-        //Inventory = GetComponent<PlayerInventory>();
+        Inventory = GetComponent<PlayerInventory>();
         HpBarUpdate();
         SetWeapon(weaponsInfo[0]);
-        GetKvas(KvasInventory.maxCapacity);
 
         //saveLoadManager = FindObjectOfType<SaveLoadManager>();
         //levelsData = FindObjectOfType<LevelsData>();
@@ -182,7 +179,7 @@ public class Player : Creature
 
     public void StartBaseAttack()
     {
-        if (currentWeapon.ready && _stamina>=_currentPlayerWeaponInfo.usageCost && !stunned)
+        if (currentWeapon.ready && !stunned)
         {
             currentWeapon.ResetReload();
             _stamina -= _currentPlayerWeaponInfo.usageCost;
@@ -241,13 +238,13 @@ public class Player : Creature
         rigidbody.velocity = Vector2.zero;
         climbing = true;
         rigidbody.isKinematic = true;
-        animator.SetBool("IsClimbingState", true);
+        animator.SetBool("climbing", true);
     }
     public void StopClimbing()
     {
         climbing = false;
         rigidbody.isKinematic = false;
-        animator.SetBool("IsClimbingState", false);
+        animator.SetBool("climbing", false);
     }
 
     private void CheckCanClimbing()
@@ -257,14 +254,8 @@ public class Player : Creature
 
     public void Climb(Vector2 direction)
     {
-        if (direction != Vector2.zero)
-        {
-            animator.SetBool("IsClimbingNow", true);
-        }
-        else
-        {
-            animator.SetBool("IsClimbingNow", false);
-        }
+        if (direction != Vector2.zero) animator.SetTrigger("climbing");
+        animator.SetFloat("speed", direction.magnitude);
         transform.Translate(direction.normalized * climbingSpeed * Time.deltaTime);
     }
 
@@ -333,18 +324,6 @@ public class Player : Creature
         if (_immortalTime > 0) return;
         base.GetDamage(damage);
         HpBarUpdate();
-    }
-    public override void Heal(int amount)
-    {
-        base.Heal(amount);
-        HpBarUpdate();
-    }
-    public void GetKvas(int count)
-    {
-        for (int i=0; i<count; i++)
-        {
-            KvasInventory.AddProduct(KvasInventory.baseProduct);
-        }
     }
 
     private void BecomeImmortal()
