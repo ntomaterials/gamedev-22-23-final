@@ -9,6 +9,7 @@ public class DarkKingHead : Enemy
     [SerializeField] [Tooltip("Attacks will spawn at this area")]  private Collider2D battleZone;
     [SerializeField] private Sword raw;
     [SerializeField] private Sword falldamageDiler;
+    [SerializeField] private Finish portal;
 
     [SerializeField] private State pacmanAttackState;
     [SerializeField] private WaitingState waveAttackState;
@@ -45,6 +46,7 @@ public class DarkKingHead : Enemy
         spawnedPortals = new List<GameObject>();
         targetYPosition = transform.position.y;
         _animator = GetComponent<Animator>();
+        portal.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -220,5 +222,10 @@ public class DarkKingHead : Enemy
         float xDir = Player.Instance.transform.position.x - transform.position.x;
         RotateByX(xDir);
     }
-    
+    public override void Die()
+    {
+        portal.gameObject.SetActive(true);
+        base.Die();
+    }
+
 }

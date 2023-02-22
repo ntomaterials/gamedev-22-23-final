@@ -24,8 +24,11 @@ public class PlayerInventory : MonoBehaviour // Сделаю по-колхозному. Надеюсь, в
     }
     public void AddProduct(Product product)
     {
-        products.Add(product);
-        UpdateCanvas();
+        if (products.Count < maxCapacity)
+        {
+            products.Add(product);
+            UpdateCanvas();
+        }
     }
     public void LoadInventory(int count)
     {
