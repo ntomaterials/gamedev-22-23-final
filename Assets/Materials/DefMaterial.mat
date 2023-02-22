@@ -44,7 +44,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - OffsetX: 0.001
+    - OffsetX: 0
     - OffsetY: 0
     - PixelSnap: 1
     - _BlendOp: 0
