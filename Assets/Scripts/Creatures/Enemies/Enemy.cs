@@ -110,18 +110,22 @@ public class Enemy : Creature
 
     private void OnDrawGizmosSelected()
     {
-        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x*transform.localScale.x * transform.right;
-        
-        Vector2 size = new Vector2(0.2f, collider.bounds.size.y* 0.6f);
-        if (CheckWall())
+        try
         {
-            Gizmos.color = Color.green;
+            Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x * transform.localScale.x * transform.right;
+
+            Vector2 size = new Vector2(0.2f, collider.bounds.size.y * 0.6f);
+            if (CheckWall())
+            {
+                Gizmos.color = Color.green;
+            }
+            else
+            {
+                Gizmos.color = Color.red;
+            }
+            Gizmos.DrawWireCube(positionToCheck, size);
         }
-        else
-        {
-            Gizmos.color = Color.red;
-        }
-        Gizmos.DrawWireCube(positionToCheck, size);
+        catch { return; }
     }
 
     public bool CheckEdge()

@@ -50,7 +50,7 @@ PrefabInstance:
     - target: {fileID: 2594688732759524447, guid: 36c29ee35a4a32e489c5625c9626f80f,
         type: 3}
       propertyPath: lifetime
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2594688732759524447, guid: 36c29ee35a4a32e489c5625c9626f80f,
         type: 3}
