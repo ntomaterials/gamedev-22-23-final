@@ -238,13 +238,13 @@ public class Player : Creature
         rigidbody.velocity = Vector2.zero;
         climbing = true;
         rigidbody.isKinematic = true;
-        animator.SetBool("IsClimbingState", true);
+        animator.SetBool("climbing", true);
     }
     public void StopClimbing()
     {
         climbing = false;
         rigidbody.isKinematic = false;
-        animator.SetBool("IsClimbingState", false);
+        animator.SetBool("climbing", false);
     }
 
     private void CheckCanClimbing()
@@ -255,6 +255,7 @@ public class Player : Creature
     public void Climb(Vector2 direction)
     {
         if (direction != Vector2.zero) animator.SetTrigger("climbing");
+        animator.SetFloat("speed", direction.magnitude);
         transform.Translate(direction.normalized * climbingSpeed * Time.deltaTime);
     }
 
