@@ -14,7 +14,9 @@ using UnityEngine.SceneManagement;
 public class Player : Creature
 {
     public static Player Instance;
-    public static PlayerInventory Inventory;
+    public PlayerInventory KvasInventory;
+    public PlayerInventory MeetInventory;
+    //public PlayerInventory ArrowsInventory;
 
     public int playerXp { get; private set; }///
     //[SerializeField] private DeathMarker deathMarker;///
@@ -85,9 +87,10 @@ public class Player : Creature
         _stamina = maxStamina;
         _capsuleCollider = (CapsuleCollider2D)collider;
         Instance = this;
-        Inventory = GetComponent<PlayerInventory>();
+        //Inventory = GetComponent<PlayerInventory>();
         HpBarUpdate();
         SetWeapon(weaponsInfo[0]);
+        GetKvas(KvasInventory.maxCapacity);
 
         //saveLoadManager = FindObjectOfType<SaveLoadManager>();
         //levelsData = FindObjectOfType<LevelsData>();
@@ -179,7 +182,7 @@ public class Player : Creature
 
     public void StartBaseAttack()
     {
-        if (currentWeapon.ready && !stunned)
+        if (currentWeapon.ready && _stamina>=_currentPlayerWeaponInfo.usageCost && !stunned)
         {
             currentWeapon.ResetReload();
             _stamina -= _currentPlayerWeaponInfo.usageCost;
@@ -254,7 +257,14 @@ public class Player : Creature
 
     public void Climb(Vector2 direction)
     {
-        if (direction != Vector2.zero) animator.SetTrigger("climbing");
+        if (direction != Vector2.zero)
+        {
+            animator.SetBool("IsClimbingNow", true);
+        }
+        else
+        {
+            animator.SetBool("IsClimbingNow", false);
+        }
         transform.Translate(direction.normalized * climbingSpeed * Time.deltaTime);
     }
 
@@ -323,6 +333,18 @@ public class Player : Creature
         if (_immortalTime > 0) return;
         base.GetDamage(damage);
         HpBarUpdate();
+    }
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+        HpBarUpdate();
+    }
+    public void GetKvas(int count)
+    {
+        for (int i=0; i<count; i++)
+        {
+            KvasInventory.AddProduct(KvasInventory.baseProduct);
+        }
     }
 
     private void BecomeImmortal()

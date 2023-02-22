@@ -313,7 +313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _product: {fileID: 21299757825072738, guid: 708c245472f0d4b449fc5ac446c6c95d, type: 3}
   _cost: 100
-  _buySound: {fileID: 8300000, guid: fdff9abacb662084799f2b2768d705cb, type: 3}
+  _buySound: {fileID: 8300000, guid: 8d944eb1099c0ff4e969ed4dffc1fd6a, type: 3}
+  inventory: {fileID: 0}
 --- !u!114 &862894164504501905
 MonoBehaviour:
   m_ObjectHideFlags: 0

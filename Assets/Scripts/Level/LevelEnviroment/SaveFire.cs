@@ -44,6 +44,7 @@ public class SaveFire : MonoBehaviour
             if (saveSound != null) audioSource.PlayOneShot(saveSound);
             savedOnFire?.Invoke(id);
             player.FullHeal();
+            player.GetKvas(player.KvasInventory.maxCapacity);
         }
     }
 }

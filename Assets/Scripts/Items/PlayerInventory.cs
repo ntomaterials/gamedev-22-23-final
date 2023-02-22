@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerInventory : MonoBehaviour // Сделаю по-колхозному. Надеюсь, вряд ли будет потом сто-то кроме мяса
 {
-    private List<Product> products=new List<Product>();
-    [SerializeField] private int maxCapacity;
-    [SerializeField] private Product baseProduct;
+    protected List<Product> products=new List<Product>();
+    [field: SerializeField] public int maxCapacity { get; protected set; }
+    public Product baseProduct;
     [Header("Canvas")]
-    [SerializeField] private Image icon;
-    [SerializeField] private Text countText;
-    private Transform _dropPoint;
-    private void Start()
+    [SerializeField] protected Image icon;
+    [SerializeField] protected Text countText;
+    //private Transform _dropPoint;
+    protected virtual void Start()
     {
         UpdateCanvas();
-        _dropPoint = Player.Instance.dropPoint;
+        //_dropPoint = Player.Instance.dropPoint;
         InputHandler.Instance.onDropBtnUp += DropItem;
     }
     public bool CanAdd()
@@ -37,13 +37,13 @@ public class PlayerInventory : MonoBehaviour // Сделаю по-колхозному. Надеюсь, в
     {
         if (products.Count > 0)
         {
-            Product droped = Instantiate(baseProduct, _dropPoint.position, Quaternion.identity);
+            Product droped = Instantiate(baseProduct, Player.Instance.dropPoint.position, Quaternion.identity);
             droped.transform.parent = null;
             products.RemoveAt(products.Count - 1);
             UpdateCanvas();
         }
     }
-    private void UpdateCanvas()
+    protected void UpdateCanvas()
     {
         if (products.Count == 0)
         {

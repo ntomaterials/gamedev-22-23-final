@@ -192,12 +192,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6009440761257538163}
   - component: {fileID: 6009440761257538160}
+  - component: {fileID: 562674977387473656}
   - component: {fileID: 508156406596161604}
   - component: {fileID: 5474404469919476675}
   - component: {fileID: 7679757348253399894}
   - component: {fileID: 2717839650334014334}
   - component: {fileID: 9066065587737367410}
-  - component: {fileID: 562674977387473656}
   m_Layer: 9
   m_Name: DarkKing
   m_TagString: Untagged
@@ -274,6 +274,64 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &562674977387473656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009440761257538161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd886d82f68932047b09336949c61845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorR: {fileID: 22100000, guid: df908351ce0580241a87339c3584ac25, type: 2}
+  animatorL: {fileID: 22100000, guid: 1b81921b488e20f4b957acb7252687c9, type: 2}
+  <maxHealth>k__BackingField: 30
+  _immunityLayers: 
+  speed: 3
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  <timeToDie>k__BackingField: 3
+  effectedByKnockback: 0
+  canMove: 1
+  runSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  dieSound: {fileID: 0}
+  dieXp: 9999
+  <touchDamage>k__BackingField: 0
+  knockbackPower: 1.5
+  startState: {fileID: 11400000, guid: 7d3f5ce0c11e9c9488334ee7e5a0e046, type: 2}
+  battleZone: {fileID: 0}
+  head: {fileID: 0}
+  attackZone: {fileID: 4080786586756593087}
+  runToPlayerState: {fileID: 11400000, guid: 13a6dd30839cab04294a5fc97f396767, type: 2}
+  dancingState: {fileID: 11400000, guid: 2af3ff9d68fd3d1419a22e11a14fad82, type: 2}
+  sword: {fileID: 3377085834476969215}
+  magicCloudPrefab: {fileID: 4549810267803590697, guid: fb4deb34c48709c4f8ffe18df3286301,
+    type: 3}
+  platformAnimators: []
+  attackLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  canSeeDistance: 15
+  magicReload: 12
+  magicCloudAttackDuration: 3
+  magicCloudSpawnDelay: 0.2
+  lightingAttackPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  numbersOfLightingAttack: 5
+  timeBetweenLightingAttack: 1
+  lightingWarningPrefab: {fileID: 1230582626796050617, guid: eb955bb273859a943a2b986f2005568b,
+    type: 3}
+  floorLightingWarningPrefab: {fileID: 1230582626796050617, guid: 19d088a6f4db0454d9b22857da6f0b08,
+    type: 3}
+  floorLightingSpawnPosition: {fileID: 0}
 --- !u!50 &508156406596161604
 Rigidbody2D:
   serializedVersion: 4
@@ -506,61 +564,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &562674977387473656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6009440761257538161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd886d82f68932047b09336949c61845, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animatorR: {fileID: 22100000, guid: df908351ce0580241a87339c3584ac25, type: 2}
-  animatorL: {fileID: 22100000, guid: 1b81921b488e20f4b957acb7252687c9, type: 2}
-  <maxHealth>k__BackingField: 30
-  speed: 3
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  <timeToDie>k__BackingField: 3
-  effectedByKnockback: 0
-  canMove: 1
-  runSound: {fileID: 0}
-  damageSound: {fileID: 0}
-  dieSound: {fileID: 0}
-  dieXp: 9999
-  <touchDamage>k__BackingField: 0
-  knockbackPower: 1.5
-  startState: {fileID: 11400000, guid: 7d3f5ce0c11e9c9488334ee7e5a0e046, type: 2}
-  battleZone: {fileID: 0}
-  attackZone: {fileID: 4080786586756593087}
-  runToPlayerState: {fileID: 11400000, guid: 13a6dd30839cab04294a5fc97f396767, type: 2}
-  dancingState: {fileID: 11400000, guid: 2af3ff9d68fd3d1419a22e11a14fad82, type: 2}
-  sword: {fileID: 3377085834476969215}
-  magicCloudPrefab: {fileID: 4549810267803590697, guid: fb4deb34c48709c4f8ffe18df3286301,
-    type: 3}
-  attackLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  canSeeDistance: 15
-  magicReload: 12
-  magicCloudAttackDuration: 3
-  magicCloudSpawnDelay: 0.2
-  lightingAttackPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  numbersOfLightingAttack: 5
-  timeBetweenLightingAttack: 1
-  lightingWarningPrefab: {fileID: 1230582626796050617, guid: eb955bb273859a943a2b986f2005568b,
-    type: 3}
-  floorLightingWarningPrefab: {fileID: 1230582626796050617, guid: 19d088a6f4db0454d9b22857da6f0b08,
-    type: 3}
-  floorLightingSpawnPosition: {fileID: 0}
 --- !u!1001 &5266271487304216667
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCollider: {fileID: 21299757825072734}
+  obj: {fileID: 21299757825072737}
 --- !u!58 &21299757825072739
 CircleCollider2D:
   m_ObjectHideFlags: 0
