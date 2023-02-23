@@ -52,5 +52,6 @@ public class PatrolState : State
     protected virtual void Turn()
     {
         xDir *= -1;
+        owner.Run(xDir, speed);
     }
 }
