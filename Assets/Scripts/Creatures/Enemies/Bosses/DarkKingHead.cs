@@ -205,10 +205,4 @@ public class DarkKingHead : Enemy
     }
     #endregion
 
-    private void LookToPlayer()
-    {
-        float xDir = Player.Instance.transform.position.x - transform.position.x;
-        RotateByX(xDir);
-    }
-    
 }

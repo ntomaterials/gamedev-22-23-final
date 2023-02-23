@@ -9,7 +9,7 @@ public class Enemy : Creature
     protected State currentState;
     
     
-    private float checkRadius=0.15f;
+    private float checkRadius=0.05f;
     private Player player;
 
     protected override void Awake()
@@ -30,7 +30,7 @@ public class Enemy : Creature
             Vector2 dir;
 
             if (player.transform.position.x >= transform.position.x) dir = new Vector2(knockbackPower, knockbackPower);
-            else dir = new Vector2(-knockbackPower, knockbackPower * 0.5f);
+            else dir = new Vector2(-knockbackPower, knockbackPower * 0.2f);
             player.GetDamage(touchDamage, dir);
         }
     }
@@ -93,10 +93,10 @@ public class Enemy : Creature
     public bool CheckWall()
     {
         Collider2D hit;
-        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x*transform.localScale.x * transform.right + transform.right * 0.15f;
         
-        Vector2 size = new Vector2(0.01f, collider.bounds.size.y* 0.9f);
-        
+        Vector2 size = new Vector2(0.02f, collider.bounds.size.y* 0.8f * transform.localScale.x);
+        Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x*transform.localScale.x * transform.right + transform.right * size.x;
+
         hit = Physics2D.OverlapBox(positionToCheck, size, 0f,  groundLayerMask, -1f, 1f);
         if (hit != null)
         {
@@ -112,9 +112,10 @@ public class Enemy : Creature
     {
         try
         {
-            Vector2 positionToCheck = collider.bounds.center + collider.bounds.extents.x * transform.localScale.x * transform.right;
-
-            Vector2 size = new Vector2(0.2f, collider.bounds.size.y * 0.6f);
+            Vector2 size = new Vector2(0.01f, collider.bounds.size.y* 0.9f);
+            Vector2 positionToCheck = collider.bounds.center +
+                                      collider.bounds.extents.x * transform.localScale.x * transform.right +
+                                      transform.right * size.x / 2;
             if (CheckWall())
             {
                 Gizmos.color = Color.green;
@@ -131,7 +132,7 @@ public class Enemy : Creature
     public bool CheckEdge()
     {
         bool mustTurn=false;
-        Vector3 pos = transform.position + transform.right * collider.bounds.extents.x*transform.localScale.x + Vector3.down * collider.bounds.extents.y;
+        Vector3 pos = transform.position + transform.right * collider.bounds.extents.x*(transform.localScale.x + 0.2f) + Vector3.down * ( 0.1f + collider.bounds.extents.y);
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, checkRadius, groundLayerMask);
         if (cols.Length == 0) mustTurn = true;
         return mustTurn;
@@ -145,5 +146,10 @@ public class Enemy : Creature
         collider.isTrigger = true;
         this.enabled = false;
         base.Die();
+    }
+    protected void LookToPlayer()
+    {
+        float xDir = Player.Instance.transform.position.x - transform.position.x;
+        RotateByX(xDir);
     }
 }
