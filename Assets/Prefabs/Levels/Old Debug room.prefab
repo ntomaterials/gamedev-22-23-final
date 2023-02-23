@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 142123073363449483}
   - component: {fileID: 7318827903782317235}
   m_Layer: 0
-  m_Name: Debug room
+  m_Name: Old Debug room
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

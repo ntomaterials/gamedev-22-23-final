@@ -238,6 +238,7 @@ MonoBehaviour:
   animatorR: {fileID: 0}
   animatorL: {fileID: 0}
   <maxHealth>k__BackingField: 10
+  _immunityLayers: 
   speed: 3
   groundLayerMask:
     serializedVersion: 2
@@ -270,6 +271,9 @@ MonoBehaviour:
   jumpAttacks: 3
   portalsNum: 5
   portalsSpawnMaxDif: 3
+  oretSound: {fileID: 0}
+  pacmanSound: {fileID: 0}
+  lightingSound: {fileID: 0}
 --- !u!212 &3045417798735081393
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -573,7 +577,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
 public class DarkKing : Enemy
 {
     [Header("Init")]
@@ -35,6 +34,10 @@ public class DarkKing : Enemy
     [SerializeField] private GameObject lightingWarningPrefab;
     [SerializeField] private GameObject floorLightingWarningPrefab;
     [SerializeField] private Transform floorLightingSpawnPosition;
+
+    [Header ("Sounds")]
+    [SerializeField] private AudioClip lightingSound;
+    [SerializeField] private AudioClip SmehDedaSound;
 
     private float _magicReloadTime = 3f;
     private bool _dancing = false;
@@ -83,6 +86,7 @@ public class DarkKing : Enemy
 
     private void ChooseMagicAttack()
     {
+        audioSource.PlayOneShot(SmehDedaSound);
         if (Random.Range(0, 2) == 0)
         {
             StartCoroutine(MagicClouds());
@@ -98,6 +102,7 @@ public class DarkKing : Enemy
 
     private IEnumerator LightingAttack()
     {
+        audioSource.PlayOneShot(lightingSound);
         SetActivePlatforms(true);
         Instantiate(floorLightingWarningPrefab, floorLightingSpawnPosition.position,
             Quaternion.identity);
@@ -115,6 +120,7 @@ public class DarkKing : Enemy
         
         animator.SetBool("laught", false);
         _dancing = false;
+        audioSource.Stop();
     }
 
     private void SpawnLighting()

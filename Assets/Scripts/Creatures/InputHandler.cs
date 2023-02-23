@@ -17,6 +17,9 @@ public class InputHandler : MonoBehaviour
     public event DropBtnUp onDropBtnUp;
     public delegate void DropBtnUp();
 
+    public event UseBtnUp onUseBtnUp;
+    public delegate void UseBtnUp();
+
     public event Xinput isXinput;
     public delegate void Xinput(bool isInput);
     
@@ -79,6 +82,7 @@ public class InputHandler : MonoBehaviour
             }
         }
         if (Input.GetKeyDown(KeyCode.Q)) onDropBtnUp?.Invoke();
+        if (Input.GetKeyDown(KeyCode.F)) onUseBtnUp?.Invoke();
     }
 
     private void DefaultMovementCheck()

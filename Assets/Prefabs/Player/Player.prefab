@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 4213171789397758884}
   - component: {fileID: 3518203490348457216}
   - component: {fileID: 1181889378610454517}
+  - component: {fileID: 1529056175}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -244,6 +245,7 @@ MonoBehaviour:
   animatorR: {fileID: 22100000, guid: c63af74147ace58438dfdeb37977e5fb, type: 2}
   animatorL: {fileID: 22100000, guid: b6bcee17676a20d4887468bc82edc43c, type: 2}
   <maxHealth>k__BackingField: 25
+  _immunityLayers: 
   speed: 2.4
   groundLayerMask:
     serializedVersion: 2
@@ -254,6 +256,8 @@ MonoBehaviour:
   runSound: {fileID: 8300000, guid: eb9e36187c160a749869a0a2a97a46e1, type: 3}
   damageSound: {fileID: 8300000, guid: d416593ab6725da4e8504a9bfd50ebd8, type: 3}
   dieSound: {fileID: 8300000, guid: b9ced56c943adf643aed0eec238e8752, type: 3}
+  KvasInventory: {fileID: 0}
+  MeetInventory: {fileID: 1181889378610454517}
   weaponsInfo:
   - weaponPrefab: {fileID: 4965490076838667676, guid: 88161654615f7984c89de38a4de0a4fd,
       type: 3}
@@ -261,19 +265,26 @@ MonoBehaviour:
       type: 2}
     rightPlayerAnimation: {fileID: 22100000, guid: c63af74147ace58438dfdeb37977e5fb,
       type: 2}
+    usageCost: 25
   - weaponPrefab: {fileID: 4070605635839218464, guid: 00f073035cbbd624d8aac88d0162b484,
       type: 3}
     leftPlayerAnimation: {fileID: 22100000, guid: 3793a871b273c1c4aa1daf7c48b42b88,
       type: 2}
     rightPlayerAnimation: {fileID: 22100000, guid: c038d6789c23c304e98bb0512cfd44e1,
       type: 2}
+    usageCost: 10
   - weaponPrefab: {fileID: 4965490076838667676, guid: 356dadba21b0c0d48bb080b8de0c6a0d,
       type: 3}
     leftPlayerAnimation: {fileID: 22100000, guid: 30f5ea1f1c118944fb19d8a7581aabe5,
       type: 2}
     rightPlayerAnimation: {fileID: 22100000, guid: 37c41323adb68154fba4662dd57bc4f8,
       type: 2}
+    usageCost: 30
   <IsWeaponsActive>k__BackingField: 010100
+  maxStamina: 100
+  staminaRegeneration: 10
+  jumpCost: 6
+  rollCost: 6
   jumpForce: 10
   immortalDuration: 0.3
   rollReload: 1.5
@@ -283,6 +294,7 @@ MonoBehaviour:
   climbingSpeed: 1.5
   dropPoint: {fileID: 906746666525467973}
   hpBar: {fileID: 0}
+  staminaBar: {fileID: 0}
   deafultColliderInfo:
     size: {x: 0.28, y: 0.8}
     offset: {x: 0, y: -0.1}
@@ -542,7 +554,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb86327a3e07104898da0bcf552ce11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 0
-  baseProduct: {fileID: 0}
+  maxCapacity: 10
+  baseProduct: {fileID: 21299757825072738, guid: 708c245472f0d4b449fc5ac446c6c95d,
+    type: 3}
+  icon: {fileID: 0}
+  countText: {fileID: 0}
+--- !u!114 &1529056175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217571171358458619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e8caebde49da45418585029508d7ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCapacity: 3
+  baseProduct: {fileID: 2124677141244801528, guid: e928c1e526f20ed469c9ea5102ed7a70,
+    type: 3}
   icon: {fileID: 0}
   countText: {fileID: 0}
