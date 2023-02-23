@@ -6,7 +6,7 @@ public class Finish : MonoBehaviour
 {
     [SerializeField] protected int loadingID;
     protected LevelsData levelsData;
-    protected void Awake()
+    protected virtual void Awake()
     {
         levelsData = FindObjectOfType<LevelsData>();
     }
