@@ -106,7 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorR: {fileID: 22100000, guid: c3c18b1688594064787cf032688caafe, type: 2}
   animatorL: {fileID: 22100000, guid: ad8770f7b9b4f1c478025b58ff99302c, type: 2}
-  <maxHealth>k__BackingField: 1
+  <maxHealth>k__BackingField: 2
+  _immunityLayers: 
   speed: 3
   groundLayerMask:
     serializedVersion: 2
@@ -638,7 +639,7 @@ PrefabInstance:
         type: 3}
       propertyPath: curseCleaner
       value: 
-      objectReference: {fileID: 4160732885375446718, guid: 95f2c737e7bde254187120cb2cdff8cd,
+      objectReference: {fileID: 4160732885375446718, guid: 094144c59396d424aa69914344a8ca35,
         type: 3}
     - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
         type: 3}

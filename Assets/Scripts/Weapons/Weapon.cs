@@ -4,10 +4,6 @@ using UnityEngine;
 [RequireComponent (typeof(AudioSource))]
 public abstract class Weapon : MonoBehaviour
 {
-    [Header("Player only")] // в идеале написать кастомный испектор чтоб это всё скрывать если оружие не для игрока предназначено
-    //public AnimatorOverrideController leftPlayerAnimation;
-    //public AnimatorOverrideController rightPlayerAnimation;
-
     [Header("Base stats")]
     [SerializeField] protected float reload;
     public int damage;
@@ -47,6 +43,11 @@ public abstract class Weapon : MonoBehaviour
     public void SetReloadTime(float time)
     {
         reloadTime = time;
+    }
+
+    public void ResetReload()
+    {
+        SetReloadTime(reload);
     }
 
     public virtual bool ready

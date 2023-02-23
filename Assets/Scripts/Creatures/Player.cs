@@ -15,6 +15,9 @@ public class Player : Creature
 {
     public static Player Instance;
     public static PlayerInventory Inventory;
+    public PlayerInventory KvasInventory;
+    public PlayerInventory MeetInventory;
+    //public PlayerInventory ArrowsInventory;
 
     public int playerXp { get; private set; }///
     //[SerializeField] private DeathMarker deathMarker;///
@@ -23,18 +26,28 @@ public class Player : Creature
     [Header("Player")]
     [SerializeField] private PlayerWeaponInfo[] weaponsInfo;
     [field: SerializeField] public bool[] IsWeaponsActive { get; private set; }
-    
+    [Header("Stamina")]
+    [SerializeField] private float maxStamina=100f;
+    [SerializeField] private float staminaRegeneration = 5f;
+    [SerializeField] private float jumpCost = 10f;
+    [SerializeField] private float rollCost=20f;
+    [Space(5)]
     [SerializeField] private float jumpForce = 5f;
+    [Space(5)]
     [SerializeField] private float immortalDuration = 1f;
+    [Space(5)]
     [Tooltip("Отсчёт идёт с момета конца кувырка")][SerializeField] private float rollReload=3f;
     [SerializeField] private float rollDuration = 0.5f; // надо подгонять под длительность анимации(
     [SerializeField] private float rollSpeed=3f;
+    [Space(5)]
     [SerializeField] [Range(0, 1)] private float jumpInteruptionCoef = 0.2f;
+    [Space(5)]
     [SerializeField] private float climbingSpeed = 1.5f;
 
-    [Header("Init")]
+    [Header("Init")][Space(5)]
     public Transform dropPoint;
     [SerializeField] private Image hpBar;
+    [SerializeField] private Image staminaBar;
     
     private CapsuleCollider2D _capsuleCollider;
     [SerializeField] private PlayerColliderInfo deafultColliderInfo;
@@ -64,17 +77,21 @@ public class Player : Creature
     private int immortalLayer = GlobalConstants.ImmortalLayer;
     private float _rollReloadTime;
     private float _blockReloadTime=0f;
+    private float _stamina;
     private Weapon currentWeapon;
+    private PlayerWeaponInfo _currentPlayerWeaponInfo;
     
 
     private void Awake()
     {
         base.Awake();
+        _stamina = maxStamina;
         _capsuleCollider = (CapsuleCollider2D)collider;
         Instance = this;
         Inventory = GetComponent<PlayerInventory>();
         HpBarUpdate();
         SetWeapon(weaponsInfo[0]);
+        GetKvas(KvasInventory.maxCapacity);
 
         //saveLoadManager = FindObjectOfType<SaveLoadManager>();
         //levelsData = FindObjectOfType<LevelsData>();
@@ -83,6 +100,10 @@ public class Player : Creature
     {
         base.FixedUpdate();
         CheckCanClimbing();
+
+        _stamina = Mathf.Clamp(_stamina + staminaRegeneration * Time.fixedDeltaTime, 0f, maxStamina);
+        StaminaBarUpdate();
+        
         _rollReloadTime -= Time.fixedDeltaTime;
         _blockReloadTime -= Time.fixedDeltaTime;
         _immortalTime -= Time.fixedDeltaTime;
@@ -134,7 +155,9 @@ public class Player : Creature
     }
     public void Jump(bool checkGrounded)
     {
-        if (checkGrounded &&(!isGrounded || isImpact || blocking || stunned || crouching)) return;
+        if (checkGrounded &&(!isGrounded || isImpact || blocking || stunned || crouching) || _stamina < jumpCost) return;
+
+        _stamina -= jumpCost;
         isJumping = true;
         isGrounded = false;
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -160,16 +183,20 @@ public class Player : Creature
 
     public void StartBaseAttack()
     {
-        if (currentWeapon.ready && !stunned)
+        if (currentWeapon.ready && _stamina >= _currentPlayerWeaponInfo.usageCost && !stunned)
         {
+            currentWeapon.ResetReload();
+            _stamina -= _currentPlayerWeaponInfo.usageCost;
             animator.SetTrigger("attack");
         }
     }
 
     public void Roll()
     {
-        if (_rollReloadTime > 0 || stunned || isImpact || !canMove) return;;
+        if (_rollReloadTime > 0 || stunned || isImpact || !canMove || _stamina < rollCost) return;;
+        
         BecomeImmortal(rollDuration);
+        _stamina -= rollCost;
         
         animator.SetTrigger("roll");
         _rollReloadTime = rollReload + rollDuration;
@@ -231,6 +258,8 @@ public class Player : Creature
 
     public void Climb(Vector2 direction)
     {
+        if (direction != Vector2.zero) animator.SetTrigger("climbing");
+        animator.SetFloat("speed", direction.magnitude);
         transform.Translate(direction.normalized * climbingSpeed * Time.deltaTime);
     }
 
@@ -252,6 +281,7 @@ public class Player : Creature
     {
         if (!canMove) return;
         if (currentWeapon != null) Destroy(currentWeapon.gameObject);
+        _currentPlayerWeaponInfo = weaponInfo;
         GameObject newWeapon = Instantiate(weaponInfo.weaponPrefab, transform);
         currentWeapon = newWeapon.GetComponent<Weapon>();
         animatorL = weaponInfo.leftPlayerAnimation;
@@ -299,6 +329,18 @@ public class Player : Creature
         base.GetDamage(damage);
         HpBarUpdate();
     }
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+        HpBarUpdate();
+    }
+    public void GetKvas(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            KvasInventory.AddProduct(KvasInventory.baseProduct);
+        }
+    }
 
     private void BecomeImmortal()
     {
@@ -315,6 +357,11 @@ public class Player : Creature
     {
         float amount = 1000 / maxHealth * health;
         hpBar.fillAmount = amount / 1000;
+    }
+    public void StaminaBarUpdate()
+    {
+        float amount = 1000 / maxStamina * _stamina;
+        staminaBar.fillAmount = amount / 1000;
     }
     public void FullHeal()
     {
@@ -341,6 +388,7 @@ public class Player : Creature
         else return -1;
     }
 
+    #region RigidbodyEvents
     protected override void OnCollisionStay2D(Collision2D collider)
     {
         base.OnCollisionStay2D(collider);
@@ -352,6 +400,7 @@ public class Player : Creature
         base.OnCollisionExit2D(collider);
         animator.SetBool("grounded", isGrounded);
     }
+    #endregion
 
     #region Animation Triggers
 
@@ -367,7 +416,6 @@ public class Player : Creature
     public void Fire()
     {
         currentWeapon.Fire();
-        animator.ResetTrigger("attack");
     }
     public void StartBlock()
     {
@@ -396,6 +444,7 @@ public class PlayerWeaponInfo
     public GameObject weaponPrefab;
     public AnimatorOverrideController leftPlayerAnimation;
     public AnimatorOverrideController rightPlayerAnimation;
+    public float usageCost = 10f;
 }
 
 [System.Serializable]

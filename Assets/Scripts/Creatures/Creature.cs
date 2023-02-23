@@ -14,6 +14,7 @@ public class Creature : MonoBehaviour
     [SerializeField ]protected AnimatorOverrideController animatorR;
     [SerializeField ]protected AnimatorOverrideController animatorL;
     [field: SerializeField] public int maxHealth { get; private set; }
+    [SerializeField] private int[] _immunityLayers; //номер слоя оружия, к которому имеет имунитет
     public float speed=3f;
     
     public LayerMask groundLayerMask;
@@ -219,6 +220,43 @@ public class Creature : MonoBehaviour
         if (damageSound != null) audioSource.PlayOneShot(damageSound);
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         _stunTime = 0f;
+        canMove = true;
+        if (health <= 0) Die();
+    }
+    virtual public void GetDamage(int damage, int damageLayer)
+    {
+        for (int i=0; i<_immunityLayers.Length; i++)//проверяем имунитет
+        {
+            if (_immunityLayers[i] == damageLayer)
+            {
+                Debug.Log("Check");
+                return;
+            }
+        }
+
+        if (damageSound != null) audioSource.PlayOneShot(damageSound);
+        health = Mathf.Clamp(health - damage, 0, maxHealth);
+        _stunTime = 0f;
+        canMove = true;
+        if (health <= 0) Die();
+    }
+    virtual public void GetDamage(int damage, int damageLayer , Vector2 direction)
+    {
+        for (int i = 0; i < _immunityLayers.Length; i++)//проверяем имунитет
+        {
+            if (_immunityLayers[i] == damageLayer)
+            {
+                Debug.Log("Check");
+                return;
+            }
+        }
+
+        if (damageSound != null) audioSource.PlayOneShot(damageSound);
+        RotateByX(-direction.x);
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        health = Mathf.Clamp(health - damage, 0, maxHealth);
+        _stunTime = 0f;
+        StartCoroutine(GetImpact(direction));
         canMove = true;
         if (health <= 0) Die();
     }
