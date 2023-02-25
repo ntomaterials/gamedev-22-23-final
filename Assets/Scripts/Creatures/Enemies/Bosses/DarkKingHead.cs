@@ -9,6 +9,7 @@ public class DarkKingHead : Enemy
     [SerializeField] [Tooltip("Attacks will spawn at this area")]  private Collider2D battleZone;
     [SerializeField] private Sword raw;
     [SerializeField] private Sword falldamageDiler;
+    [SerializeField] private Finish portal;
 
     [SerializeField] private State pacmanAttackState;
     [SerializeField] private WaitingState waveAttackState;
@@ -23,7 +24,12 @@ public class DarkKingHead : Enemy
     [SerializeField] private int jumpAttacks=3;
     [SerializeField] private int portalsNum = 5;
     [SerializeField] private float portalsSpawnMaxDif = 3f;
-    
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip oretSound;
+    [SerializeField] private AudioClip pacmanSound;
+    [SerializeField] private AudioClip lightingSound;
+
     private float targetYPosition = 0f;
     private float waveSpawnReload = 0f;
     private int jumpAttacksLeft;
@@ -40,6 +46,7 @@ public class DarkKingHead : Enemy
         spawnedPortals = new List<GameObject>();
         targetYPosition = transform.position.y;
         _animator = GetComponent<Animator>();
+        portal.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -109,20 +116,25 @@ public class DarkKingHead : Enemy
         {
             currentAttack = AttackType.Pacman;
             Pacman();
+            audioSource.PlayOneShot(pacmanSound);
         }
         else if (attack == 1)
         {
             currentAttack = AttackType.Spheres;
             SpawnSpheres();
-        }else if (attack == 2)
+            audioSource.PlayOneShot(lightingSound);
+        }
+        else if (attack == 2)
         {
             currentAttack = AttackType.Waves;
             WavesAttack();
+            audioSource.PlayOneShot(oretSound);
         }
         else if (attack == 3)
         {
             currentAttack = AttackType.Jump;
             StartJumpAttack();
+            audioSource.PlayOneShot(lightingSound);
         }
 }
 
@@ -204,5 +216,11 @@ public class DarkKingHead : Enemy
         SetState(fallState);
     }
     #endregion
+    
+    public override void Die()
+    {
+        portal.gameObject.SetActive(true);
+        base.Die();
+    }
 
 }
