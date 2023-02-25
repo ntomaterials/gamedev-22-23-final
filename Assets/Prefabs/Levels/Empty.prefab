@@ -1207,7 +1207,7 @@ CompositeCollider2D:
     m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
-  m_VertexDistance: 0.0005
+  m_VertexDistance: 0.05
   m_OffsetDistance: 0.00005
 --- !u!1 &5117108561404134990
 GameObject:
