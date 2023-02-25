@@ -216,12 +216,7 @@ public class DarkKingHead : Enemy
         SetState(fallState);
     }
     #endregion
-
-    private void LookToPlayer()
-    {
-        float xDir = Player.Instance.transform.position.x - transform.position.x;
-        RotateByX(xDir);
-    }
+    
     public override void Die()
     {
         portal.gameObject.SetActive(true);

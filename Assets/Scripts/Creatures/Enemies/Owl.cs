@@ -1,18 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Owl : MonoBehaviour
+public class Owl : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
+    [Space(5)] [Header("Owl")][SerializeField] private ArcShooter shooter;
+    [SerializeField] private FlyOverGroundState flyState;
+    [SerializeField] private WaitingState waitingState;
+    private enum Mood{Waiting, Flying, Sleeping}
+
+    private Mood currentMood = Mood.Sleeping;
+    protected override void ChooseNewState()
     {
-        
+        if (currentMood == Mood.Sleeping)
+        {
+            SetState(flyState);
+            currentMood = Mood.Flying;
+        }else if (currentMood == Mood.Flying)
+        {
+            SetState(waitingState);
+            shooter.Fire();
+            currentMood = Mood.Waiting;
+        }else if (currentMood == Mood.Waiting)
+        {
+            SetState(startState);
+            currentMood = Mood.Sleeping;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        base.FixedUpdate();
+        animator.SetFloat("speed", rigidbody.velocity.magnitude);
     }
 }
