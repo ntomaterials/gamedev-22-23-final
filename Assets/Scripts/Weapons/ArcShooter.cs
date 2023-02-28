@@ -8,6 +8,7 @@ public class ArcShooter : Weapon
     [SerializeField] private float distanceFromFirePoint = 0.3f;
     [SerializeField] private int shots=6;
     [SerializeField] private float arc = 180f;
+    [SerializeField] private float arcOffset=0f;
     [SerializeField] private float timeForAttack=1f;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private AudioClip shotSound;
@@ -26,9 +27,9 @@ public class ArcShooter : Weapon
         float angle = 0f;
         float startAngle = -arcRad / 2;
         
-        for (int i = 0; i < shots; i++)
+        for (int i = 0; i <= shots; i++)
         {
-            angle = arcRad * ((float)i / (float)shots) + startAngle + transform.rotation.eulerAngles.z * Mathf.Deg2Rad;;
+            angle = arcRad * ((float)i / (float)shots) + startAngle + transform.rotation.eulerAngles.z * Mathf.Deg2Rad + arcOffset * Mathf.Deg2Rad;
             
             float x = Mathf.Cos(angle);
             float y = Mathf.Sin(angle);
@@ -51,9 +52,9 @@ public class ArcShooter : Weapon
         Vector3 dir = Vector2.zero;
         Quaternion rot;
         float angle = 0f;
-        float startAngle = -arcRad / 2 + transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+        float startAngle = -arcRad / 2 + transform.rotation.eulerAngles.z * Mathf.Deg2Rad + arcOffset * Mathf.Deg2Rad;
         
-        for (int i = 0; i < shots; i++)
+        for (int i = 0; i <= shots; i++)
         {
             angle = arcRad * ((float)i / (float)shots) + startAngle;
             float x = Mathf.Cos(angle);

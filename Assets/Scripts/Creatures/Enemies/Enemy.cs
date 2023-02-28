@@ -51,7 +51,7 @@ public class Enemy : Creature
     }
 
     /// <summary>
-    /// Выбирает новое состояние согласно условиям, по умолчанию всегда выбирает staerState
+    /// Выбирает новое состояние согласно условиям, по умолчанию всегда выбирает startState
     /// </summary>
     protected virtual void ChooseNewState()
     {
