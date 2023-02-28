@@ -92,6 +92,7 @@ public class DarkKingHead : Enemy
         {
             SetState(startState);
             currentAttack = AttackType.Null;
+
         }
         else
         {
