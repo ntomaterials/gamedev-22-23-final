@@ -84649,6 +84649,11 @@ PrefabInstance:
       propertyPath: dieXp
       value: 2000
       objectReference: {fileID: 0}
+    - target: {fileID: 1867364331262034426, guid: a171171e93a9f7742abcb0dc18201280,
+        type: 3}
+      propertyPath: portal
+      value: 
+      objectReference: {fileID: 3910682942983857437}
     - target: {fileID: 2516858259668364271, guid: a171171e93a9f7742abcb0dc18201280,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -84833,7 +84838,7 @@ PrefabInstance:
         type: 3}
       propertyPath: portal
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3910682942983857437}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a171171e93a9f7742abcb0dc18201280, type: 3}
 --- !u!4 &6410358889168983730 stripped

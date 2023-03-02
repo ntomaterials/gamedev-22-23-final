@@ -501,7 +501,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <allLevels>k__BackingField:
   - {fileID: 142123073363449483, guid: 19e38085887538340bb11fecc5d911b4, type: 3}
-  - {fileID: 142123073363449483, guid: 190951146c788d944b549d03337a4238, type: 3}
   startCutscene: {fileID: 366087596}
   lastSavedLevelID: 0
 --- !u!1001 &366087594

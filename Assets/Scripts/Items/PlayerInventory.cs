@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayerInventory : MonoBehaviour // Сделаю по-колхозному. Надеюсь, вряд ли будет потом сто-то кроме мяса
+public class PlayerInventory : MonoBehaviour // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 {
     protected List<Product> products=new List<Product>();
     [field: SerializeField] public int maxCapacity { get; protected set; }
@@ -10,7 +10,9 @@ public class PlayerInventory : MonoBehaviour // Сделаю по-колхозному. Надеюсь, в
     [Header("Canvas")]
     [SerializeField] protected Image icon;
     [SerializeField] protected Text countText;
-    //private Transform _dropPoint;
+    
+    public event MeetIsDroped onMeetDroped;
+    public delegate void MeetIsDroped(Product meet);
     protected virtual void Start()
     {
         UpdateCanvas();
@@ -43,6 +45,7 @@ public class PlayerInventory : MonoBehaviour // Сделаю по-колхозному. Надеюсь, в
             Product droped = Instantiate(baseProduct, Player.Instance.dropPoint.position, Quaternion.identity);
             droped.transform.parent = null;
             products.RemoveAt(products.Count - 1);
+            onMeetDroped?.Invoke(droped);
             UpdateCanvas();
         }
     }

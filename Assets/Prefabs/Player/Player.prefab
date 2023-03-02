@@ -256,7 +256,7 @@ MonoBehaviour:
   runSound: {fileID: 8300000, guid: eb9e36187c160a749869a0a2a97a46e1, type: 3}
   damageSound: {fileID: 8300000, guid: d416593ab6725da4e8504a9bfd50ebd8, type: 3}
   dieSound: {fileID: 8300000, guid: b9ced56c943adf643aed0eec238e8752, type: 3}
-  KvasInventory: {fileID: 0}
+  KvasInventory: {fileID: 1529056175}
   MeetInventory: {fileID: 1181889378610454517}
   weaponsInfo:
   - weaponPrefab: {fileID: 4965490076838667676, guid: 88161654615f7984c89de38a4de0a4fd,
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb86327a3e07104898da0bcf552ce11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 10
+  <maxCapacity>k__BackingField: 0
   baseProduct: {fileID: 21299757825072738, guid: 708c245472f0d4b449fc5ac446c6c95d,
     type: 3}
   icon: {fileID: 0}
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8caebde49da45418585029508d7ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 3
+  <maxCapacity>k__BackingField: 0
   baseProduct: {fileID: 2124677141244801528, guid: e928c1e526f20ed469c9ea5102ed7a70,
     type: 3}
   icon: {fileID: 0}

@@ -135,7 +135,7 @@ MonoBehaviour:
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  attackingLayer: 0
+  attackingLayer: 10
   damage: 3
   knockbackPower: 2
   speed: 5
