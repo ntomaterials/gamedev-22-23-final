@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LesnikWaitingState
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
-  waitingTime: 6
+  waitingTime: 5

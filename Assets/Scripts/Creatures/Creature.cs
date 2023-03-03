@@ -46,7 +46,7 @@ public class Creature : MonoBehaviour
     private List<Curse> _curses = new List<Curse>();
     private float _stunTime = 0f;
     
-    private const float GroundCheckDistance = 0.1f;
+    private const float GroundCheckDistance = 0.15f;
     
 
     public bool stunned

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LesnikRunToPlayerState
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
-  changeSpeed: 0
-  speed: 0
-  targetDistance: 0.1
+  changeSpeed: 1
+  speed: 2
+  targetDistance: 0.3

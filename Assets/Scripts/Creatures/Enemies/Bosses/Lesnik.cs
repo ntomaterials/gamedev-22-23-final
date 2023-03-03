@@ -14,6 +14,7 @@ public class Lesnik : Enemy
     [SerializeField] private WaitingState owlsAttackState;
     [SerializeField] private RunToPlayerState runToPlayerState;
     [SerializeField]private List<ArcShooter> owls;
+    [SerializeField] private GameObject rockPrefab;
     [SerializeField] private LayerMask attackLayers;
     [Header("Balance")] 
     [SerializeField] private float canSeeDistance = 10f;
@@ -24,7 +25,7 @@ public class Lesnik : Enemy
     private float _magicReloadTime = 3f;
     
     
-    private enum AttackType{Null, Owls, }
+    private enum AttackType{Null, Owls, Rocks, }
 
     private AttackType currentAttack = AttackType.Null;
     
@@ -70,14 +71,26 @@ public class Lesnik : Enemy
     #region Attacks
     private void ChooseAttack()
     {
-        int attack = Random.Range(0, 1);
+        int attack = Random.Range(0, 2);
         if (attack == 0)
         {
             currentAttack = AttackType.Owls;
             StartCoroutine(OwlsAttack());
+        }else if (attack == 1)
+        {
+            currentAttack = AttackType.Rocks;
+            RocksAttack();
         }
     }
-
+    private void RocksAttack()
+    {
+        Vector2 pos;
+        float x, y;
+        y = battleZone.bounds.max.y;
+        x = Random.Range(battleZone.bounds.min.x, battleZone.bounds.max.x);
+        pos = new Vector2(x, y);
+        GameObject rock = Instantiate(rockPrefab, pos, Quaternion.identity);
+    }
     private IEnumerator OwlsAttack()
     {
         SetState(owlsAttackState);
@@ -94,7 +107,6 @@ public class Lesnik : Enemy
             {
                 yield return new WaitForSeconds(timeForOwlAttack);
             }
-           
         }
 
         SetOwlsActive(false);
