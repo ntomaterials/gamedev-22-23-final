@@ -138,10 +138,11 @@ MonoBehaviour:
   animatorR: {fileID: 0}
   animatorL: {fileID: 0}
   <maxHealth>k__BackingField: 2
+  _immunityLayers: 
   speed: 3
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   <timeToDie>k__BackingField: 0
   effectedByKnockback: 1
   canMove: 1
