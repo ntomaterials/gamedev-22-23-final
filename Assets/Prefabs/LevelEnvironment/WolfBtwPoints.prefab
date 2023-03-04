@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1122650225477552934}
   - component: {fileID: 8624450524103002054}
   - component: {fileID: 7346211393219812141}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WolfBtwPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}

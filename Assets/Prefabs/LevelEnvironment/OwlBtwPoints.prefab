@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 2629886389278432101}
   - component: {fileID: 4041395178271679478}
   - component: {fileID: 3109945164686989490}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: OwlBtwPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,16 +5,16 @@ public class DoorLever : MonoBehaviour
 {
     [SerializeField] private Door door;
 
-    [SerializeField] private Sprite Closed;
-    [SerializeField] private Sprite Opened;
+    [SerializeField] protected Sprite Closed;
+    [SerializeField] protected Sprite Opened;
     [HideInInspector] public bool IsOpen { get; set; }
-    private bool CanOpen;
-    private InputHandler inputHandler;
+    protected bool CanOpen;
+    protected InputHandler inputHandler;
 
-    private SpriteRenderer spriteRenderer;
-    private AudioSource audioSource;
-    [SerializeField] private AudioClip leverSound;
-    private void Awake()
+    protected SpriteRenderer spriteRenderer;
+    protected AudioSource audioSource;
+    [SerializeField] protected AudioClip leverSound;
+    protected virtual void Awake()
     {
         //IsOpen = false;
         inputHandler = FindObjectOfType<InputHandler>();
@@ -45,9 +45,9 @@ public class DoorLever : MonoBehaviour
             CheckOpen();
         }
     }
-    public void CheckOpen()
+    public virtual void CheckOpen()
     {
-        door.gameObject.SetActive(!IsOpen);///////////////// допилить можно
+        door.gameObject.SetActive(!IsOpen);///////////////// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         if (IsOpen) spriteRenderer.sprite=Opened;
         else spriteRenderer.sprite=Closed;
         audioSource.PlayOneShot(leverSound);
