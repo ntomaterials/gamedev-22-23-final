@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: da43b0e8f757a5e47952e1081576b08a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 543c30c6af64625418e9cc02ff371c8e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDrag: 1
   m_AngularDrag: 13.93
   m_GravityScale: 1
@@ -120,7 +120,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1615048724737397488}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 345fd9c702d16cd459c90890c7559321, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -128,7 +128,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.92, y: 0.8}
+    oldSize: {x: 0.5, y: 0.25}
     newSize: {x: 0.92, y: 0.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -136,9 +136,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.3061655, y: -0.4097966}
-      - {x: -0.30015045, y: -0.40200746}
-      - {x: -0.003375709, y: 0.3690459}
+    - - {x: -0.25, y: 0.125}
+      - {x: -0.25, y: -0.125}
+      - {x: 0.25, y: -0.125}
+      - {x: 0.25, y: 0.12109375}
+      - {x: 0.2421875, y: 0.125}
 --- !u!95 &-8217949431599025292
 Animator:
   serializedVersion: 4
@@ -385,7 +387,7 @@ PrefabInstance:
     - target: {fileID: 2184814459479020068, guid: fbb02ae450241c54eaae03ea8c659b5b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.475
+      value: 0.225
       objectReference: {fileID: 0}
     - target: {fileID: 2184814459479020068, guid: fbb02ae450241c54eaae03ea8c659b5b,
         type: 3}
