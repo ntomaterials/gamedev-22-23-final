@@ -3367,7 +3367,7 @@ GameObject:
   - component: {fileID: 4263311176273754261}
   - component: {fileID: 4474533800038208068}
   - component: {fileID: 7385402980231038817}
-  - component: {fileID: 3910682942983857437}
+  - component: {fileID: 3992049873247189329}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -3383,7 +3383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2543050861277040900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.56, y: -0.52, z: 0}
+  m_LocalPosition: {x: -0.5599985, y: -0.52000046, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3488,7 +3488,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &3910682942983857437
+--- !u!114 &3992049873247189329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3497,7 +3497,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2543050861277040900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e8f717f089307d4a923bfd901835a7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 09925a3de9263cd41868f2f8ca4416a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   loadingID: 3
@@ -84653,7 +84653,7 @@ PrefabInstance:
         type: 3}
       propertyPath: portal
       value: 
-      objectReference: {fileID: 3910682942983857437}
+      objectReference: {fileID: 3992049873247189329}
     - target: {fileID: 2516858259668364271, guid: a171171e93a9f7742abcb0dc18201280,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -84853,7 +84853,7 @@ PrefabInstance:
         type: 3}
       propertyPath: portal
       value: 
-      objectReference: {fileID: 3910682942983857437}
+      objectReference: {fileID: 3992049873247189329}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a171171e93a9f7742abcb0dc18201280, type: 3}
 --- !u!4 &6410358889168983730 stripped
