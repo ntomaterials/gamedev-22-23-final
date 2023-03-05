@@ -12,7 +12,6 @@ public class Uzbec : Enemy
     [SerializeField] private Bow magicCaster1;
     [SerializeField] private Bow magicCaster2;
     [Space(5)]
-    [SerializeField] private LayerMask attackLayers;
     [Header("Particles")] 
     [SerializeField] private ParticleSystem particleRight;
     [SerializeField] private ParticleSystem particleLeft;

@@ -13,5 +13,9 @@ public class WaitingState : State
     {
         waitingTime -= Time.deltaTime;
         if (waitingTime <= 0) isFinished = true;
+        if (!owner.isImpact && owner.isGrounded && owner.canMove)
+        {
+            owner.Run(0f);
+        }
     }
 }
