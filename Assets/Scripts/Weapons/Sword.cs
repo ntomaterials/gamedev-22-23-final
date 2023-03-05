@@ -10,6 +10,7 @@ public class Sword : Weapon
     [SerializeField] private Vector2 knockbackPower;
 
     private Collider2D _collider;
+    public float stunDuration = 0f;
     [SerializeField] private List<AudioClip> attackSounds;
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class Sword : Weapon
                 {
                     hittedCreatures.Add(creature);
                     creature.GetDamage(damage, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча
+                    if (stunDuration > 0f) creature.Stun(stunDuration);
                 }
             }
             yield return null;
@@ -69,6 +71,7 @@ public class Sword : Weapon
             if (creature != null && !hittedCreatures.Contains(creature))
             {
                 hittedCreatures.Add(creature);
+                if (stunDuration > 0f) creature.Stun(stunDuration);
                 if (creature.effectedByKnockback)
                 {
                     creature.GetDamage(damage, new Vector2(transform.right.x, 0.5f) * knockbackPower); // направление отдачи - это направление меча

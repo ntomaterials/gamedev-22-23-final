@@ -10,9 +10,11 @@ public class Lesnik : Enemy
     [SerializeField] [Tooltip("Attacks will spawn at this area")]  private Collider2D battleZone;
 
     [SerializeField] private Sword sword;
+    [SerializeField] private Bow bow;
     [SerializeField] private Collider2D meleeAttackZone;
     [SerializeField] private WaitingState owlsAttackState;
     [SerializeField] private RunToPlayerState runToPlayerState;
+    [SerializeField] private RunToPlayerState wolfState;
     [SerializeField]private List<ArcShooter> owls;
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private LayerMask attackLayers;
@@ -23,9 +25,10 @@ public class Lesnik : Enemy
     
     
     private float _magicReloadTime = 3f;
+    private int _combo = 0;
     
     
-    private enum AttackType{Null, Owls, Rocks, }
+    private enum AttackType{Null, Owls, Rocks, Wolf}
 
     private AttackType currentAttack = AttackType.Null;
     
@@ -47,12 +50,19 @@ public class Lesnik : Enemy
             ChooseAttack();
         }
         
-        if(Physics2D.OverlapCircle(meleeAttackZone.bounds.center, meleeAttackZone.bounds.extents.x, attackLayers)
-           && sword.ready && currentAttack == AttackType.Null)
+        if(Physics2D.OverlapCircle(meleeAttackZone.bounds.center, meleeAttackZone.bounds.extents.x, attackLayers))
         {
-            animator.SetTrigger("attack");
-            sword.ResetReload();
-        }
+            if (sword.ready && currentAttack == AttackType.Null)
+            {
+               animator.SetTrigger("meleeAttack");
+               sword.ResetReload(); 
+            }
+            }else if (bow.ready && currentAttack == AttackType.Null)
+            {
+                LookToPlayer();
+                bow.ResetReload();
+                animator.SetTrigger("rifleAttack");
+            }
     }
 
     protected override void ChooseNewState()
@@ -71,7 +81,7 @@ public class Lesnik : Enemy
     #region Attacks
     private void ChooseAttack()
     {
-        int attack = Random.Range(0, 2);
+        int attack = Random.Range(0, 3);
         if (attack == 0)
         {
             currentAttack = AttackType.Owls;
@@ -80,7 +90,37 @@ public class Lesnik : Enemy
         {
             currentAttack = AttackType.Rocks;
             RocksAttack();
+        }else if (attack == 2)
+        {
+            currentAttack = AttackType.Wolf;
+            StartCoroutine(WolfAttack());
         }
+    }
+
+    private IEnumerator WolfAttack()
+    {
+        SetState(wolfState);
+        currentAttack = AttackType.Wolf;
+        animator.SetBool("transformation", true);
+        _combo = 3;
+        while (_combo > 0)
+        {
+            _magicReloadTime += Time.fixedDeltaTime;
+            if (_combo == 2) sword.stunDuration = 1f;
+            if (_combo != 2) sword.stunDuration = 0f;
+            if (Physics2D.OverlapCircle(meleeAttackZone.bounds.center, meleeAttackZone.bounds.extents.x, attackLayers))
+            {
+                animator.SetTrigger("combo" + _combo.ToString());
+                _combo -= 1;
+                yield return new WaitForSeconds(0.2f);
+            }
+            
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
+        }
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("transformation", false);
+        currentAttack = AttackType.Null;
+        SetState(startState);
     }
     private void RocksAttack()
     {
@@ -95,6 +135,8 @@ public class Lesnik : Enemy
     {
         SetState(owlsAttackState);
         SetOwlsActive(true);
+        
+        animator.SetTrigger("whistle");
         
         int attacks = 3;
         int owlsPerAttack = 2;
@@ -136,6 +178,11 @@ public class Lesnik : Enemy
     public void SlashStop()
     {
         sword.SlashStop();
+    }
+
+    public void Fire()
+    {
+        bow.Fire();
     }
     #endregion
 }

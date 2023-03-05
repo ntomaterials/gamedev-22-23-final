@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -286,6 +287,12 @@ public class Player : Creature
         currentWeapon = newWeapon.GetComponent<Weapon>();
         animatorL = weaponInfo.leftPlayerAnimation;
         animatorR = weaponInfo.rightPlayerAnimation;
+    }
+
+    public void NextWeapon()
+    {
+        int id = (Array.IndexOf(weaponsInfo, _currentPlayerWeaponInfo) + 1) % weaponsInfo.Length;
+        SetWeapon(id);
     }
 
     public void SetWeapon(int id)
