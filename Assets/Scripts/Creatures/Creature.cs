@@ -81,7 +81,7 @@ public class Creature : MonoBehaviour
             renderer.flipX = true;
         }
         _stunTime -= Time.fixedDeltaTime;
-        if (!stunned) animator.SetBool("stun", false);
+        //if (!stunned) animator.SetBool("stun", false);
         if (stunned)
         {
             animator.SetFloat("speed", 0f);

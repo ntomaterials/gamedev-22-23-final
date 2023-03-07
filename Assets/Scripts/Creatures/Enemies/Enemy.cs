@@ -125,6 +125,15 @@ public class Enemy : Creature
                 Gizmos.color = Color.red;
             }
             Gizmos.DrawWireCube(positionToCheck, size);
+            
+            Vector3 pos = transform.position + transform.right * collider.bounds.extents.x*(transform.localScale.x + 0.2f) +
+                          Vector3.down * ( 0.1f + collider.bounds.extents.y - collider.offset.y);
+            Collider2D[] cols = Physics2D.OverlapCircleAll(pos, checkRadius, groundLayerMask);
+            if (cols.Length == 0)
+            {
+                Gizmos.color = Color.red;
+            }else Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(pos, checkRadius);
         }
         catch { return; }
     }
@@ -132,7 +141,8 @@ public class Enemy : Creature
     public bool CheckEdge()
     {
         bool mustTurn=false;
-        Vector3 pos = transform.position + transform.right * collider.bounds.extents.x*(transform.localScale.x + 0.2f) + Vector3.down * ( 0.1f + collider.bounds.extents.y);
+        Vector3 pos = transform.position + transform.right * collider.bounds.extents.x*(transform.localScale.x + 0.2f) +
+                      Vector3.down * ( 0.1f + collider.bounds.extents.y - collider.offset.y);
         Collider2D[] cols = Physics2D.OverlapCircleAll(pos, checkRadius, groundLayerMask);
         if (cols.Length == 0) mustTurn = true;
         return mustTurn;
