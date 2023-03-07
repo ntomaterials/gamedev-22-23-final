@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 748790501}
+  joystick: {fileID: 0}
 --- !u!4 &282675262
 Transform:
   m_ObjectHideFlags: 0
@@ -500,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <allLevels>k__BackingField:
-  - {fileID: 142123073363449483, guid: dbbde72229ad0b9409b12ed673168e37, type: 3}
+  - {fileID: 142123073363449483, guid: 8bfb1562c22d1154e8e65f0eda977be2, type: 3}
   startCutscene: {fileID: 366087596}
   lastSavedLevelID: 0
 --- !u!1001 &366087594

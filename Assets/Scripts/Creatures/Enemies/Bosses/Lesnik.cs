@@ -8,6 +8,7 @@ public class Lesnik : Enemy
 {
     [Header("Init")]
     [SerializeField] [Tooltip("Attacks will spawn at this area")]  private Collider2D battleZone;
+    [SerializeField] private Finish portal;
 
     [SerializeField] private Sword sword;
     [SerializeField] private Bow bow;
@@ -37,6 +38,7 @@ public class Lesnik : Enemy
         base.Awake();
         _magicReloadTime = magicReload / 2;
         SetOwlsActive(false);
+        portal.gameObject.SetActive(false);
     }
     
 
@@ -134,7 +136,8 @@ public class Lesnik : Enemy
     private IEnumerator OwlsAttack()
     {
         SetState(owlsAttackState);
-        SetOwlsActive(true);
+        //Выставлено триггером в анимации
+        //SetOwlsActive(true);
         
         animator.SetTrigger("whistle");
         
@@ -163,8 +166,13 @@ public class Lesnik : Enemy
             owl.gameObject.SetActive(active);
         }
     }
+    public void SummonOwlsTrigger()
+    {
+        SetOwlsActive(true);
+    }
     public override void Die()
     {
+        portal.gameObject.SetActive(true);
         SetOwlsActive(false);
         base.Die();
     }
