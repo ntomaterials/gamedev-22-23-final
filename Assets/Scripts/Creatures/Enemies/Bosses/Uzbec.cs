@@ -74,6 +74,7 @@ public class Uzbec : Enemy
         }
         else if (bow.ready && canMove && Mathf.Abs(xDist) >= startDistanceAttackDistance)
         {
+            bow.ResetReload();
             animator.SetTrigger("shoot");
         
         }

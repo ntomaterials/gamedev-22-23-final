@@ -51,7 +51,8 @@ PrefabInstance:
         type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7884177984360497432, guid: 7f47390718c0cf9499465e6555ad4ae2,
+        type: 3}
     - target: {fileID: 3613788856300184180, guid: 79bf5412ecdd3324a9274a66ec4b6059,
         type: 3}
       propertyPath: m_RootOrder
@@ -158,6 +159,11 @@ PrefabInstance:
       propertyPath: shotSound
       value: 
       objectReference: {fileID: 8300000, guid: 774d5cda3bbef6942938238833ac3b62, type: 3}
+    - target: {fileID: 198127020, guid: eb6449e533e00c84a974906b921a96e4, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 7884177984360497432, guid: 37f4b4cdd90efde4ebfda16e3d8db756,
+        type: 3}
     - target: {fileID: 377947543146264079, guid: eb6449e533e00c84a974906b921a96e4,
         type: 3}
       propertyPath: m_Size.x
@@ -427,7 +433,8 @@ PrefabInstance:
         type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7884177984360497432, guid: 7f47390718c0cf9499465e6555ad4ae2,
+        type: 3}
     - target: {fileID: 3613788856300184180, guid: 79bf5412ecdd3324a9274a66ec4b6059,
         type: 3}
       propertyPath: m_RootOrder
