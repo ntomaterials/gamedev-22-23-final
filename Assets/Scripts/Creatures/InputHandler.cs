@@ -40,7 +40,7 @@ public class InputHandler : MonoBehaviour
         else
         {
             inputAxis = new Vector2(joystick.Horizontal, joystick.Vertical);
-            if (joystick.Vertical > 0.8f) Jump();
+            //if (joystick.Vertical > 0.8f) Jump();
         }
         
         
@@ -74,6 +74,10 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    public void Block()
+    {
+        player.Block();
+    }
     public void Jump()
     {
         if (player.climbing)
@@ -86,6 +90,22 @@ public class InputHandler : MonoBehaviour
             player.Jump();
         }
         
+    }
+    public void Roll()
+    {
+        if (!player.climbing)
+        {
+        player.Roll();
+        }
+    }
+    public void UseHeal(){
+        onUseBtnUp?.Invoke();
+    }
+    public void Menu(){
+        onMenuBtnUp?.Invoke();
+    }
+    public void Drop(){
+        onDropBtnUp?.Invoke();
     }
 
     public void StopJump()
