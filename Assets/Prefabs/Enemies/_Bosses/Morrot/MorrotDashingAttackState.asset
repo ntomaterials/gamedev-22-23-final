@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MorrotDashingAttackState
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
-  changeSpeed: 0
+  changeSpeed: 1
   stopWhenSeePlayerRadius: 0
-  speed: 0
-  flips: 1
+  speed: 6
+  flips: 5

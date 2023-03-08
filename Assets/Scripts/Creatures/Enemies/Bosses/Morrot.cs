@@ -1,16 +1,21 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Morrot : Enemy
 {
     [Header("Init")]
+    [SerializeField] [Tooltip("Attacks will spawn at this area")]  private Collider2D battleZone;
     [SerializeField] private RunToPlayerState runToPlayerState;
 
     [SerializeField] private PacmanAttackState pacmanAttackState;
     [SerializeField] private WaitingState waitingState;
+    [SerializeField] private WaitingState infinityWaitingState;
     [SerializeField] private Sword sword;
 
+    [SerializeField] private Transform teleportWhileSphereAttackPosition;
     [SerializeField] private GameObject[] portals;
     
     [Space(5)]
@@ -18,11 +23,14 @@ public class Morrot : Enemy
     [SerializeField] private float canSeeDistance = 10f;
     [SerializeField] private float magicReload = 5f;
     [SerializeField] private float dashingTime = 3f;
+    [SerializeField] private int spheres=4;
+    [SerializeField] private Vector2 spheresHeightMaxMin;
+    [SerializeField] private GameObject spherePrefab;
 
 
     private float _magicReloadTime = 3f;
     
-    private enum AttackType {Null, Portals,}
+    private enum AttackType {Null, Portals, Spheres}
     private AttackType currentAttack = AttackType.Null;
     protected override void ChooseNewState()
     {
@@ -57,14 +65,31 @@ public class Morrot : Enemy
     }
     private void ChooseAttack()
     {
-        int attack = Random.Range(0, 1);
+        int attack = Random.Range(1, 2);
         if (attack == 0)
         {
             currentAttack = AttackType.Portals;
             StartCoroutine(PortalsAttack());
+        }else if (attack == 1)
+        {
+            currentAttack = AttackType.Spheres;
+            StartCoroutine(SpheresAttack());
         }
     }
-
+    private IEnumerator SpheresAttack()
+    {
+        transform.position = teleportWhileSphereAttackPosition.position;
+        SetState(infinityWaitingState);
+        for (int i = 0; i < spheres; i++)
+        {
+            Vector2 pos = GetRandomObtainablePoint(spheresHeightMaxMin.x, spheresHeightMaxMin.y);
+            GameObject sphere = Instantiate(spherePrefab, pos, Quaternion.identity);
+        }
+        yield return new WaitForSeconds(10f);
+        currentAttack = AttackType.Null;
+        transform.position = GetRandomObtainablePoint(0.5f, 1f);
+        SetState(startState);
+    }
     private IEnumerator PortalsAttack()
     {
         SetPortalsActive(true);
@@ -75,6 +100,7 @@ public class Morrot : Enemy
             
             animator.SetBool("dashing", true);
             SetState(pacmanAttackState);
+            LookToPlayer();
             yield return new WaitForSeconds(dashingTime);
             sword.SlashStop();
             animator.SetBool("dashing", false);
@@ -90,6 +116,24 @@ public class Morrot : Enemy
         foreach (var portal in portals)
         {
             portal.SetActive(active);
+        }
+    }
+
+    /// <summary>
+    /// Генерирует случайную точку в боевой области, не выше чем maxHeight над землёй
+    /// </summary>
+    private Vector2 GetRandomObtainablePoint(float minHeight, float maxHeight)
+    {
+        float x = Random.Range(battleZone.bounds.min.x, battleZone.bounds.max.x);
+        float y = Random.Range(battleZone.bounds.min.y, battleZone.bounds.max.y);
+        Vector2 startPos = new Vector2(x, y);
+
+        RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, Mathf.Infinity, groundLayerMask);
+        if (hit == null) throw new Exception("No ground");
+        else
+        {
+            Vector2 pos = hit.point + Vector2.up * Random.Range(minHeight, maxHeight);
+            return pos;
         }
     }
     

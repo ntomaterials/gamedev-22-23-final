@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   changeSpeed: 1
-  speed: 2.5
-  targetDistance: 0.1
+  speed: 1.5
+  targetDistance: 0.8
