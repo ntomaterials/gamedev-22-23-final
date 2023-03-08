@@ -40,9 +40,9 @@ public class Level : MonoBehaviour
         if (levelsData.lastSavedLevelID == id && !(id == 0 && lastFireID == 0))
         {
             Vector3 pos = saveFires[lastFireID].playerSpawn.position;
-            player.transform.position =new Vector3(pos.x, pos.y, 0);
+            //player.transform.position =new Vector3(pos.x, pos.y, 0);
         }
-        else player.transform.position = playerSpawn.position;
+        //else player.transform.position = playerSpawn.position;
         enemyHolder.ReloadEnemies();
 
         /*if (saveLoadManager.deathMarker != null)
@@ -52,7 +52,7 @@ public class Level : MonoBehaviour
             //DontDestroyOnLoad(marker);
         }*/
 
-        if (leversStates == null) // Если новая игра, все двери закрыты
+        if (leversStates == null) // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         { 
             leversStates = new List<bool>();
             for (int i=0; i<doorLevers.Count; i++)

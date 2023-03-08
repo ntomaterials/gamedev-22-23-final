@@ -16,5 +16,6 @@ public class BowTrap : Bow
     {
         base.Fire();
         animator.SetTrigger("Shot");
+        ResetReload();
     }
 }

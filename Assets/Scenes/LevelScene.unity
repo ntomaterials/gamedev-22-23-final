@@ -893,10 +893,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <allLevels>k__BackingField:
-  - {fileID: 142123073363449483, guid: 190951146c788d944b549d03337a4238, type: 3}
-  - {fileID: 142123073363449483, guid: 89a43e5c2ec017f49af9ed895f5625fa, type: 3}
+  - {fileID: 142123073363449483, guid: b7a1349e523b77846afb02be94d3637a, type: 3}
+  - {fileID: 142123073363449483, guid: 895920602440dd04198556a0f52ae20d, type: 3}
   startCutscene: {fileID: 366087596}
   lastSavedLevelID: 0
+  player: {fileID: 748790501}
 --- !u!1001 &366087594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2258,7 +2259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 262.1, y: 0.20999146}
+  m_AnchoredPosition: {x: 262.09998, y: 0.20999146}
   m_SizeDelta: {x: 120, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690431406
@@ -7086,7 +7087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 262.1, y: 196.42957}
+  m_AnchoredPosition: {x: 262.09998, y: 196.42957}
   m_SizeDelta: {x: 160, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5931388381880449339

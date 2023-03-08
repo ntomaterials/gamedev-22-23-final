@@ -27,11 +27,11 @@ public class SaveLoadManager : MonoBehaviour
     public void SaveData(int fireID)
     {
         SetPath();
-        //че-то там подготавливаем, заводим машину
+        //пїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = new FileStream(filePath, FileMode.Create);
         Save save = new Save();
-        //сохраняем и выключаем машину
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         save.SavedLevelID = levelsData.lastSavedLevelID;
         save.SavedFireID = fireID;
         save.SaveLeversState(levelsData.levelOnScene.doorLevers);/////
@@ -44,7 +44,7 @@ public class SaveLoadManager : MonoBehaviour
     public void LoadData()
     {
         SetPath();
-        //если файл существует, заводим машину
+        //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if (!File.Exists(filePath))
         {
             Debug.Log("No files?");
@@ -57,9 +57,10 @@ public class SaveLoadManager : MonoBehaviour
         fs.Close();
 
         //======================
-        levelsData.LoadLevel(save.SavedLevelID);
-        levelsData.levelOnScene.lastFireID = save.SavedFireID;
+        levelsData.LoadLevel(save.SavedLevelID, save.SavedFireID);
+        //levelsData.levelOnScene.lastFireID = save.SavedFireID;
         levelsData.levelOnScene.LoadLevelObjects(save.leversStates);
+        //if(levelsData.levelOnScene.lastFireID!=0) Player.Instance.transform.position=levelsData.levelOnScene.saveFires[levelsData.levelOnScene.lastFireID].playerSpawn.position;
     }
     public void NewGame()
     {
