@@ -16,7 +16,7 @@ public class TriggeringPlatform : MovingPlatform
         if (endPos.x!=0 && transform.position.x - endPos.x>=0) canMoving = false;
         if (endPos.y!=0 && transform.position.y - endPos.y >= 0) canMoving = false;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
@@ -27,5 +27,5 @@ public class TriggeringPlatform : MovingPlatform
     private void OnCollisionExit2D(Collision2D collision)
     {
         base.OnCollisionExit2D(collision);
-    }
+    }*/
 }

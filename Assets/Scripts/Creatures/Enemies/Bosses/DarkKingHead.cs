@@ -10,6 +10,7 @@ public class DarkKingHead : Enemy
     [SerializeField] private Sword raw;
     [SerializeField] private Sword falldamageDiler;
     [SerializeField] private Finish portal;
+    [SerializeField] private DialogWithInteractable kudesnic;
 
     [SerializeField] private State pacmanAttackState;
     [SerializeField] private WaitingState waveAttackState;
@@ -47,6 +48,7 @@ public class DarkKingHead : Enemy
         targetYPosition = transform.position.y;
         _animator = GetComponent<Animator>();
         portal.gameObject.SetActive(false);
+        kudesnic.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -220,6 +222,7 @@ public class DarkKingHead : Enemy
     public override void Die()
     {
         portal.gameObject.SetActive(true);
+        kudesnic.gameObject.SetActive(true);
         base.Die();
     }
 
