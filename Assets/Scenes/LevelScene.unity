@@ -900,6 +900,7 @@ MonoBehaviour:
   - {fileID: 142123073363449483, guid: 190951146c788d944b549d03337a4238, type: 3}
   - {fileID: 142123073363449483, guid: 89a43e5c2ec017f49af9ed895f5625fa, type: 3}
   - {fileID: 142123073363449483, guid: 8bfb1562c22d1154e8e65f0eda977be2, type: 3}
+  - {fileID: 142123073363449483, guid: 3664327b9122a11418f675efa5d328bb, type: 3}
   startCutscene: {fileID: 366087596}
   lastSavedLevelID: 0
   player: {fileID: 748790501}
