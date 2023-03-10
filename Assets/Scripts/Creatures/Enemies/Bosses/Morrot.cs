@@ -81,7 +81,7 @@ public class Morrot : Enemy
     }
     private void ChooseAttack()
     {
-        int attack = Random.Range(3, 4);
+        int attack = Random.Range(0, 4);
         if (attack == 0)
         {
             currentAttack = AttackType.Portals;
