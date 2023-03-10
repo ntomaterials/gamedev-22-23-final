@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using UnityEditor.Build.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,6 +20,8 @@ public class Morrot : Enemy
     [SerializeField] private GameObject[] portals;
     [SerializeField] private GameObject planetPrefab;
     [SerializeField] private GameObject spherePrefab;
+    [SerializeField] private Transform laserAttackTeleportPoint;
+    [SerializeField] private GameObject[] lasers;
     
     [Space(5)]
     [Header("Balance")] 
@@ -30,12 +33,21 @@ public class Morrot : Enemy
     [SerializeField] private int planetsCol = 8;
     [SerializeField] private float timeBetweenPlanetsSpawn = 0.2f;
     [SerializeField] private float planetSpawnHeightAmplintude = 2f;
+    [SerializeField] private float laserAttackPreparationTime = 2f;
+    [SerializeField] private float laserAttackDurationTime = 5f;
 
 
     private float _magicReloadTime = 3f;
     
     private enum AttackType {Null, Portals, Spheres, Asteroids, Lasers}
     private AttackType currentAttack = AttackType.Null;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        SetLasersActive(false);
+    }
+
     protected override void ChooseNewState()
     {
         Vector2 dir = Player.Instance.transform.position - transform.position;
@@ -69,7 +81,7 @@ public class Morrot : Enemy
     }
     private void ChooseAttack()
     {
-        int attack = Random.Range(2, 3);
+        int attack = Random.Range(3, 4);
         if (attack == 0)
         {
             currentAttack = AttackType.Portals;
@@ -82,16 +94,44 @@ public class Morrot : Enemy
         {
             currentAttack = AttackType.Asteroids;
             StartCoroutine(AsteroidsAttack());
+        }else if (attack == 3)
+        {
+            currentAttack = AttackType.Lasers;
+            StartCoroutine(LasersAttack());
+        }
+    }
+
+    private IEnumerator LasersAttack()
+    {
+        _magicReloadTime += laserAttackDurationTime + laserAttackPreparationTime;
+        Player.Instance.transform.position = laserAttackTeleportPoint.position;
+        yield return new WaitForSeconds(laserAttackPreparationTime);
+        SetLasersActive(true);
+        yield return new WaitForSeconds(laserAttackDurationTime);
+        Player.Instance.transform.position = GetRandomObtainablePoint(0.5f, 0.5f);
+        SetLasersActive(false);
+        
+        yield return new WaitForSeconds(0.5f); // мало ли впритык к боссу появится
+        currentAttack = AttackType.Null;
+    }
+    private void SetLasersActive(bool active)
+    {
+        foreach (var laser in lasers)
+        {
+            laser.SetActive(active);
         }
     }
 
     private IEnumerator AsteroidsAttack()
     {
+        _magicReloadTime += timeBetweenPlanetsSpawn * planetsCol;
         for (int i = 0; i < planetsCol; i++)
         {
             SpawnPlanet();
             yield return new WaitForSeconds(timeBetweenPlanetsSpawn);
         }
+
+        currentAttack = AttackType.Null;
     }
 
     private void SpawnPlanet()

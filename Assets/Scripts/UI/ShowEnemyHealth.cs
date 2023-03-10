@@ -5,9 +5,14 @@ using UnityEngine.UI;
 public class ShowEnemyHealth : MonoBehaviour
 {
     [Header("Target")]
-    [SerializeField] private Enemy target;
+    [SerializeField] private Creature target;
+
+    [Space(5)]
+    [SerializeField] [Tooltip("Если включено, hp бар будет перемещатся за целью")]private bool targetIsNotParent = false;
+
+    [SerializeField] private Vector3 offset;
     
-    [Header("Base")]
+    [Space(5)][Header("Base")]
     [SerializeField] private Image healthbar;
     [SerializeField] private Image healhbarBG;
 
@@ -26,8 +31,17 @@ public class ShowEnemyHealth : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (target == null) Destroy(this.gameObject);
         SetVisible(_targetRenderer.enabled);
-        transform.rotation = Quaternion.Euler(new Vector3(0, transform.parent.rotation.eulerAngles.y * 2, 0));
+        if (!targetIsNotParent)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, transform.parent.rotation.eulerAngles.y * 2, 0));
+        }
+        else
+        {
+            transform.position = target.transform.position + offset;
+        }
+        
         healthbar.fillAmount = target.healthPercent;
     }
 

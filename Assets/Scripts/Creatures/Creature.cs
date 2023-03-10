@@ -13,7 +13,7 @@ public class Creature : MonoBehaviour
     [Header("Creature base")]
     [SerializeField ]protected AnimatorOverrideController animatorR;
     [SerializeField ]protected AnimatorOverrideController animatorL;
-    [field: SerializeField] public int maxHealth { get; private set; }
+    [field: SerializeField] public int maxHealth { get; protected set; }
     [SerializeField] private int[] _immunityLayers; //номер слоя оружия, к которому имеет имунитет
     public float speed=3f;
     
@@ -206,14 +206,11 @@ public class Creature : MonoBehaviour
 
     virtual public void GetDamage(int damage, Vector2 direction)
     {
-        if (damageSound != null) audioSource.PlayOneShot(damageSound);
         RotateByX(-direction.x);
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-        health = Mathf.Clamp(health - damage, 0, maxHealth);
-        _stunTime = 0f;
         StartCoroutine(GetImpact(direction));
-        canMove = true;
-        if (health <= 0) Die();
+        
+        GetDamage(damage);
     }
     virtual public void GetDamage(int damage)
     {
@@ -260,6 +257,14 @@ public class Creature : MonoBehaviour
         canMove = true;
         if (health <= 0) Die();
     }
+
+    /// <summary>
+    /// Задаёт здоровье, не может задать больше максимума
+    /// </summary>
+    public void SetHealth(int hp)
+    {
+        health = Mathf.Clamp(hp, 0, maxHealth);
+    }
     public IEnumerator GetImpact(Vector2 impact)
     {
         yield return GetImpact(impact, 0.1f);
@@ -284,9 +289,9 @@ public class Creature : MonoBehaviour
 
     public void Stun(float duration)
     {
+        Run(0);
         _stunTime = Mathf.Max(_stunTime, duration);
         animator.SetBool("stun", true);
-        Run(0);
     }
 
     virtual public void Heal(int amount)
