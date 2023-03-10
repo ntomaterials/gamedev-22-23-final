@@ -39,8 +39,10 @@ public class ArcShooter : Weapon
             Instantiate(projectilePrefab, firePoint.position + (Vector3) dif, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg));
             
             if(shotSound!=null) audioSource.PlayOneShot(shotSound);
-            
-            yield return new WaitForSeconds(timeForAttack / shots);
+            if (timeForAttack > 0f)
+            {
+                yield return new WaitForSeconds(timeForAttack / shots);
+            }
         }
     }
     private void OnDrawGizmosSelected()

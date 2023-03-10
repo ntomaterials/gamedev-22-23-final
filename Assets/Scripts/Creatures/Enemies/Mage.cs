@@ -1,8 +1,8 @@
-using System;
+using UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Mage : Enemy
+public class Mage : Enemy, IReloadable
 {
     [SerializeField] private float teleportReload = 5f;
     [SerializeField] private float teleportTriggerRadius = 2f;
@@ -90,7 +90,7 @@ public class Mage : Enemy
     }
     # endregion
 
-    public float teleportCooldown
+    public float cooldown
     {
         get
         {

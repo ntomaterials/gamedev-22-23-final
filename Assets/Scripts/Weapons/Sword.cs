@@ -85,6 +85,13 @@ public class Sword : Weapon
         }
         
     }
+
+    public bool CheckTargets()
+    {
+        Collider2D[] hits = new Collider2D[1];
+        return Physics2D.OverlapCollider(_collider, contactFilter, hits) > 0;
+        
+    }
     public override void SlashStop()
     {
         slashActive = false;

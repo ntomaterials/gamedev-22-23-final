@@ -39,10 +39,7 @@ public class RunToPlayerState : State
                     if (changeSpeed){owner.Run(xDir, speed);}
                     else owner.Run(xDir);
                 }
+            }
         }
-            
-            
-        }
-        
     }
 }
