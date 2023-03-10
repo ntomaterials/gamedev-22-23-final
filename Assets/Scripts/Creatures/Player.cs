@@ -126,6 +126,7 @@ public class Player : Creature
         }
         
         if (!canClimb && climbing) StopClimbing();
+        //Debug.Log(rigidbody.velocity);
     }
 
     public void GetXp(int xp)

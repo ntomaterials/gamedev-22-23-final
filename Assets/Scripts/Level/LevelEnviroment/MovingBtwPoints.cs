@@ -35,14 +35,16 @@ private IEnumerator Move()
 }
 protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == GlobalConstants.PlayerLayer || collision.gameObject.layer == GlobalConstants.EnemyLayer)
+        if (collision.gameObject.layer == GlobalConstants.PlayerLayer ||
+        collision.gameObject.layer == GlobalConstants.EnemyLayer)
         {
             collision.collider.transform.SetParent(transform);
         }
     }
     protected void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == GlobalConstants.PlayerLayer || collision.gameObject.layer == GlobalConstants.EnemyLayer)
+        if (collision.gameObject.layer == GlobalConstants.PlayerLayer ||
+        collision.gameObject.layer == GlobalConstants.EnemyLayer )
         {
             collision.collider.transform.SetParent(null);
         }

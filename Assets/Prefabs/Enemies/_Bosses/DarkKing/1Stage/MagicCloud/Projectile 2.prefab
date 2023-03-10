@@ -84,9 +84,9 @@ MonoBehaviour:
     m_Bits: 1024
   useAttackingLayerInt: 0
   attackingLayer: 0
-  damage: 4
+  damage: 5
   knockbackPower: 5
-  speed: 5
+  speed: 7
   forcePercent: 0.03
   forceDuration: 2
 --- !u!50 &3512628122530545208
