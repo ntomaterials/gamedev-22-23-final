@@ -17,6 +17,8 @@ public class Morrot : Enemy
 
     [SerializeField] private Transform teleportWhileSphereAttackPosition;
     [SerializeField] private GameObject[] portals;
+    [SerializeField] private GameObject planetPrefab;
+    [SerializeField] private GameObject spherePrefab;
     
     [Space(5)]
     [Header("Balance")] 
@@ -25,12 +27,14 @@ public class Morrot : Enemy
     [SerializeField] private float dashingTime = 3f;
     [SerializeField] private int spheres=4;
     [SerializeField] private Vector2 spheresHeightMaxMin;
-    [SerializeField] private GameObject spherePrefab;
+    [SerializeField] private int planetsCol = 8;
+    [SerializeField] private float timeBetweenPlanetsSpawn = 0.2f;
+    [SerializeField] private float planetSpawnHeightAmplintude = 2f;
 
 
     private float _magicReloadTime = 3f;
     
-    private enum AttackType {Null, Portals, Spheres}
+    private enum AttackType {Null, Portals, Spheres, Asteroids, Lasers}
     private AttackType currentAttack = AttackType.Null;
     protected override void ChooseNewState()
     {
@@ -65,7 +69,7 @@ public class Morrot : Enemy
     }
     private void ChooseAttack()
     {
-        int attack = Random.Range(1, 2);
+        int attack = Random.Range(2, 3);
         if (attack == 0)
         {
             currentAttack = AttackType.Portals;
@@ -74,7 +78,28 @@ public class Morrot : Enemy
         {
             currentAttack = AttackType.Spheres;
             StartCoroutine(SpheresAttack());
+        }else if (attack == 2)
+        {
+            currentAttack = AttackType.Asteroids;
+            StartCoroutine(AsteroidsAttack());
         }
+    }
+
+    private IEnumerator AsteroidsAttack()
+    {
+        for (int i = 0; i < planetsCol; i++)
+        {
+            SpawnPlanet();
+            yield return new WaitForSeconds(timeBetweenPlanetsSpawn);
+        }
+    }
+
+    private void SpawnPlanet()
+    {
+        float x = Random.Range(battleZone.bounds.min.x,  battleZone.bounds.max.x);
+        float y = Random.Range(battleZone.bounds.max.y - planetSpawnHeightAmplintude, battleZone.bounds.max.y);
+        Vector2 startPos = new Vector2(x, y);
+        Instantiate(planetPrefab, startPos, Quaternion.identity);
     }
     private IEnumerator SpheresAttack()
     {
