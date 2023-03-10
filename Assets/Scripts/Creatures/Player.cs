@@ -321,7 +321,6 @@ public class Player : Creature
                 canMove = true;
             }
         }
-        BecomeImmortal();
         currentWeapon.SlashStop();
         blocking = false;
         animator.SetTrigger("damage");
@@ -329,6 +328,7 @@ public class Player : Creature
         StopClimbing();
         base.GetDamage(damage, direction);
         HpBarUpdate();
+        BecomeImmortal();
     }
     override public void GetDamage(int damage) // используется для получения урона не от обычных атак (эффекты например)
     {

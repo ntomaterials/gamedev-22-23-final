@@ -209,7 +209,6 @@ public class Creature : MonoBehaviour
         RotateByX(-direction.x);
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         StartCoroutine(GetImpact(direction));
-        
         GetDamage(damage);
     }
     virtual public void GetDamage(int damage)
