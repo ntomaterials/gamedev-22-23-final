@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fadd523a270d0340b0cc9d8301268d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 1000
+  Score: 300
   teleportRadius: 0
   OpenSound: {fileID: 8300000, guid: d1fa572857f76a64ba77f1cbee508abe, type: 3}
 --- !u!82 &2650415987751130066

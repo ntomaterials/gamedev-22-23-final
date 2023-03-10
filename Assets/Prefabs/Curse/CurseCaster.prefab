@@ -69,7 +69,7 @@ MonoBehaviour:
   curseRayPrefab: {fileID: 5828758067825733488, guid: 8a2ffe03f5a9ca14bbba5be3265dc438,
     type: 3}
   stacksPerCastMax: 5
-  curseCleaner: {fileID: 4160732885375446718, guid: 094144c59396d424aa69914344a8ca35,
+  curseCleaner: {fileID: 4160732885375446718, guid: 95f2c737e7bde254187120cb2cdff8cd,
     type: 3}
   castSpeed: 1
   curseSound: {fileID: 8300000, guid: 0866d05041f7a814a9ddb2aa96d2fb6f, type: 3}

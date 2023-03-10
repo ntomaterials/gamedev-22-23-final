@@ -361,26 +361,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
         type: 3}
-      propertyPath: curseRay
-      value: 
-      objectReference: {fileID: 7002685284406468600, guid: f956db94f5ad82d4d99f0f88df215df7,
-        type: 3}
-    - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
-        type: 3}
       propertyPath: curseType
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
-        type: 3}
-      propertyPath: curseSphere
-      value: 
-      objectReference: {fileID: 5173865883382005821}
-    - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
-        type: 3}
-      propertyPath: curseCleaner
-      value: 
-      objectReference: {fileID: 4160732885375446718, guid: 094144c59396d424aa69914344a8ca35,
-        type: 3}
     - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
         type: 3}
       propertyPath: curseRayPrefab
@@ -439,12 +422,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d86adbde070481f40b0a5db982c25aaa, type: 3}
---- !u!2083052967 &5173865883382005821 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
-    type: 3}
-  m_PrefabInstance: {fileID: 2508485912066845051}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9203948129396513305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,

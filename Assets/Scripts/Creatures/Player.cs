@@ -15,7 +15,7 @@ using UnityEngine.SceneManagement;
 public class Player : Creature
 {
     public static Player Instance;
-    public static PlayerInventory Inventory;
+    //public static PlayerInventory Inventory;
     public PlayerInventory KvasInventory;
     public PlayerInventory MeetInventory;
     //public PlayerInventory ArrowsInventory;
@@ -89,7 +89,7 @@ public class Player : Creature
         _stamina = maxStamina;
         _capsuleCollider = (CapsuleCollider2D)collider;
         Instance = this;
-        Inventory = GetComponent<PlayerInventory>();
+        //Inventory = GetComponent<PlayerInventory>();
         HpBarUpdate();
         SetWeapon(weaponsInfo[0]);
         GetKvas(KvasInventory.maxCapacity);
@@ -126,6 +126,7 @@ public class Player : Creature
         }
         
         if (!canClimb && climbing) StopClimbing();
+        //Debug.Log(rigidbody.velocity);
     }
 
     public void GetXp(int xp)

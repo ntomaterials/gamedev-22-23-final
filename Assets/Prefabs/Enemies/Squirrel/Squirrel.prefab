@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorR: {fileID: 0}
   animatorL: {fileID: 0}
-  <maxHealth>k__BackingField: 3
+  <maxHealth>k__BackingField: 4
   _immunityLayers: 
   speed: 3
   groundLayerMask:

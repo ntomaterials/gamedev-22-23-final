@@ -7,6 +7,8 @@ public class DarkKing : Enemy
     [Header("Init")]
     [SerializeField] [Tooltip("Attacks will spawn at this area")] 
     private Collider2D battleZone;
+    [SerializeField] private Finish portal;
+    [SerializeField] private DialogWithInteractable kudesnic;
 
     [SerializeField] private GameObject head;
     [SerializeField] private Collider2D attackZone;
@@ -46,6 +48,8 @@ public class DarkKing : Enemy
     {
         base.Awake();
         bossTrigger = FindObjectOfType<BossTrigger>();
+        portal.gameObject.SetActive(false);
+        kudesnic.gameObject.SetActive(false);
     }
 
     private void Start()

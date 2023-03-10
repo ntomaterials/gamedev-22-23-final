@@ -9,8 +9,19 @@ public class Cudesnik : DialogWithInteractable
         base.Start();
         appearDistance = _collider.size.x / 2;
     }
-
-    private void FixedUpdate()
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+        if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
+        {
+            if (!_appear)
+            {
+                _animator.SetTrigger("appear");
+                _appear = true;
+            }
+        }
+    }
+    /*private void FixedUpdate()
     {
         float dist = (Player.Instance.transform.position - transform.position).magnitude;
         if (!_appear)
@@ -21,5 +32,5 @@ public class Cudesnik : DialogWithInteractable
                 _appear = true;
             }
         }
-    }
+    }*/
 }

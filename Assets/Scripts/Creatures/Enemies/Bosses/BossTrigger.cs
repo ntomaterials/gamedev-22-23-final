@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossTrigger : MonoBehaviour // Одноразовый код
+public class BossTrigger : MonoBehaviour // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 {
     [SerializeField] private List<Door> doors;
     private bool isClosed;
-    [SerializeField] private WinPanel winPanel;
+   // [SerializeField] private WinPanel winPanel;
+    [SerializeField] private DialogWithInteractable _kudesnic;
     private Collider2D collider;
     private void Awake()
     {
@@ -13,6 +14,7 @@ public class BossTrigger : MonoBehaviour // Одноразовый код
         collider.enabled = true;
         isClosed = false;
         OpenDoors();
+        _kudesnic.gameObject.SetActive(false);
     }
     public void OpenDoors()
     {
@@ -30,14 +32,14 @@ public class BossTrigger : MonoBehaviour // Одноразовый код
                 door.gameObject.SetActive(true);
             }
             isClosed = true;
-       
         }
     }
     public void BossDead()
     {
         OpenDoors();
-        winPanel.gameObject.SetActive(true);
-        winPanel.Open();
+        //winPanel.gameObject.SetActive(true);
+        //winPanel.Open();
+        _kudesnic.gameObject.SetActive(true);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

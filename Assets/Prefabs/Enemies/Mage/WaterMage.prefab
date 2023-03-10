@@ -621,26 +621,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
         type: 3}
-      propertyPath: curseRay
-      value: 
-      objectReference: {fileID: 7002685284406468600, guid: f956db94f5ad82d4d99f0f88df215df7,
-        type: 3}
-    - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
-        type: 3}
       propertyPath: curseType
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
-        type: 3}
-      propertyPath: curseSphere
-      value: 
-      objectReference: {fileID: 1715377745087205029}
-    - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
-        type: 3}
-      propertyPath: curseCleaner
-      value: 
-      objectReference: {fileID: 4160732885375446718, guid: 094144c59396d424aa69914344a8ca35,
-        type: 3}
     - target: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,
         type: 3}
       propertyPath: curseRayPrefab
@@ -710,12 +693,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6734307142802355043, guid: d86adbde070481f40b0a5db982c25aaa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d86adbde070481f40b0a5db982c25aaa, type: 3}
---- !u!2083052967 &1715377745087205029 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 7278570430903855430, guid: d86adbde070481f40b0a5db982c25aaa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8272149095010215907}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3438924293276898433 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6734307142802355042, guid: d86adbde070481f40b0a5db982c25aaa,

@@ -21,9 +21,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: ce129a43a68f9814a8a1272e1d3bcbfd, type: 3}
-    - time: 0.13333334
-      value: {fileID: 21300000, guid: 36dd340e68527324dab7557c2476d1e9, type: 3}
     - time: 0.25
+      value: {fileID: 21300000, guid: 36dd340e68527324dab7557c2476d1e9, type: 3}
+    - time: 0.33333334
       value: {fileID: 21300000, guid: 0c3a44224371eab4f98aeb7524635abf, type: 3}
     - time: 0.6666667
       value: {fileID: 21300000, guid: 0c3a44224371eab4f98aeb7524635abf, type: 3}
@@ -84,6 +84,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.6666667
     functionName: ContinueMove
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: SummonOwlsTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Squirrel : Enemy
 {
-    [SerializeField] private WaitingState waitingState;
-    [SerializeField] private Sword weapon;
-    [SerializeField] private Vector2 jumpForce;
+    [SerializeField] protected WaitingState waitingState;
+    [SerializeField] protected Sword weapon;
+    [SerializeField] protected Vector2 jumpForce;
 
-    [SerializeField] private float attackReload=2f;
+    [SerializeField] protected float attackReload=2f;
 
-    private float reloadTime=0f;
-    private bool _attaking=false;
+    protected float reloadTime=0f;
+    protected bool _attaking=false;
     
 
 
@@ -27,7 +27,7 @@ public class Squirrel : Enemy
         }
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (_attaking && isGrounded)
         {
@@ -38,7 +38,7 @@ public class Squirrel : Enemy
         reloadTime -= Time.fixedDeltaTime;
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         animator.SetFloat("speed", 0f);
         animator.SetTrigger("attack");
