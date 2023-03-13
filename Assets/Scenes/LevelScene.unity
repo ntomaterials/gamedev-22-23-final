@@ -3874,6 +3874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9217571171358458621, guid: 4c2d3a8983bad73439354243b3f4316c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fb7b08665f6a77744892ec69258a9c90, type: 2}
     - target: {fileID: 9217571171358458622, guid: 4c2d3a8983bad73439354243b3f4316c,
         type: 3}
       propertyPath: hpBar
