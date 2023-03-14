@@ -2,7 +2,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine.SceneManagement;
 
 /// <summary>

@@ -25,4 +25,15 @@ public class QuestManager : MonoBehaviour
             quests.RemoveAt(id);
         }
     }
+    public void UpdateQuestByCodeName(string codeName, float progress)
+    {
+        for (int i = 0; i < quests.Count; i++)
+        {
+            if (quests[i].codeName == codeName)
+            {
+                quests[i].progress += progress;
+                break;
+            }
+        }
+    }
 }
