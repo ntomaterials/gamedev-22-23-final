@@ -18,6 +18,7 @@ public class Player : Creature
     //public static PlayerInventory Inventory;
     public PlayerInventory KvasInventory;
     public PlayerInventory MeetInventory;
+    public QuestManager questManager;
     //public PlayerInventory ArrowsInventory;
 
     public int playerXp { get; private set; }///

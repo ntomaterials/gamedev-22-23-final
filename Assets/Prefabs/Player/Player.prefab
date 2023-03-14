@@ -146,6 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9217571171358458617}
   - component: {fileID: 9217571171358458616}
+  - component: {fileID: 7707316686792459601}
   - component: {fileID: 9217571171358458622}
   - component: {fileID: 9217571171358458620}
   - component: {fileID: 9217571171358458621}
@@ -230,6 +231,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7707316686792459601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217571171358458619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0393b1db9ac312e45ae933aa77323df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quests:
+  - title: "\u0411\u0435\u043B\u043A\u043E\u043C\u0430\u043D\u0438\u044F"
+    description: "\u0423\u0431\u0435\u0439 \u0431\u0435\u043B\u043A\u0443"
+    expirienceReward: 0
+    isActive: 0
+    codeName: 
 --- !u!114 &9217571171358458622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,6 +277,7 @@ MonoBehaviour:
   dieSound: {fileID: 8300000, guid: b9ced56c943adf643aed0eec238e8752, type: 3}
   KvasInventory: {fileID: 1529056175}
   MeetInventory: {fileID: 1181889378610454517}
+  questManager: {fileID: 0}
   weaponsInfo:
   - weaponPrefab: {fileID: 4965490076838667676, guid: 88161654615f7984c89de38a4de0a4fd,
       type: 3}
