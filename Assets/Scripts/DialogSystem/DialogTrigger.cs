@@ -6,11 +6,11 @@ using UnityEngine;
 public class DialogTrigger : MonoBehaviour
 {
     //[SerializeField] protected DialogWindow dialogWindow;
-    public Dialog dialog;
+    [field:SerializeField] public Dialog dialog{get; private set;}
     private DialogManager dialogManager;
-    protected Animator _animator;
-    protected BoxCollider2D _collider;
-    protected bool canShow;
+    private Animator _animator;
+    private BoxCollider2D _collider;
+    private bool canShow;
     private DialogWindow dialogWindow;
     private void Start() 
     {
@@ -27,7 +27,7 @@ public class DialogTrigger : MonoBehaviour
         canShow = false;
         HidePanel();
     }
-        protected void OnTriggerExit2D(Collider2D collision)
+        private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
@@ -35,7 +35,7 @@ public class DialogTrigger : MonoBehaviour
             canShow = false;
         }   
     }
-    protected virtual  void OnTriggerEnter2D(Collider2D collision)
+    private  void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
@@ -43,7 +43,7 @@ public class DialogTrigger : MonoBehaviour
         }
     }
 
-    protected void TryShowWindow()
+    private void TryShowWindow()
     {
         if (!canShow) return;
         if (dialogWindow.gameObject.activeInHierarchy) HidePanel();
@@ -53,7 +53,7 @@ public class DialogTrigger : MonoBehaviour
         }
     }
 
-    protected virtual void ShowWindow()
+    private void ShowWindow()
     {
         dialogWindow.gameObject.SetActive(true);
         TriggerDialog();
@@ -68,7 +68,7 @@ public class DialogTrigger : MonoBehaviour
         dialogWindow.gameObject.SetActive(false);
     }
 
-    protected void OnDestroy()
+    private void OnDestroy()
     {
         InputHandler.Instance.onActionBtnUp -= TryShowWindow;
     }
