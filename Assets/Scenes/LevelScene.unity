@@ -333,6 +333,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 2696843597371394582, guid: 779529ba86264cb42b81790bc02b9ef5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2696843598218277122, guid: 779529ba86264cb42b81790bc02b9ef5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2184,10 +2189,16 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontSize
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 3898434846060246120, guid: 4f08f1ada1f96a543aefdc395718dada,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5672dd25f11964c47b1a91e96938efa0,
+        type: 3}
     - target: {fileID: 3898434846060246121, guid: 4f08f1ada1f96a543aefdc395718dada,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 84.64
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3898434846060246121, guid: 4f08f1ada1f96a543aefdc395718dada,
         type: 3}

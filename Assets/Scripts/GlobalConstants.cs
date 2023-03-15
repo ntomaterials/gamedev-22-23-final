@@ -8,5 +8,5 @@
     public static int MainMenuSceneIndex = 0;
     public static int GameSceneIndex=1;
 
-    public static float defaultDialogDelay=0.01f;
+    public static float defaultDialogDelay=0.05f;
 }
