@@ -9,6 +9,7 @@ public class QuestInfo : MonoBehaviour
     [SerializeField] private Image progressBar;
     [SerializeField] private Image completionMark;
     [SerializeField] private Image followMark;
+    [SerializeField] private Button abortQuestButton;
 
     public void Init(Quest newQuest)
     {
@@ -21,6 +22,11 @@ public class QuestInfo : MonoBehaviour
     
     public void UpdateProgress(float progress)
     {
+        if (abortQuestButton != null)
+        {
+            if (quest.isCompleted) abortQuestButton.gameObject.SetActive(false);
+        }
+        
         progressBar.fillAmount = progress;
         if (completionMark != null)
         {
@@ -37,5 +43,9 @@ public class QuestInfo : MonoBehaviour
     {
         if (quest.follow) Player.Instance.questManager.RemoveFollowQuest();
         else Player.Instance.questManager.SetFollowQuest(quest.codeName);
+    }
+    public void RemoveQuest()
+    {
+        Player.Instance.questManager.QuitQuest(quest.codeName);
     }
 }

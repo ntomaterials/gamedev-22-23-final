@@ -18,25 +18,7 @@ public class QuestManager : MonoBehaviour
         quests.Add(quest);
         questInfoManager.UpdateInfos(quests);
     }
-    /// <summary>
-    /// Пожалуй лучше не удалять квесты но пусть будет
-    /// </summary>
-    public void RemoveQuest(string codeName)
-    {
-        int id=-1;
-        for(int i=0; i < quests.Count; i++)
-        {
-            if (quests[i].codeName == codeName)
-            {
-                id = i;
-                break;
-            }
-        }
-        if (id != -1)
-        {
-            quests.RemoveAt(id);
-        }
-    }
+
     public void UpdateQuest(string codeName, float progress)
     {
         for (int i = 0; i < quests.Count; i++)
@@ -116,7 +98,6 @@ public class QuestManager : MonoBehaviour
     }
     public void QuitQuest(string codeName)
     {
-
         for (int i = 0; i < quests.Count; i++)
         {
             if (quests[i].codeName == codeName)
@@ -124,7 +105,6 @@ public class QuestManager : MonoBehaviour
                 quests.RemoveAt(i);
                 break;
             }
-            
         }
         questInfoManager.UpdateInfos(quests);
     }
