@@ -7,6 +7,7 @@ public class QuestManager : MonoBehaviour
     public List<Quest> quests;
     public QuestInfoManager questInfoManager;
     private Animator _questInfoAnimator;
+    public Quest followedQuest { get; private set; }
     private void Start()
     {
         _questInfoAnimator = questInfoManager.GetComponentInParent<Animator>();
@@ -21,6 +22,7 @@ public class QuestManager : MonoBehaviour
 
     public void UpdateQuest(string codeName, float progress)
     {
+        followedQuest = null;
         for (int i = 0; i < quests.Count; i++)
         {
             if (quests[i].codeName == codeName)
@@ -30,7 +32,6 @@ public class QuestManager : MonoBehaviour
                 {
                     CompleteQuest(i);
                 }
-                //questInfoManager.UpdateInfos(quests);
                 break;
             }
         }
@@ -83,13 +84,18 @@ public class QuestManager : MonoBehaviour
     {
         for (int i = 0; i < quests.Count; i++)
         {
-            if (quests[i].codeName == codeName) quests[i].follow = true;
+            if (quests[i].codeName == codeName) {
+                quests[i].follow = true;
+                if (quests[i].follow) followedQuest = quests[i];
+                followedQuest = quests[i];
+            }
             else quests[i].follow = false;
         }
         questInfoManager.UpdateInfos(quests);
     }
     public void RemoveFollowQuest()
     {
+        followedQuest = null;
         for (int i = 0; i < quests.Count; i++)
         {
             quests[i].follow = false;
