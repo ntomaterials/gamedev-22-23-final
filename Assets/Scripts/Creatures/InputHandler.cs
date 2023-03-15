@@ -115,6 +115,18 @@ public class InputHandler : MonoBehaviour
     {
         player.StopJump();
     }
+    public void ShowQuestMenu()
+    {
+        player.questManager.ShowQuestMenu();
+    }
+    public void HideQuestMenu()
+    {
+        player.questManager.HideQuestMenu();
+    }
+    public void ChangeQuestMenuState()
+    {
+        player.questManager.ChangeQuestMenuState();
+    }
 
     public void Crouch() => player.StartCrouch();
     

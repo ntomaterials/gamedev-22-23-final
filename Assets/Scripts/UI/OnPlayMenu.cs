@@ -47,6 +47,7 @@ public class OnPlayMenu : MainMenu
     }
     public override void ListenEscape()
     {
+        Player.Instance.questManager.HideQuestMenu();
         if (!IsPaused) OpenMainPanel();
         else ClosePanel();
     }
