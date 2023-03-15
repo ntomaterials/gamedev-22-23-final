@@ -456,6 +456,8 @@ MonoBehaviour:
   quest:
     title: 
     description: 
+    rewardInfo: 
+    questType: 0
     expirienceReward: 0
     progress: 0
     isCompleted: 0
