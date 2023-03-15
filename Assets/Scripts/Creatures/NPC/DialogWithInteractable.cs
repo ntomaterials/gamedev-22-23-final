@@ -15,13 +15,13 @@ public class DialogWithInteractable : MonoBehaviour
         _collider = GetComponent<BoxCollider2D>();
         _collider.isTrigger = true;
         canShow = false;
-        HideTutorial();
+        HidePanel();
     }
     protected void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
-            HideTutorial();
+            HidePanel();
             canShow = false;
         }   
     }
@@ -36,10 +36,7 @@ public class DialogWithInteractable : MonoBehaviour
     protected void TryShowTutorial()
     {
         if (!canShow) return;
-        //float dist = (Player.Instance.transform.position - transform.position).magnitude;
-        //if (dist > _collider.size.x/2) return;
-        print("beba");
-        if (dialogScreen.activeInHierarchy) HideTutorial();
+        if (dialogScreen.activeInHierarchy) HidePanel();
         else 
         {
 
@@ -52,7 +49,7 @@ public class DialogWithInteractable : MonoBehaviour
         dialogScreen.gameObject.SetActive(true);
     }
 
-    public void HideTutorial()
+    public void HidePanel()
     {
         dialogScreen.gameObject.SetActive(false);
     }
