@@ -52,6 +52,7 @@ public class QuestManager : MonoBehaviour
                 break;
             }
         }
+        questInfoManager.UpdateInfos(quests);
     }
     /// <summary>
     ///  Check if quest already given and how many
@@ -94,6 +95,23 @@ public class QuestManager : MonoBehaviour
         {
            ShowQuestMenu();
         }
+    }
+    public void SetFollowQuest(string codeName)
+    {
+        for (int i = 0; i < quests.Count; i++)
+        {
+            if (quests[i].codeName == codeName) quests[i].follow = true;
+            else quests[i].follow = false;
+        }
+        questInfoManager.UpdateInfos(quests);
+    }
+    public void RemoveFollowQuest()
+    {
+        for (int i = 0; i < quests.Count; i++)
+        {
+            quests[i].follow = false;
+        }
+        questInfoManager.UpdateInfos(quests);
     }
 
 }

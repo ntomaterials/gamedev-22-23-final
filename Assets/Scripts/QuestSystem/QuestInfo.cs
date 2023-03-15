@@ -8,21 +8,29 @@ public class QuestInfo : MonoBehaviour
     [SerializeField] private Text description;
     [SerializeField] private Image progressBar;
     [SerializeField] private Image completionMark;
+    [SerializeField] private Image followMark;
+
     public void Init(Quest newQuest)
     {
         quest = newQuest;
         title.text = quest.title;
-        description.text = quest.description;
+        if (description != null) description.text = quest.description;
+        if (followMark != null) followMark.gameObject.SetActive(newQuest.follow);
+        UpdateProgress(newQuest.progress);
     }
-    public void Init(Quest newQuest, float progress)
-    {
-        Init(newQuest);
-        UpdateProgress(progress);
-    }
+    
     public void UpdateProgress(float progress)
     {
         progressBar.fillAmount = progress;
-        if ((progress >= 1f))completionMark.gameObject.SetActive(true);
-        else completionMark.gameObject.SetActive(false);
+        if (completionMark != null)
+        {
+            if ((progress >= 1f)) completionMark.gameObject.SetActive(true);
+            else completionMark.gameObject.SetActive(false);
+        }
+    }
+    public void SetFollowQuest()
+    {
+        if (quest.follow) Player.Instance.questManager.RemoveFollowQuest();
+        else Player.Instance.questManager.SetFollowQuest(quest.codeName);
     }
 }

@@ -6,6 +6,7 @@ public class QuestInfoManager : MonoBehaviour
     public static QuestInfoManager Instance;
     [SerializeField] private GameObject questInfoPrefab;
     [SerializeField] private Transform gridLayaout;
+    [SerializeField] private QuestInfo followQuestInfo;
     private List<QuestInfo> _questInfos;
     private void Awake()
     {
@@ -16,11 +17,12 @@ public class QuestInfoManager : MonoBehaviour
     {
         GameObject questInfoGameObject = Instantiate(questInfoPrefab, gridLayaout);
         QuestInfo newQuestInfo = questInfoGameObject.GetComponent<QuestInfo>();
-        newQuestInfo.Init(newQuest, newQuest.progress);
+        newQuestInfo.Init(newQuest);
         _questInfos.Add(newQuestInfo);
     }
     public void UpdateInfos(List<Quest> quests)
     {
+        RemoveFollowQuest();
         foreach (QuestInfo questinfo in _questInfos)
         {
             Destroy(questinfo.gameObject);
@@ -30,6 +32,16 @@ public class QuestInfoManager : MonoBehaviour
         foreach (Quest quest in quests)
         {
             AddQuest(quest);
+            if (quest.follow)
+            {
+                followQuestInfo.gameObject.SetActive(true);
+                followQuestInfo.Init(quest);
+            }
         }
+
+    }
+    public void RemoveFollowQuest()
+    {
+        followQuestInfo.gameObject.SetActive(false);
     }
 }

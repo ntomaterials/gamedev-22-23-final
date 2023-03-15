@@ -102,7 +102,6 @@ public class InputHandler : MonoBehaviour
         onUseBtnUp?.Invoke();
     }
     public void Menu(){
-        if (player.questManager.questInfoManager.isActiveAndEnabled) return;
         onMenuBtnUp?.Invoke();
     }
     public void Drop(){

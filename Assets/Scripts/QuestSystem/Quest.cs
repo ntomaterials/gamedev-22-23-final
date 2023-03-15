@@ -12,5 +12,6 @@ public class Quest
     public int expirienceReward;
     public float progress;
     public bool isCompleted = false;
+    public bool follow = false;
     public string codeName="q_1";
 }
