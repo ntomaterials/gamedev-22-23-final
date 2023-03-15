@@ -5,6 +5,7 @@ public class QuestInfoManager : MonoBehaviour
 {
     public static QuestInfoManager Instance;
     [SerializeField] private GameObject questInfoPrefab;
+    [SerializeField] private Transform gridLayaout;
     private List<QuestInfo> _questInfos;
     private void Awake()
     {
@@ -13,14 +14,14 @@ public class QuestInfoManager : MonoBehaviour
 
     public void AddQuest(Quest newQuest)
     {
-        GameObject questInfoGameObject = Instantiate(questInfoPrefab, this.transform);
+        GameObject questInfoGameObject = Instantiate(questInfoPrefab, gridLayaout);
         QuestInfo newQuestInfo = questInfoGameObject.GetComponent<QuestInfo>();
         newQuestInfo.Init(newQuest, newQuest.progress);
         _questInfos.Add(newQuestInfo);
     }
     public void UpdateInfos(List<Quest> quests)
     {
-        foreach(QuestInfo questinfo in _questInfos)
+        foreach (QuestInfo questinfo in _questInfos)
         {
             Destroy(questinfo.gameObject);
         }

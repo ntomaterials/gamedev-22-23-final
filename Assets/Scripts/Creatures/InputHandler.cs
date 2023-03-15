@@ -102,6 +102,7 @@ public class InputHandler : MonoBehaviour
         onUseBtnUp?.Invoke();
     }
     public void Menu(){
+        if (player.questManager.questInfoManager.isActiveAndEnabled) return;
         onMenuBtnUp?.Invoke();
     }
     public void Drop(){
@@ -111,6 +112,18 @@ public class InputHandler : MonoBehaviour
     public void StopJump()
     {
         player.StopJump();
+    }
+    public void ShowQuestMenu()
+    {
+        player.questManager.ShowQuestMenu();
+    }
+    public void HideQuestMenu()
+    {
+        player.questManager.HideQuestMenu();
+    }
+    public void ChangeQuestMenuState()
+    {
+        player.questManager.ChangeQuestMenuState();
     }
 
     public void Crouch() => player.StartCrouch();

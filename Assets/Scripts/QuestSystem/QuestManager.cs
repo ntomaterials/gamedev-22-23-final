@@ -1,10 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
     public List<Quest> quests;
     public QuestInfoManager questInfoManager;
+    private Animator _questInfoAnimator;
+    private void Start()
+    {
+        _questInfoAnimator = questInfoManager.GetComponentInParent<Animator>();
+        HideQuestMenu();
+    }
 
     public void NewQuest(Quest quest)
     {
@@ -41,7 +48,7 @@ public class QuestManager : MonoBehaviour
                 {
                     CompleteQuest(i);
                 }
-                questInfoManager.UpdateInfos(quests);
+                //questInfoManager.UpdateInfos(quests);
                 break;
             }
         }
@@ -51,4 +58,27 @@ public class QuestManager : MonoBehaviour
         Player.Instance.GetXp(quests[id].expirienceReward);
         quests[id].isCompleted = true;
     }
+    public void ShowQuestMenu()
+    {
+        _questInfoAnimator.SetBool("active", true);
+        Time.timeScale = 0f;
+        questInfoManager.UpdateInfos(quests);
+    }
+    public void HideQuestMenu()
+    {
+        _questInfoAnimator.SetBool("active", false);
+        Time.timeScale = 1f;
+    }
+    public void ChangeQuestMenuState()
+    {
+        if (Time.timeScale == 0f)
+        {
+            HideQuestMenu();
+        }
+        else
+        {
+           ShowQuestMenu();
+        }
+    }
+
 }
