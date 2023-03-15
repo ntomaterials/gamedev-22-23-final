@@ -53,6 +53,21 @@ public class QuestManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    ///  Check if quest already given and how many
+    /// </summary>
+    public int CheckQuest(string codeName)
+    {
+        int n=0;
+        for (int i = 0; i < quests.Count; i++)
+        {
+            if (quests[i].codeName == codeName)
+            {
+                n++;
+            }
+        }
+        return n;
+    }
     public void CompleteQuest(int id)
     {
         Player.Instance.GetXp(quests[id].expirienceReward);
