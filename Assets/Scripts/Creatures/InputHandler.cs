@@ -32,6 +32,8 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
+        if(player.canMove)
+        {
         if (player == null) return;
         if (joystick == null)
         {
@@ -63,6 +65,7 @@ public class InputHandler : MonoBehaviour
         CheckForWeaponChange();
         
         _lastInputAxis = inputAxis;
+        }
     }
 
     private void ClimbingCheck()

@@ -50571,6 +50571,61 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3020309025275390268}
     m_Modifications:
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.npcName
+      value: "\u041A\u0443\u0434\u0435\u0441\u043D\u0438\u043A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.answers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.sentences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.sentences.Array.data[0]
+      value: "\u041F\u0440\u0438\u0432\u0435\u0442 \u0418\u043B\u044C\u044F!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.sentences.Array.data[1]
+      value: "\u0421\u0435\u0439\u0447\u0430\u0441 \u0447\u0435-\u0442\u043E \u0431\u0443\u0434\u0435\u0442!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.answers.Array.data[0].answerText
+      value: "\u0427\u0442\u043E?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.answers.Array.data[0].nextDialog.npcName
+      value: "\u041A\u0443\u0434\u0435\u0441\u043D\u0438\u043A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.answers.Array.data[0].nextDialog.sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.answers.Array.data[0].playerAnswer.sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.answers.Array.data[0].nextDialog.sentences.Array.data[0]
+      value: "\u0415\u0449\u0435 \u043D\u0435 \u043F\u0440\u0438\u0434\u0443\u043C\u0430\u043B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455875944467045096, guid: 375ee97b6657d6141b60b656eef7126e,
+        type: 3}
+      propertyPath: <dialog>k__BackingField.answers.Array.data[0].playerAnswer.sentences.Array.data[0]
+      value: "\u0427\u0442\u043E \u0431\u0443\u0434\u0435\u0442?"
+      objectReference: {fileID: 0}
     - target: {fileID: 1457885654633945094, guid: 375ee97b6657d6141b60b656eef7126e,
         type: 3}
       propertyPath: m_IsActive
