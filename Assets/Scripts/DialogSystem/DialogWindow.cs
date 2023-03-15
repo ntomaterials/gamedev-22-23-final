@@ -5,8 +5,18 @@ public class DialogWindow : MonoBehaviour
 public static DialogWindow Instance;
 public Text nameText;
 public Text textArea;
+[SerializeField] private GameObject answerPanel;
 private void Awake()
 {
     Instance=this;
+    answerPanel.SetActive(false);
+}
+public void ShowAnswerWindow()
+{
+answerPanel.SetActive(true);
+}
+public void HideAnswerWindow()
+{
+answerPanel.SetActive(false);    
 }
 }

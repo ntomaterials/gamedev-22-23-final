@@ -9,24 +9,29 @@ public class DialogManager : MonoBehaviour
     public delegate void EndingDialog();
     private DialogWindow dialogWindow;
     private Player player;
+    private Dialog nowDialog;
+    private Dialog nextDialog;
     private Queue<string> sentences= new Queue<string>();
     //private Animator dialogWindow;
     private void Awake() 
     {
         Instance=this;
-
+        nowDialog=null;
+        nextDialog=null;
     }
     private void Start() {
         dialogWindow=DialogWindow.Instance;   
         player=Player.Instance;  
     }
-    public void StartDialog(Dialog dialog)
+    public void StartDialog(Dialog dialog, Dialog next=null)
     {
-
+        nowDialog=dialog;
+        nextDialog=next;
         player.StopMove();
-        dialogWindow.nameText.text=dialog.npcName;
+        dialogWindow.HideAnswerWindow();
+        dialogWindow.nameText.text=nowDialog.npcName;
         sentences.Clear();
-        foreach (string sentence in dialog.sentences)
+        foreach (string sentence in nowDialog.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -36,8 +41,17 @@ public class DialogManager : MonoBehaviour
     {
         if(sentences.Count==0) 
         {
-            EndDialog();
-            return;
+            if(nextDialog==null)
+            {
+            dialogWindow.ShowAnswerWindow();
+            //EndDialog();
+            //return;
+            }
+            else 
+            {
+                StartDialog(nextDialog);
+                return;
+            }
         }
         string sentence=sentences.Dequeue();
         dialogWindow.textArea.text=sentence;
@@ -45,6 +59,7 @@ public class DialogManager : MonoBehaviour
     public void EndDialog()
     {
         player.ContinueMove();
+        dialogWindow.HideAnswerWindow();
         onDialogEnd?.Invoke();
         //dialogWindow.SetBool("IsOpened", false);
     }

@@ -336,6 +336,7 @@ public class Player : Creature
         if (_immortalTime > 0) return;
         base.GetDamage(damage);
         HpBarUpdate();
+        DialogManager.Instance.EndDialog();
     }
     public override void Heal(int amount)
     {
