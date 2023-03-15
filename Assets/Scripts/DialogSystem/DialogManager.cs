@@ -9,6 +9,7 @@ public class DialogManager : MonoBehaviour
     public delegate void EndingDialog();
     private DialogWindow dialogWindow;
     private Player player;
+    private AnswerWindow answerWindow;
     private Dialog nowDialog;
     private Dialog nextDialog;
     private Queue<string> sentences= new Queue<string>();
@@ -22,6 +23,7 @@ public class DialogManager : MonoBehaviour
     private void Start() {
         dialogWindow=DialogWindow.Instance;   
         player=Player.Instance;  
+        answerWindow=AnswerWindow.Instance;
     }
     public void StartDialog(Dialog dialog, Dialog next=null)
     {
@@ -44,6 +46,7 @@ public class DialogManager : MonoBehaviour
             if(nextDialog==null)
             {
             dialogWindow.ShowAnswerWindow();
+            if(nowDialog.answers.Count!=0) answerWindow.FillAnswers(nowDialog.answers);
             //EndDialog();
             //return;
             }
@@ -60,6 +63,7 @@ public class DialogManager : MonoBehaviour
     {
         player.ContinueMove();
         dialogWindow.HideAnswerWindow();
+        answerWindow.ClearAnswers();
         onDialogEnd?.Invoke();
         //dialogWindow.SetBool("IsOpened", false);
     }

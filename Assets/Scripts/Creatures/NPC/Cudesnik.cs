@@ -1,17 +1,17 @@
 using UnityEngine;
-public class Cudesnik : DialogWithInteractable
+    [RequireComponent (typeof(Animator))]
+public class Cudesnik : MonoBehaviour
 {
-    private float appearDistance;
     
     private bool _appear = false;
-    protected void Start()
-    {
-        base.Start();
-        appearDistance = _collider.size.x / 2;
+    private Animator _animator;
+    private void Start() {
+        
+        _animator=GetComponent<Animator>();
     }
-    protected override void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
         if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
         {
             if (!_appear)
