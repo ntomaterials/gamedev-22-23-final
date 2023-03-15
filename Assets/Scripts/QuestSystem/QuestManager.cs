@@ -108,6 +108,10 @@ public class QuestManager : MonoBehaviour
         {
             if (quests[i].codeName == codeName)
             {
+                if (quests[i].follow)
+                {
+                    followedQuest = null;
+                }
                 quests.RemoveAt(i);
                 break;
             }

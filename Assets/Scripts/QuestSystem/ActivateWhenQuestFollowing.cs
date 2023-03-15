@@ -11,7 +11,6 @@ public class ActivateWhenQuestFollowing : MonoBehaviour
     }
     private bool Check()
     {
-        print(Player.Instance.questManager.followedQuest);
         if (Player.Instance.questManager.followedQuest != null)
         {
             if (Player.Instance.questManager.followedQuest.codeName == questCodeName)
