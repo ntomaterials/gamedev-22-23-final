@@ -24,8 +24,13 @@ public class QuestInfo : MonoBehaviour
         progressBar.fillAmount = progress;
         if (completionMark != null)
         {
-            if ((progress >= 1f)) completionMark.gameObject.SetActive(true);
-            else completionMark.gameObject.SetActive(false);
+            if ((progress >= 1f)) {
+                completionMark.gameObject.SetActive(true);
+                progressBar.transform.parent.gameObject.SetActive(false);
+            }
+            else {
+                completionMark.gameObject.SetActive(false);
+            }
         }
     }
     public void SetFollowQuest()

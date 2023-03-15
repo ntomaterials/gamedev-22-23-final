@@ -73,6 +73,7 @@ public class QuestManager : MonoBehaviour
     {
         Player.Instance.GetXp(quests[id].expirienceReward);
         quests[id].isCompleted = true;
+        quests[id].questType = QuestType.Completed;
     }
     public void ShowQuestMenu()
     {
@@ -113,5 +114,18 @@ public class QuestManager : MonoBehaviour
         }
         questInfoManager.UpdateInfos(quests);
     }
+    public void QuitQuest(string codeName)
+    {
 
+        for (int i = 0; i < quests.Count; i++)
+        {
+            if (quests[i].codeName == codeName)
+            {
+                quests.RemoveAt(i);
+                break;
+            }
+            
+        }
+        questInfoManager.UpdateInfos(quests);
+    }
 }

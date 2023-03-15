@@ -8,6 +8,7 @@ public class QuestInfoManager : MonoBehaviour
     [SerializeField] private Transform gridLayaout;
     [SerializeField] private QuestInfo followQuestInfo;
     private List<QuestInfo> _questInfos;
+    private QuestType currentQuestType;
     private void Awake()
     {
         _questInfos = new List<QuestInfo>();
@@ -31,7 +32,7 @@ public class QuestInfoManager : MonoBehaviour
 
         foreach (Quest quest in quests)
         {
-            AddQuest(quest);
+            if (quest.questType == currentQuestType) AddQuest(quest);
             if (quest.follow)
             {
                 followQuestInfo.gameObject.SetActive(true);
@@ -43,5 +44,10 @@ public class QuestInfoManager : MonoBehaviour
     public void RemoveFollowQuest()
     {
         followQuestInfo.gameObject.SetActive(false);
+    }
+    public void SetQuestType(int type)
+    {
+        currentQuestType = (QuestType)type;
+        UpdateInfos(Player.Instance.questManager.quests);
     }
 }
