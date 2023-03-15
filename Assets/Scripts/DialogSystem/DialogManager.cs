@@ -15,7 +15,7 @@ public class DialogManager : MonoBehaviour
     private Dialog nextDialog;
     private Queue<string> sentences= new Queue<string>();
     private Queue<AudioClip> voices=new Queue<AudioClip>();
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource audioSource;
     //private Animator dialogWindow;
     private void Awake() 
     {
@@ -56,7 +56,7 @@ public class DialogManager : MonoBehaviour
     }
     public void DisplayNextSentence()
     {
-        _audioSource.Stop();
+        audioSource.Stop();
         if(sentences.Count==0) 
         {
             if(nextDialog==null)
@@ -76,7 +76,7 @@ public class DialogManager : MonoBehaviour
 
         AudioClip voice=null;
         if(voices!=null) voice =voices.Dequeue();
-        if(voice!=null) _audioSource.PlayOneShot(voice);
+        if(voice!=null) audioSource.PlayOneShot(voice);
 
     }
     private IEnumerator PrintText(string sentence)

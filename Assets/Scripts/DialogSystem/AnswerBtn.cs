@@ -20,4 +20,10 @@ public class AnswerBtn : MonoBehaviour
         if(answer.IsEndReplic) dialogManager.EndDialog();
         else dialogManager.StartDialog(answer.playerAnswer, answer.nextDialog);
     }
+    /*public void Answer(GetQuest)
+    {
+        if(answer.IsEndReplic) dialogManager.EndDialog();
+        else dialogManager.StartDialog(answer.playerAnswer, answer.nextDialog);
+        GetQuest()
+    }*/
 }

@@ -51751,7 +51751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c285af2b71de77419dd1dfa9b1a3ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 2005453804}
+  audioSource: {fileID: 0}
 --- !u!82 &2005453804
 AudioSource:
   m_ObjectHideFlags: 0
@@ -53241,77 +53241,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogWindow
       objectReference: {fileID: 0}
-    - target: {fileID: 2696843598060960048, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598060960048, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598060960048, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598060960048, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598118221741, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598118221741, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598118221741, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598118221741, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2696843598218277122, guid: 779529ba86264cb42b81790bc02b9ef5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2005453803}
-    - target: {fileID: 2696843598291751540, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: endReplic
-      value: 
-      objectReference: {fileID: 8370757791397558788, guid: f03b6b16c19431c438040aa99aaf37cb,
-        type: 3}
-    - target: {fileID: 2696843598503259445, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598503259445, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598503259445, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696843598503259445, guid: 779529ba86264cb42b81790bc02b9ef5,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 779529ba86264cb42b81790bc02b9ef5, type: 3}
 --- !u!1001 &2741437743713567085

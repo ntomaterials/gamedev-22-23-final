@@ -9,7 +9,7 @@ public Text textArea;
 private void Awake()
 {
     Instance=this;
-    answerPanel.SetActive(false);
+    HideAnswerWindow();
 }
 public void ShowAnswerWindow()
 {

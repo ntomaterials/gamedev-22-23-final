@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent (typeof(Animator))]
+//[RequireComponent (typeof(Animator))]
 [RequireComponent (typeof(BoxCollider2D))]
 public class DialogTrigger : MonoBehaviour
 {
     //[SerializeField] protected DialogWindow dialogWindow;
     [field:SerializeField] public Dialog dialog{get; private set;}
     private DialogManager dialogManager;
-    private Animator _animator;
-    private BoxCollider2D _collider;
-    private bool canShow;
     private DialogWindow dialogWindow;
+    //private Animator animator;
+    private BoxCollider2D collider;
+    private bool canShow;
     private void Start() 
     {
         dialogManager=DialogManager.Instance;
@@ -20,12 +20,19 @@ public class DialogTrigger : MonoBehaviour
         InputHandler.Instance.onActionBtnUp += TryShowWindow;
         dialogManager.onDialogEnd+=HidePanel;
 
-        _animator = GetComponent<Animator>();
-        _collider = GetComponent<BoxCollider2D>();
+        //animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
 
-        _collider.isTrigger = true;
+        collider.isTrigger = true;
         canShow = false;
         HidePanel();
+    }
+    private  void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
+        {
+            canShow = true;
+        }
     }
         private void OnTriggerExit2D(Collider2D collision)
     {
@@ -34,13 +41,6 @@ public class DialogTrigger : MonoBehaviour
             HidePanel();
             canShow = false;
         }   
-    }
-    private  void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == GlobalConstants.PlayerLayer)
-        {
-            canShow = true;
-        }
     }
 
     private void TryShowWindow()
@@ -58,7 +58,7 @@ public class DialogTrigger : MonoBehaviour
         dialogWindow.gameObject.SetActive(true);
         TriggerDialog();
     }
-        public void TriggerDialog()
+        private void TriggerDialog()
     {
         dialogManager.StartDialog(dialog);
     }
