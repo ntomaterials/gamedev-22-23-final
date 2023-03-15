@@ -6,6 +6,6 @@ public class QuestDeathMark : MonoBehaviour
     [Range(0, 1)] public float comletePercent=1f;
     private void OnDestroy()
     {
-        
+        Player.Instance.questManager.UpdateQuest(questCodeName, comletePercent);
     }
 }
