@@ -4,6 +4,6 @@ public class QuestGiverByStart : QuestGiver
 {
     void Start()
     {
-        GiveQuest();
+        Invoke("GiveQuest", 0.3f);
     }
 }

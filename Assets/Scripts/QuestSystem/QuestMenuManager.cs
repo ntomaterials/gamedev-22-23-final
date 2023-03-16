@@ -50,16 +50,15 @@ public class QuestMenuManager : MonoBehaviour
         }
         _questLabels = new List<QuestLabel>();
         int n = 0;
-        n--;
         foreach (Quest quest in quests)
         {
-            n++;
-            if (!(n >= labelsInPage * _currentPage && n < (_currentPage + 1) * labelsInPage))
+            if (quest.questType == currentQuestType)
             {
-                continue;
-            }
-            if (quest.questType == currentQuestType) {
-                CreateQuestLabel(quest);
+                if ((n >= labelsInPage * _currentPage && n < (_currentPage + 1) * labelsInPage))
+                {
+                    CreateQuestLabel(quest);
+                }
+                n++;
             }
             if (quest.follow)
             {

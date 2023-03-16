@@ -26,7 +26,7 @@ public class QuestInfo : MonoBehaviour
     {
         if (abortQuestButton != null)
         {
-            if (quest.isCompleted) abortQuestButton.gameObject.SetActive(false);
+            if (quest.isCompleted || quest.questType == QuestType.Plot) abortQuestButton.gameObject.SetActive(false);
         }
         
         progressBar.fillAmount = progress;
@@ -38,6 +38,7 @@ public class QuestInfo : MonoBehaviour
             }
             else {
                 completionMark.gameObject.SetActive(false);
+                progressBar.transform.parent.gameObject.SetActive(true);
             }
         }
     }
