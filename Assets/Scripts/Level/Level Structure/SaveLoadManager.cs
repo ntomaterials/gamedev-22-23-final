@@ -67,7 +67,8 @@ public class SaveLoadManager : MonoBehaviour
     private IEnumerator LoadQuests(Save s)
     {
         yield return new WaitForSeconds(0.1f);
-        Player.Instance.questManager.quests = save.quests;
+        Player.Instance.questManager.quests = s.quests;
+        Player.Instance.questManager.UpdateMenu();
     }
     public void NewGame()
     {
