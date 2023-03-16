@@ -51072,9 +51072,8 @@ MonoBehaviour:
   quest:
     title: "\u041D\u0435\u0433\u043E\u0434\u044F\u0438"
     description: "\u0423\u0431\u0438\u0442\u044C \u043C\u0435\u0447\u043D\u0438\u043A\u0430"
-    rewardInfo: 
-    questType: 2
-    expirienceReward: 500
+    questType: 1
+    expirienceReward: 100
     progress: 0
     isCompleted: 0
     follow: 0

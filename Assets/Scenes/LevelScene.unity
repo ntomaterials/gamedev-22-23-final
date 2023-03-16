@@ -1199,6 +1199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c285af2b71de77419dd1dfa9b1a3ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  answerWindow: {fileID: 906015156}
   audioSource: {fileID: 282675264}
 --- !u!1001 &366087594
 PrefabInstance:
@@ -1207,6 +1208,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5931388382043894939}
     m_Modifications:
+    - target: {fileID: 6911673670068242187, guid: 54d3022971d00584f96bb56af1fc469f,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6911673670068242190, guid: 54d3022971d00584f96bb56af1fc469f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3740,6 +3746,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888299839}
   m_CullTransparentMesh: 1
+--- !u!114 &906015156 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2696843598291751540, guid: 779529ba86264cb42b81790bc02b9ef5,
+    type: 3}
+  m_PrefabInstance: {fileID: 67898539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e26f46938ab1d43ada87867ef869f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &973942231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5842,6 +5860,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118471838426083134, guid: e0677dd0a865eed47b900445b68b6b5a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118471838426083134, guid: e0677dd0a865eed47b900445b68b6b5a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7118471838426083134, guid: e0677dd0a865eed47b900445b68b6b5a,
         type: 3}
