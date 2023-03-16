@@ -6,7 +6,7 @@ public class BossTrigger : MonoBehaviour // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿
     [SerializeField] private List<Door> doors;
     private bool isClosed;
    // [SerializeField] private WinPanel winPanel;
-    [SerializeField] private DialogWithInteractable _kudesnic;
+    //[SerializeField] private DialogWithInteractable _kudesnic;
     private Collider2D collider;
     private void Awake()
     {
@@ -14,7 +14,7 @@ public class BossTrigger : MonoBehaviour // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿
         collider.enabled = true;
         isClosed = false;
         OpenDoors();
-        _kudesnic.gameObject.SetActive(false);
+        //_kudesnic.gameObject.SetActive(false);
     }
     public void OpenDoors()
     {
@@ -39,7 +39,7 @@ public class BossTrigger : MonoBehaviour // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿
         OpenDoors();
         //winPanel.gameObject.SetActive(true);
         //winPanel.Open();
-        _kudesnic.gameObject.SetActive(true);
+        //_kudesnic.gameObject.SetActive(true);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

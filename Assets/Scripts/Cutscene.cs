@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 [RequireComponent (typeof(Animator))]
 public class Cutscene : MonoBehaviour
 {
@@ -7,12 +8,16 @@ public class Cutscene : MonoBehaviour
     public event CutsceneEnded onCutsceneEnded;
     public delegate void CutsceneEnded();
     private OnPlayMenu mainCanvas;
+    private Image image;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
-        mainCanvas = FindObjectOfType<OnPlayMenu>();//не знаю, есть ли у канвасов иерархия, поэтому пока такой костыль
+        mainCanvas = FindObjectOfType<OnPlayMenu>();//пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         transform.parent = mainCanvas.transform;
         transform.localPosition = Vector3.zero;
+        image=GetComponent<Image>();
+        //image.raycastTarget=true;
     }
     public void PlayCutscene()
     {
@@ -22,6 +27,7 @@ public class Cutscene : MonoBehaviour
     public void OnCutsceneEnd()
     {
         animator.Play("Idle");
+        //image.raycastTarget=false;
         onCutsceneEnded?.Invoke();
     }
 }

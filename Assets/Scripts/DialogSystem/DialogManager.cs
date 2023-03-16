@@ -10,7 +10,7 @@ public class DialogManager : MonoBehaviour
     public delegate void EndingDialog();
     private DialogWindow dialogWindow;
     private Player player;
-    private AnswerWindow answerWindow;
+    [SerializeField] private AnswerWindow answerWindow;
     private Dialog nowDialog;
     private Dialog nextDialog;
     private Queue<string> sentences= new Queue<string>();
@@ -27,7 +27,7 @@ public class DialogManager : MonoBehaviour
     private void Start() {
         dialogWindow=DialogWindow.Instance;   
         player=Player.Instance;  
-        answerWindow=AnswerWindow.Instance;
+        //answerWindow=AnswerWindow.Instance;
     }
     public void StartDialog(Dialog dialog, Dialog next=null)
     {
