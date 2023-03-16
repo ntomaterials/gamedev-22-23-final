@@ -1,13 +1,12 @@
 using UnityEngine;
 
 
-public enum QuestType { Plot=0, Parkour=1, Battle=2, Completed=3}
+public enum QuestType { Plot=0, Other=1, Completed=2}
 [System.Serializable]
 public class Quest
 {
     public string title;
-    public string description;
-    public string rewardInfo;
+    [TextArea] public string description;
     public QuestType questType;
     public int expirienceReward;
     public float progress;

@@ -1,28 +1,38 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
     public List<Quest> quests;
-    public QuestInfoManager questInfoManager;
-    private Animator _questInfoAnimator;
-    public Quest followedQuest { get; private set; }
+    public QuestMenuManager questMenuManager;
+    public Quest followedQuest
+    {
+        get {
+            Quest quest=null;
+            foreach(Quest i in quests)
+            {
+                if (i.follow)
+                {
+                    quest = i;
+                    break;
+                }
+            }
+            return quest;
+        }
+    }
     private void Start()
     {
-        _questInfoAnimator = questInfoManager.GetComponentInParent<Animator>();
         HideQuestMenu();
     }
 
     public void NewQuest(Quest quest)
     {
         quests.Add(quest);
-        questInfoManager.UpdateInfos(quests);
+        questMenuManager.UpdateLabels(quests);
     }
 
     public void UpdateQuest(string codeName, float progress)
     {
-        followedQuest = null;
         for (int i = 0; i < quests.Count; i++)
         {
             if (quests[i].codeName == codeName)
@@ -35,7 +45,7 @@ public class QuestManager : MonoBehaviour
                 break;
             }
         }
-        questInfoManager.UpdateInfos(quests);
+        questMenuManager.UpdateLabels(quests);
     }
     /// <summary>
     ///  Check if quest already given and how many
@@ -60,13 +70,13 @@ public class QuestManager : MonoBehaviour
     }
     public void ShowQuestMenu()
     {
-        _questInfoAnimator.SetBool("active", true);
+        questMenuManager.Show();
         Time.timeScale = 0f;
-        questInfoManager.UpdateInfos(quests);
+        questMenuManager.UpdateLabels(quests);
     }
     public void HideQuestMenu()
     {
-        _questInfoAnimator.SetBool("active", false);
+        questMenuManager.Hide();
         Time.timeScale = 1f;
     }
     public void ChangeQuestMenuState()
@@ -86,21 +96,18 @@ public class QuestManager : MonoBehaviour
         {
             if (quests[i].codeName == codeName) {
                 quests[i].follow = true;
-                if (quests[i].follow) followedQuest = quests[i];
-                followedQuest = quests[i];
             }
             else quests[i].follow = false;
         }
-        questInfoManager.UpdateInfos(quests);
+        questMenuManager.UpdateLabels(quests);
     }
     public void RemoveFollowQuest()
     {
-        followedQuest = null;
         for (int i = 0; i < quests.Count; i++)
         {
             quests[i].follow = false;
         }
-        questInfoManager.UpdateInfos(quests);
+        questMenuManager.UpdateLabels(quests);
     }
     public void QuitQuest(string codeName)
     {
@@ -108,14 +115,14 @@ public class QuestManager : MonoBehaviour
         {
             if (quests[i].codeName == codeName)
             {
-                if (quests[i].follow)
-                {
-                    followedQuest = null;
-                }
                 quests.RemoveAt(i);
                 break;
             }
         }
-        questInfoManager.UpdateInfos(quests);
+        questMenuManager.UpdateLabels(quests);
+    }
+    public void UpdateMenu()
+    {
+        questMenuManager.UpdateLabels(quests);
     }
 }

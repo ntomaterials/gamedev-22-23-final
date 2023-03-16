@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QuestInfo">
+    <Position X="7.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiACAwQAAIAAAgIAAIAAAAAAAAAAAACAACAgAAAAA=</HashCode>
+      <FileName>Assets\Scripts\QuestSystem\QuestInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Quest">
+    <Position X="2" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAIAAAIAAQAAAAEAAEAAAAAIAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\QuestSystem\Quest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestLabel">
+    <Position X="5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAQAAAAAAABAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\QuestSystem\QuestLabel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestManager">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAChAEKAIIAAAAhAAAAABAIAAAAgAAEAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\QuestSystem\QuestManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestMenuManager">
+    <Position X="12" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBAAAAAAAQAAAABAEAAADAEgAACEMAAEQAJAIAABAEA=</HashCode>
+      <FileName>Assets\Scripts\QuestSystem\QuestMenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

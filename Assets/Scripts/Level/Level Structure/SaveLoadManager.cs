@@ -35,6 +35,7 @@ public class SaveLoadManager : MonoBehaviour
         save.SavedLevelID = levelsData.lastSavedLevelID;
         save.SavedFireID = fireID;
         save.SaveLeversState(levelsData.levelOnScene.doorLevers);/////
+        save.quests = Player.Instance.questManager.quests;
 
         bf.Serialize(fs, save);
         fs.Close();
@@ -61,6 +62,7 @@ public class SaveLoadManager : MonoBehaviour
         //levelsData.levelOnScene.lastFireID = save.SavedFireID;
         levelsData.levelOnScene.LoadLevelObjects(save.leversStates);
         //if(levelsData.levelOnScene.lastFireID!=0) Player.Instance.transform.position=levelsData.levelOnScene.saveFires[levelsData.levelOnScene.lastFireID].playerSpawn.position;
+        Player.Instance.questManager.quests = save.quests;
     }
     public void NewGame()
     {
@@ -74,6 +76,7 @@ public class SaveLoadManager : MonoBehaviour
         public int SavedLevelID;
         public int SavedFireID;
         public List<bool> leversStates=new List<bool>();
+        public List<Quest> quests = new List<Quest>();
         public void SaveLeversState(List<DoorLever> levers)
         {
             foreach (var lever in levers)
