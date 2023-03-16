@@ -8,7 +8,7 @@ public class QuestMenuManager : MonoBehaviour
     [SerializeField] private Transform gridLayaout;
     [SerializeField] private int labelsInPage = 6;
     [SerializeField] private QuestInfo followQuestInfo;
-    [SerializeField] private QuestInfo questInfo;
+    [SerializeField] private QuestInfo selectedQuestInfo;
     private List<QuestLabel> _questLabels;
     private QuestType currentQuestType;
     private Animator _anim;
@@ -20,7 +20,7 @@ public class QuestMenuManager : MonoBehaviour
         _anim = GetComponentInParent<Animator>();
     }
 
-    public void AddQuest(Quest newQuest)
+    public void CreateQuestLabel(Quest newQuest)
     {
         GameObject questInfoGameObject = Instantiate(questLabelPrefab, gridLayaout);
         QuestLabel label = questInfoGameObject.GetComponent<QuestLabel>();
@@ -34,7 +34,7 @@ public class QuestMenuManager : MonoBehaviour
     }
     public void Hide()
     {
-        questInfo.gameObject.SetActive(false);
+        selectedQuestInfo.gameObject.SetActive(false);
         _anim.SetBool("active", false);
     }
     public void UpdateLabels(List<Quest> quests)
@@ -42,7 +42,7 @@ public class QuestMenuManager : MonoBehaviour
         RemoveFollowQuest();
         if (!quests.Contains(currentShownedQuest)) { 
             currentShownedQuest = null;
-            questInfo.gameObject.SetActive(false);
+            selectedQuestInfo.gameObject.SetActive(false);
         }
         foreach (QuestLabel questinfo in _questLabels)
         {
@@ -58,8 +58,8 @@ public class QuestMenuManager : MonoBehaviour
             {
                 continue;
             }
-            if (quest.questType == currentQuestType) { 
-                AddQuest(quest);
+            if (quest.questType == currentQuestType) {
+                CreateQuestLabel(quest);
             }
             if (quest.follow)
             {
@@ -85,8 +85,8 @@ public class QuestMenuManager : MonoBehaviour
     public void ShowQuestInfo(Quest quest)
     {
         currentShownedQuest = quest;
-        questInfo.gameObject.SetActive(true);
-        questInfo.Init(quest);
+        selectedQuestInfo.gameObject.SetActive(true);
+        selectedQuestInfo.Init(quest);
     }
     public void ChangePage(int dir)
     {

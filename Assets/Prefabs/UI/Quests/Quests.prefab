@@ -897,6 +897,7 @@ MonoBehaviour:
   completionMark: {fileID: 0}
   followMark: {fileID: 0}
   abortQuestButton: {fileID: 0}
+  expRewardLabel: {fileID: 0}
 --- !u!114 &4602742279626825961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,7 +1564,7 @@ MonoBehaviour:
   gridLayaout: {fileID: 4846187360172900536}
   labelsInPage: 6
   followQuestInfo: {fileID: 5957877375871814098}
-  questInfo: {fileID: 5815028626045238521}
+  selectedQuestInfo: {fileID: 5815028626045238521}
 --- !u!222 &4846187360489634641
 CanvasRenderer:
   m_ObjectHideFlags: 0
