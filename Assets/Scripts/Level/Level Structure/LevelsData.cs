@@ -12,8 +12,10 @@ public class LevelsData : MonoBehaviour
     public int lastSavedLevelID;
     private SaveLoadManager saveLoadManager;
     [SerializeField] private Player player;
+    [SerializeField] private GameObject loadingPanel;
     private void Awake()
     {
+        loadingPanel.SetActive(true);
         //player = FindObjectOfType<Player>();
         for (int i=0; i<allLevels.Count; i++)
         {
@@ -28,6 +30,7 @@ public class LevelsData : MonoBehaviour
     }
     public void LoadLevel(int loadingID, int fireID=0)
     {
+        loadingPanel.SetActive(true);
         if (levelOnScene != null)
         {
             if (levelOnScene != allLevels[loadingID])
@@ -70,5 +73,6 @@ public class LevelsData : MonoBehaviour
             //Debug.Log(levelOnScene.saveFires[levelOnScene.lastFireID].playerSpawn.position);
             //Debug.Log(player.transform.position);
         }
+        loadingPanel.SetActive(false);
     }
 }
