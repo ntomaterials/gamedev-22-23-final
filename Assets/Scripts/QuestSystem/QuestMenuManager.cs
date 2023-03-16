@@ -82,6 +82,10 @@ public class QuestMenuManager : MonoBehaviour
         currentQuestType = (QuestType)type;
         UpdateLabels(Player.Instance.questManager.quests);
     }
+    public void SetQuestType(QuestType type)
+    {
+        SetQuestType((int)type);
+    }
     public void ShowQuestInfo(Quest quest)
     {
         currentShownedQuest = quest;
