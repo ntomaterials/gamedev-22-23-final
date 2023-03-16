@@ -27,12 +27,14 @@ public class DialogManager : MonoBehaviour
     private void Start() {
         dialogWindow=DialogWindow.Instance;   
         player=Player.Instance;  
+        dialogWindow.gameObject.SetActive(false);
         //answerWindow=AnswerWindow.Instance;
     }
     public void StartDialog(Dialog dialog, Dialog next=null)
     {
         nowDialog=dialog;
         nextDialog=next;
+        player.Run(0);
         player.StopMove();
         dialogWindow.HideAnswerWindow();
         dialogWindow.nameText.text=nowDialog.npcName;
