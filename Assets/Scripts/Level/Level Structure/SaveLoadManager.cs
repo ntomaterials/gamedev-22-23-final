@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections;
 
 public class SaveLoadManager : MonoBehaviour
 {
@@ -62,6 +62,11 @@ public class SaveLoadManager : MonoBehaviour
         //levelsData.levelOnScene.lastFireID = save.SavedFireID;
         levelsData.levelOnScene.LoadLevelObjects(save.leversStates);
         //if(levelsData.levelOnScene.lastFireID!=0) Player.Instance.transform.position=levelsData.levelOnScene.saveFires[levelsData.levelOnScene.lastFireID].playerSpawn.position;
+        StartCoroutine(LoadQuests(save));
+    }
+    private IEnumerator LoadQuests(Save s)
+    {
+        yield return new WaitForSeconds(0.1f);
         Player.Instance.questManager.quests = save.quests;
     }
     public void NewGame()
