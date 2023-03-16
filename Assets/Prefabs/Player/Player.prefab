@@ -324,13 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0393b1db9ac312e45ae933aa77323df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quests:
-  - title: "\u0411\u0435\u043B\u043A\u043E\u043C\u0430\u043D\u0438\u044F"
-    description: "\u0423\u0431\u0435\u0439 \u0431\u0435\u043B\u043A\u0443"
-    expirienceReward: 0
-    progress: 0
-    isCompleted: 0
-    codeName: 
+  quests: []
+  questMenuManager: {fileID: 0}
 --- !u!50 &9217571171358458620
 Rigidbody2D:
   serializedVersion: 4
