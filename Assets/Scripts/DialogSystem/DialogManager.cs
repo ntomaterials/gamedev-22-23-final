@@ -62,7 +62,7 @@ public class DialogManager : MonoBehaviour
             if(nextDialog==null)
             {
             dialogWindow.ShowAnswerWindow();
-            if(nowDialog.answers.Count!=0) answerWindow.FillAnswers(nowDialog.answers);
+            answerWindow.FillAnswers(nowDialog.answers);
             }
             else 
             {

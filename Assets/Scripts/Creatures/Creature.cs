@@ -30,7 +30,7 @@ public class Creature : MonoBehaviour
     }
 
     protected SpriteRenderer renderer;
-    [HideInInspector]public bool canMove=true;
+    [HideInInspector] public bool canMove=true;
 
     protected Collider2D collider;
     protected Rigidbody2D rigidbody;
