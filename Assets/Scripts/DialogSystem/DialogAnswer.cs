@@ -9,4 +9,5 @@ public class DialogAnswer
     public Dialog playerAnswer;
     public Dialog nextDialog;
     public string answerText;
+    public QuestGiver questGiver;
 }

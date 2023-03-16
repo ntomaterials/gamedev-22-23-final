@@ -15,9 +15,12 @@ private void Awake()
 public void FillAnswers(List<DialogAnswer> answers)
 {
     ClearAnswers();
+    if(answers!=null)
+    {
     for(int i=0; i<answers.Count; i++)
     {
         CreateBtn(BtnPrefab, answers[i]);
+    }
     }
     CreateBtn(endReplicBtn, endReplicBtn.answer);
 }
