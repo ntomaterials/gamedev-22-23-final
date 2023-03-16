@@ -5806,6 +5806,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quests
       objectReference: {fileID: 0}
+    - target: {fileID: 4602742279626825963, guid: e0677dd0a865eed47b900445b68b6b5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4846187359887298719, guid: e0677dd0a865eed47b900445b68b6b5a,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target

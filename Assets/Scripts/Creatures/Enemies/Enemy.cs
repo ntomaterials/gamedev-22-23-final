@@ -1,5 +1,16 @@
 ﻿using System;
 using UnityEngine;
+[System.Serializable]
+public class QuestDeathMark
+{
+    public string questCodeName = "None";
+    [Range(0, 1)] public float comletePercent = 1f;
+
+    public void Activate()
+    {
+        Player.Instance.questManager.UpdateQuest(questCodeName, comletePercent);
+    }
+}
 public class Enemy : Creature
 {
     [SerializeField] private int dieXp;
@@ -11,6 +22,7 @@ public class Enemy : Creature
     
     private float checkRadius=0.05f;
     private Player player;
+    [SerializeField] [Space(5)] private QuestDeathMark questDeathMark;
 
     protected override void Awake()
     {
@@ -151,6 +163,7 @@ public class Enemy : Creature
     
     public override void Die()
     {
+        questDeathMark.Activate();
         player.GetXp(dieXp);
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         collider.isTrigger = true;

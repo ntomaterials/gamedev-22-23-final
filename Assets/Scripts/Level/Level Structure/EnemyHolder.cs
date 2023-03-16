@@ -16,6 +16,7 @@ public class EnemyHolder : MonoBehaviour
     {
         foreach(var enemy in enemiesInArea)
         {
+            QuestDeathMark mark = enemy.GetComponent<QuestDeathMark>();
             enemy.Kill();
         }
     }

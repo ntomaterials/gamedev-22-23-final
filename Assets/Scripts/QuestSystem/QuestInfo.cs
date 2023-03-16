@@ -11,7 +11,6 @@ public class QuestInfo : MonoBehaviour
     [SerializeField] private Image followMark;
     [SerializeField] private Button abortQuestButton;
     [SerializeField] private Text expRewardLabel;
-    private int currentPage = 0;
 
     public void Init(Quest newQuest)
     {
@@ -20,7 +19,7 @@ public class QuestInfo : MonoBehaviour
         if (description != null) description.text = quest.description;
         if (followMark != null) followMark.gameObject.SetActive(newQuest.follow);
         UpdateProgress(newQuest.progress);
-        expRewardLabel.text = quest.expirienceReward.ToString();
+        if (expRewardLabel != null) expRewardLabel.text = quest.expirienceReward.ToString();
     }
     
     public void UpdateProgress(float progress)
