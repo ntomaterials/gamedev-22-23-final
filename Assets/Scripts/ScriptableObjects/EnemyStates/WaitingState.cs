@@ -12,12 +12,13 @@ public class WaitingState : State
 
     public override void Run()
     {
-        if (infinity) return;
-        waitingTime -= Time.deltaTime;
-        if (waitingTime <= 0) isFinished = true;
         if (!owner.isImpact && owner.isGrounded && owner.canMove)
         {
             owner.Run(0f);
         }
+        
+        if (infinity) return;
+        waitingTime -= Time.deltaTime;
+        if (waitingTime <= 0) isFinished = true;
     }
 }

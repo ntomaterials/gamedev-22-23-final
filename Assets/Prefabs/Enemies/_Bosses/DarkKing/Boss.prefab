@@ -10074,6 +10074,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 562674977387473656, guid: aed52f037a5e40549b697d765b36b807,
         type: 3}
+      propertyPath: dancingState
+      value: 
+      objectReference: {fileID: 11400000, guid: 89344898a17578142b7039470f8a51c2,
+        type: 2}
+    - target: {fileID: 562674977387473656, guid: aed52f037a5e40549b697d765b36b807,
+        type: 3}
       propertyPath: SmehDedaSound
       value: 
       objectReference: {fileID: 8300000, guid: 3dff7f98126c3ab48a9f89ad8a80374e, type: 3}
